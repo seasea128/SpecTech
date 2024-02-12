@@ -1,0 +1,20 @@
+# Ignore object files
+*.o
+*.obj
+
+# Ignore executables
+*.exe
+*.out
+
+# Ignore static libraries
+*.a
+*.lib
+
+# Ignore dynamic libraries
+*.so
+*.dll
+*.exp
+*.lib
+
+# Ignore VS folder
+.vs/
