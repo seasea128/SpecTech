@@ -1,20 +1,58 @@
-# Ignore object files
+#Contents of .gitignore
+*.com
+*.class
+.vs/
+*.dll
+*.exe
+*.o
+*.so
+build*/
+*.user
+*.qss
+*.json
+*.ui
+
+
+*.zip
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
 *.o
 *.obj
 
-# Ignore executables
-*.exe
-*.out
+# Precompiled Headers
+*.gch
+*.pch
 
-# Ignore static libraries
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
 *.a
 *.lib
 
-# Ignore dynamic libraries
-*.so
-*.dll
-*.exp
-*.lib
+# Executables
+*.exe
+*.out
+*.app
 
-# Ignore VS folder
-.vs/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.exp
+
+html/
+latex/
