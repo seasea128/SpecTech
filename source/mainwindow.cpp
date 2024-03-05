@@ -1,0 +1,246 @@
+#include "mainwindow.h"
+#include "./ui_mainwindow.h"
+#include <QMessageBox>
+#include "optiondialog.h"
+#include <QFile>
+#include <vtkCylinderSource.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkProperty.h>
+#include <vtkCamera.h>
+
+
+MainWindow::MainWindow(QWidget* parent)
+	: QMainWindow(parent)
+	, ui(new Ui::MainWindow)
+{
+
+
+
+
+
+
+	ui->setupUi(this);
+	connect(ui->pushButton, &QPushButton::released, this, &MainWindow::handleButton);
+	connect(ui->pushButton_2, &QPushButton::released, this, &MainWindow::handleButton_2);
+	connect(ui->treeView, &QTreeView::clicked, this, &MainWindow::handleTreeClicked);
+	connect( this, &MainWindow::statusUpdateMessage, ui->statusbar , &QStatusBar::showMessage);
+	
+	this -> partList = new ModelPartList("PartsList");
+	ui->treeView->setModel(this->partList);
+    ui->treeView->addAction(ui->actionItem_Options);
+	ModelPart* rootItem = this->partList->getRootItem();
+
+    /* This needs adding to MainWindow constructor */
+    /* Link a render windows with the Qt widget */
+    renderWindow = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New();
+    ui->vtkWidget->setRenderWindow(renderWindow);
+
+    /* Add a renderer */
+    renderer = vtkSmartPointer<vtkRenderer>::New();
+    renderWindow->AddRenderer(renderer);
+
+    //Create an object and add to renderer (this will change later to display a CAD model)
+    //Will just copy and paste  cylinder example from before
+    //This creates a polygonal cylinder model with eight circumferential facets
+    //(i.e. in pratice an octagonal prism)
+    vtkNew<vtkCylinderSource> cylinder;
+    cylinder->SetResolution(8);
+
+    //The mapper is responsibile for pushing the geometry into the graphics
+    //library. It may also do color mapping. If scalars or other attributes are
+    //defined.
+    vtkNew<vtkPolyDataMapper> cylinderMapper;
+    cylinderMapper->SetInputConnection(cylinder->GetOutputPort());
+
+
+
+
+
+    vtkNew<vtkActor> cylinderActor;
+    cylinderActor->SetMapper(cylinderMapper);
+    cylinderActor->GetProperty()->SetColor(1., 0., 0.35);
+    cylinderActor->RotateX(30.0);
+    cylinderActor->RotateY(-45.0);
+
+    renderer->AddActor(cylinderActor);
+
+    //Reset Camera(probably needs to go in its own funcion that is called whenever model is changed
+    renderer->ResetCamera();
+    renderer->GetActiveCamera()->Azimuth(30);
+    renderer->GetActiveCamera()->Elevation(30);
+    //renderer->GetActiveCamera()->ResetCameraClippingRange();
+
+
+
+
+
+
+
+    //Add 3 top level items
+    for (int i = 0; i < 3; i++)
+    {
+        //Create strings for both data columns
+        QString name = QString("TopLevel %1").arg(i);
+        QString visible("true");
+
+        // Create child item
+        ModelPart* childItem = new ModelPart({ name, visible });
+
+        //Append to tree top-level
+        rootItem->appendChild(childItem);
+
+        // Add 5 sub-items
+        for (int j = 0; j < 5; j++)
+        {
+            QString name = QString("Item %1,%2").arg(i).arg(j);
+            QString visible("true");
+
+            ModelPart* childChildItem = new ModelPart({ name, visible });
+
+            //Append to parent
+            childItem->appendChild(childChildItem);
+        }
+	}
+}
+
+MainWindow::~MainWindow()
+{
+	delete ui;
+}
+
+
+void MainWindow::handleButton()
+{
+	QMessageBox msgBox;
+	msgBox.setText("Add button was clicked");
+	msgBox.exec();
+	emit statusUpdateMessage(QString("Add button was clicked"), 0);
+
+}
+
+void MainWindow::handleButton_2()
+{
+    if (GetSelectedPart() == nullptr) {
+        emit statusUpdateMessage(QString("Part hasn't been selected yet"),0);
+        return;
+    }
+    OptionDialog dialog(this, GetSelectedPart());
+
+	if (dialog.exec() == QDialog::Accepted)
+	{
+        dialog.SetValue();
+        emit statusUpdateMessage(QString("Dialog accepted ") + GetSelectedPart()->data(0).toString(), 0);
+        updateRender();
+	}
+	else
+	{
+		emit statusUpdateMessage(QString("Dialog rejected"), 0);
+	}
+
+
+}
+
+void MainWindow::on_actionItem_Options_triggered()
+{
+    handleButton_2();
+}
+
+
+
+
+void MainWindow::handleTreeClicked()
+{
+
+	// Get the index of the selected item
+	QModelIndex index = ui->treeView->currentIndex();
+
+	//Get a pointer to the item from the index
+	ModelPart *selectedPart = static_cast<ModelPart*>(index.internalPointer());
+
+	// In this case, we will retrieve the name string from the internal QVariant data array
+	QString text = selectedPart->data(0).toString();
+
+	emit statusUpdateMessage(QString("The selected item is: ") + text, 0);
+
+}
+
+
+
+
+
+ModelPart *MainWindow::GetSelectedPart()
+{
+
+    // Get the index of the selected item
+    QModelIndex index = ui->treeView->currentIndex();
+
+    //Get a pointer to the item from the index
+    ModelPart *selectedPart = static_cast<ModelPart*>(index.internalPointer());
+
+    return selectedPart;
+}
+
+void MainWindow::updateRender()
+{
+    renderer->RemoveAllViewProps();
+    updateRenderFromTree(partList->index(0,0,QModelIndex() ));
+    renderer->Render();
+    scaleToFit(renderer);
+    ui->vtkWidget->renderWindow()->Render();
+    ui->vtkWidget->update();
+
+
+}
+
+
+void MainWindow::on_actionOpen_File_triggered()
+{
+    emit statusUpdateMessage( QString("Open File action triggered"), 0);
+	QString fileName = QFileDialog::getOpenFileName(
+		this,
+		tr("Open File"),
+		"C:\\",
+		tr("STL Files(*.stl);;Text Files(*.txt)"));
+	emit statusUpdateMessage(QString("File name: ") + fileName, 0);
+    if (fileName == "") {
+        return;
+    }
+    QString visible("true");
+    auto part = new ModelPart({fileName, visible});
+    part->loadSTL(fileName);
+    if (GetSelectedPart() == nullptr) {
+        partList->getRootItem()->appendChild(part);
+    } else {
+        GetSelectedPart()->appendChild(part);}
+    updateRender();
+}
+
+
+
+void MainWindow::updateRenderFromTree( const QModelIndex& index)
+{
+    if( index.isValid())
+    {
+        ModelPart* selectedPart = static_cast<ModelPart*>(index.internalPointer());
+        if (selectedPart->getActor() != nullptr && selectedPart->visible()) {
+            renderer->AddActor(selectedPart->getActor());
+        }
+    }
+    //Check to see if part has children
+    if( !partList->hasChildren(index) || (index.flags() & Qt::ItemNeverHasChildren))
+    {
+        return;
+    }
+    int rows = partList->rowCount( index );
+    for (int i=0; i<rows; i++)
+    {
+        updateRenderFromTree(partList->index(i,0,index));
+    }
+}
+
+void MainWindow::scaleToFit(vtkRenderer* renderer)
+{
+
+    renderer->ResetCamera();
+
+}
