@@ -42,6 +42,10 @@ public:
 private slots:
     void on_actionOpen_File_triggered();
 
+    void on_actionOpen_VR_triggered();
+
+    void on_actionOpenDir_triggered();
+
 private:
     Ui::MainWindow *ui;
     ModelPartList* partList;

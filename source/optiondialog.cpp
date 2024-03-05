@@ -13,8 +13,7 @@ OptionDialog::OptionDialog(QWidget *parent, ModelPart *part)
     ui->lineEdit->setText(part->data(0).toString());
     ui->comboBox->setCurrentIndex(part->visible() ? 0 : 1);
     color = QColor(part->getColourR(),part->getColourG(),part->getColourB());
-
-
+    ui->DispColour->setStyleSheet("background-color: " + color.name() + "; border:none;");
 }
 
 
