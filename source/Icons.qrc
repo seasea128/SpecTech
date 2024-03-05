@@ -8,5 +8,6 @@
         <file>icons/print.png</file>
         <file>icons/startVR.png</file>
         <file>icons/stopVR.png</file>
+        <file>icons/Directory.png</file>
     </qresource>
 </RCC>

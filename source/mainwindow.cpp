@@ -7,7 +7,10 @@
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
 #include <vtkCamera.h>
-
+#include <vtkLight.h>
+#include <vtkNamedColors.h>
+#include <vtkLightActor.h>
+#include <vtkSphereSource.h>
 
 MainWindow::MainWindow(QWidget* parent)
 	: QMainWindow(parent)
@@ -21,7 +24,7 @@ MainWindow::MainWindow(QWidget* parent)
 
 	ui->setupUi(this);
 	connect(ui->pushButton, &QPushButton::released, this, &MainWindow::handleButton);
-	connect(ui->pushButton_2, &QPushButton::released, this, &MainWindow::handleButton_2);
+    connect(ui->ModifyPart, &QPushButton::released, this, &MainWindow::handleButton_2);
 	connect(ui->treeView, &QTreeView::clicked, this, &MainWindow::handleTreeClicked);
 	connect( this, &MainWindow::statusUpdateMessage, ui->statusbar , &QStatusBar::showMessage);
 	
@@ -38,6 +41,36 @@ MainWindow::MainWindow(QWidget* parent)
     /* Add a renderer */
     renderer = vtkSmartPointer<vtkRenderer>::New();
     renderWindow->AddRenderer(renderer);
+
+    vtkNew<vtkNamedColors> colors;
+
+
+    double lightPosition[3] = {0, 0, 1};
+
+    // Create a light
+    double lightFocalPoint[3] = {0, 0, 0};
+
+    vtkNew<vtkLight> light;
+    light->SetLightTypeToSceneLight();
+    light->SetPosition(lightPosition[0], lightPosition[1], lightPosition[2]);
+    light->SetPositional(true); // required for vtkLightActor below
+    light->SetConeAngle(10);
+    light->SetFocalPoint(lightFocalPoint[0], lightFocalPoint[1],
+                         lightFocalPoint[2]);
+    light->SetDiffuseColor(colors->GetColor3d("Red").GetData());
+    light->SetAmbientColor(colors->GetColor3d("Green").GetData());
+    light->SetSpecularColor(colors->GetColor3d("Blue").GetData());
+
+    // Display where the light is
+    //vtkNew<vtkLightActor> lightActor;
+    //lightActor->SetLight(light);
+    //renderer->AddViewProp(lightActor);
+
+    // Display where the light is focused
+    vtkNew<vtkSphereSource> lightFocalPointSphere;
+    lightFocalPointSphere->SetCenter(lightFocalPoint);
+    lightFocalPointSphere->SetRadius(0.1);
+    lightFocalPointSphere->Update();
 
     //Create an object and add to renderer (this will change later to display a CAD model)
     //Will just copy and paste  cylinder example from before
@@ -244,3 +277,41 @@ void MainWindow::scaleToFit(vtkRenderer* renderer)
     renderer->ResetCamera();
 
 }
+
+void MainWindow::on_actionOpen_VR_triggered()
+{
+
+}
+
+
+void MainWindow::on_actionOpenDir_triggered()
+{
+    emit statusUpdateMessage( QString("Open Directory action triggered"), 0);
+    QString directoryName = QFileDialog::getExistingDirectory(
+        this,
+        tr("Open Directory"),
+        "C:\\");
+    emit statusUpdateMessage(QString("Directory name: ") + directoryName, 0);
+    if (directoryName.isEmpty()) {
+        return;
+    }
+    QDir directory(directoryName);
+    //Filters specifically for stl files
+    QStringList filters;
+    filters << "*.stl";
+    QStringList fileList = directory.entryList(filters, QDir::Files);
+
+    for (const QString& fileName : fileList) {
+        QString filePath = directory.filePath(fileName);
+        QString visible("true");
+        auto part = new ModelPart({filePath, visible});
+        part->loadSTL(filePath);
+        if (GetSelectedPart() == nullptr) {
+            partList->getRootItem()->appendChild(part);
+        } else {
+            GetSelectedPart()->appendChild(part);
+        }
+    }
+    updateRender();
+}
+

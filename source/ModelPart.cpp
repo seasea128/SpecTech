@@ -16,7 +16,7 @@
 #include <vtkSmartPointer.h>
 #include <vtkDataSetMapper.h>
 #include <vtkProperty.h>
-#include <vtkRenderingLODModule.h>
+#include <vtkQuadricLODActor.h>
 
 
 
@@ -158,10 +158,10 @@ void ModelPart::loadSTL( QString fileName ) {
     mapper = vtkSmartPointer<vtkDataSetMapper>::New();                               /**< Mapper for rendering */
     mapper->SetInputConnection(file->GetOutputPort());
     /* 3. Initialise the part's vtkActor and link to the mapper */
-    actor = vtkSmartPointer<vtkActor>::New();
+    actor = vtkSmartPointer<vtkQuadricLODActor>::New();
     actor->SetMapper(mapper);
-    actor->GetProperty()->SetColor(colour.GetRed(),colour.GetGreen(), colour.GetBlue());
-    actor->GetProperty()->EdgeVisibilityOn();
+    setColour(colour.GetRed(), colour.GetGreen(),colour.GetBlue());
+    //actor->GetProperty()->EdgeVisibilityOn();
 
     //Improving lighting
 
@@ -191,9 +191,13 @@ vtkActor* ModelPart::getNewActor() {
     mapper = vtkSmartPointer<vtkDataSetMapper>::New();
     mapper->SetInputConnection(file->GetOutputPort());
 /* 2. Create new actor and link to mapper */
-    actor = vtkSmartPointer<vtkActor>::New();
+    actor = vtkSmartPointer<vtkQuadricLODActor>::New();
+    actor->GetProperty()->SetDiffuse(.8);
+    actor->GetProperty()->SetSpecular(.4);
+    actor->GetProperty()->SetSpecularPower(30);
+
     actor->SetMapper(mapper);
-    actor->GetProperty()->SetColor(colour.GetRed(),colour.GetGreen(), colour.GetBlue());
+    setColour(colour.GetRed(), colour.GetGreen(),colour.GetBlue());
 /* 3. Link the vtkProperties of the original actor to the new actor. This means
       *    if you change properties of the original part (colour, position, etc), the
       *    changes will be reflected in the GUI AND VR rendering.
