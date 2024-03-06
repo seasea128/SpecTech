@@ -56,3 +56,6 @@ build*/
 
 html/
 latex/
+
+# Ignore clangd .cache folder
+.cache/
