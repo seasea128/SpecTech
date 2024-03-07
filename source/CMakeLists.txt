@@ -25,6 +25,8 @@ set(PROJECT_SOURCES
 	ModelPartList.cpp
 	ModelPartList.h
 	Icons.qrc
+    RenderThread/RenderThread.cpp
+    RenderThread/RenderThread.h
 	
 )
 
