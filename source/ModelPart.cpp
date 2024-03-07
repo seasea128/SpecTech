@@ -133,6 +133,9 @@ void ModelPart::setVisible(bool isVisible) {
   } else {
     set(1, QString("false"));
   }
+  if (actor != nullptr) {
+    actor->GetProperty()->SetOpacity(isVisible ? 1.0 : 0.0);
+  }
 }
 
 bool ModelPart::visible() {
