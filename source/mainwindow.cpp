@@ -101,30 +101,6 @@ MainWindow::MainWindow(QWidget *parent)
   renderer->GetActiveCamera()->Azimuth(30);
   renderer->GetActiveCamera()->Elevation(30);
   // renderer->GetActiveCamera()->ResetCameraClippingRange();
-
-  // Add 3 top level items
-  // for (int i = 0; i < 3; i++) {
-  //  // Create strings for both data columns
-  //  QString name = QString("TopLevel %1").arg(i);
-  //  QString visible("true");
-
-  //  // Create child item
-  //  ModelPart *childItem = new ModelPart({name, visible});
-
-  //  // Append to tree top-level
-  //  rootItem->appendChild(childItem);
-
-  //  // Add 5 sub-items
-  //  for (int j = 0; j < 5; j++) {
-  //    QString name = QString("Item %1,%2").arg(i).arg(j);
-  //    QString visible("true");
-
-  //    ModelPart *childChildItem = new ModelPart({name, visible});
-
-  //    // Append to parent
-  //    childItem->appendChild(childChildItem);
-  //  }
-  //}
 }
 
 MainWindow::~MainWindow() {
@@ -193,11 +169,16 @@ ModelPart *MainWindow::GetSelectedPart() {
 
 void MainWindow::updateRender() {
   renderer->RemoveAllViewProps();
-  updateRenderFromTree(partList->index(0, 0, QModelIndex()));
+  for (int i = 0; i < partList->rowCount(QModelIndex()); i++) {
+    updateRenderFromTree(partList->index(i, 0, QModelIndex()));
+  }
   renderer->Render();
   scaleToFit(renderer);
   ui->vtkWidget->renderWindow()->Render();
   ui->vtkWidget->update();
+
+  ui->treeView->expandAll();
+  ui->treeView->update();
 }
 
 void MainWindow::on_actionOpen_File_triggered() {
@@ -262,16 +243,15 @@ void MainWindow::on_actionOpen_VR_triggered() {
 }
 
 void MainWindow::loadToRenderThread(ModelPart *part) {
-  vtkActor* actor;
-  for (int i = 0; i < part->childCount(); i++) {
-    if (part->childCount() <= 0) {
+  std::cout << "Child count: " << part->childCount() << std::endl;
+  if (part->childCount() > 0) {
+    for (int i = 0; i < part->childCount(); i++) {
       loadToRenderThread(part->child(i));
-    } else {
-      actor = part->getNewActor();
-      if (actor != nullptr) {
-        renderThread->addActorOffline(part->getNewActor());
-      }
     }
+  }
+  vtkActor *actor = part->getNewActor();
+  if (actor != nullptr) {
+    renderThread->addActorOffline(actor);
   }
 }
 

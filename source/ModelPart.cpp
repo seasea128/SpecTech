@@ -18,13 +18,18 @@
 #include <vtkSmartPointer.h>
 
 ModelPart::ModelPart(const QList<QVariant> &data, ModelPart *parent)
-    : m_itemData(data), m_parentItem(parent) {
+    : m_itemData(data), m_parentItem(parent), file(nullptr) {
   /* You probably want to give the item a default colour */
   isVisible = true;
   setColour(255, 255, 255);
 }
 
-ModelPart::~ModelPart() { qDeleteAll(m_childItems); }
+ModelPart::~ModelPart() {
+  qDeleteAll(m_childItems);
+  if (file != nullptr) {
+    file->Delete();
+  }
+}
 
 void ModelPart::appendChild(ModelPart *item) {
   /* Add another model part as a child of this part
@@ -143,9 +148,9 @@ void ModelPart::loadSTL(QString fileName) {
   /* 1. Use the vtkSTLReader class to load the STL file
    *     https://vtk.org/doc/nightly/html/classvtkSTLReader.html
    */
-  file = vtkSmartPointer<vtkSTLReader>::New(); /**< Datafile from which part
+  file = vtkSTLReader::New(); /**< Datafile from which part
                                                   loaded */
-
+  std::cout << "File pointer: " << file << std::endl;
   file->SetFileName(fileName.toLocal8Bit().data());
   file->Update();
 
@@ -180,8 +185,16 @@ vtkActor *ModelPart::getNewActor() {
    * the role of this function. */
 
   /* 1. Create new mapper */
-  vtkDataSetMapper *newMapper = vtkDataSetMapper::New();
+  std::cout << "Creating new mapper" << std::endl;
+  vtkNew<vtkDataSetMapper> newMapper;
+  std::cout << "Setting connection" << std::endl;
+  std::cout << "File pointer: " << file << std::endl;
+  if (file == nullptr) {
+    std::cout << "File is null pointer, stopping" << std::endl;
+    return nullptr;
+  }
   newMapper->SetInputConnection(file->GetOutputPort());
+  std::cout << "Created new mapper" << std::endl;
 
   /* 2. Create new actor and link to mapper */
   vtkQuadricLODActor *newActor = vtkQuadricLODActor::New();

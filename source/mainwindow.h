@@ -45,6 +45,7 @@ private slots:
 
 private:
   void loadToRenderThread(ModelPart *part);
+  QString splitFileName(QString &fileName);
   Ui::MainWindow *ui;
   ModelPartList *partList;
   vtkSmartPointer<vtkRenderer> renderer;
