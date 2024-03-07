@@ -145,6 +145,7 @@ void ModelPart::loadSTL(QString fileName) {
    */
   file = vtkSmartPointer<vtkSTLReader>::New(); /**< Datafile from which part
                                                   loaded */
+
   file->SetFileName(fileName.toLocal8Bit().data());
   file->Update();
 
@@ -179,16 +180,13 @@ vtkActor *ModelPart::getNewActor() {
    * the role of this function. */
 
   /* 1. Create new mapper */
-  mapper = vtkSmartPointer<vtkDataSetMapper>::New();
-  mapper->SetInputConnection(file->GetOutputPort());
-  /* 2. Create new actor and link to mapper */
-  actor = vtkSmartPointer<vtkQuadricLODActor>::New();
-  actor->GetProperty()->SetDiffuse(.8);
-  actor->GetProperty()->SetSpecular(.4);
-  actor->GetProperty()->SetSpecularPower(30);
+  vtkDataSetMapper *newMapper = vtkDataSetMapper::New();
+  newMapper->SetInputConnection(file->GetOutputPort());
 
-  actor->SetMapper(mapper);
-  setColour(colour.GetRed(), colour.GetGreen(), colour.GetBlue());
+  /* 2. Create new actor and link to mapper */
+  vtkQuadricLODActor *newActor = vtkQuadricLODActor::New();
+  newActor->SetMapper(newMapper);
+
   /* 3. Link the vtkProperties of the original actor to the new actor. This
    * means if you change properties of the original part (colour, position,
    * etc), the changes will be reflected in the GUI AND VR rendering.
@@ -196,6 +194,7 @@ vtkActor *ModelPart::getNewActor() {
    *    See the vtkActor documentation, particularly the GetProperty() and
    * SetProperty() functions.
    */
+  newActor->SetProperty(actor->GetProperty());
 
-  return nullptr;
+  return newActor;
 }

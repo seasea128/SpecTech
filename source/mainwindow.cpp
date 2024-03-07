@@ -1,8 +1,14 @@
-#include "mainwindow.h"
+#include <vtkOpenVRCamera.h>
+#include <vtkOpenVRRenderWindow.h>
+#include <vtkOpenVRRenderWindowInteractor.h>
+#include <vtkOpenVRRenderer.h>
+
 #include "./ui_mainwindow.h"
+#include "mainwindow.h"
 #include "optiondialog.h"
 #include <QFile>
 #include <QMessageBox>
+#include <openvr.h>
 #include <vtkCamera.h>
 #include <vtkCylinderSource.h>
 #include <vtkLight.h>
@@ -13,7 +19,7 @@
 #include <vtkSphereSource.h>
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow) {
+    : QMainWindow(parent), ui(new Ui::MainWindow), renderThread(nullptr) {
 
   ui->setupUi(this);
   connect(ui->pushButton, &QPushButton::released, this,
@@ -97,31 +103,41 @@ MainWindow::MainWindow(QWidget *parent)
   // renderer->GetActiveCamera()->ResetCameraClippingRange();
 
   // Add 3 top level items
-  for (int i = 0; i < 3; i++) {
-    // Create strings for both data columns
-    QString name = QString("TopLevel %1").arg(i);
-    QString visible("true");
+  // for (int i = 0; i < 3; i++) {
+  //  // Create strings for both data columns
+  //  QString name = QString("TopLevel %1").arg(i);
+  //  QString visible("true");
 
-    // Create child item
-    ModelPart *childItem = new ModelPart({name, visible});
+  //  // Create child item
+  //  ModelPart *childItem = new ModelPart({name, visible});
 
-    // Append to tree top-level
-    rootItem->appendChild(childItem);
+  //  // Append to tree top-level
+  //  rootItem->appendChild(childItem);
 
-    // Add 5 sub-items
-    for (int j = 0; j < 5; j++) {
-      QString name = QString("Item %1,%2").arg(i).arg(j);
-      QString visible("true");
+  //  // Add 5 sub-items
+  //  for (int j = 0; j < 5; j++) {
+  //    QString name = QString("Item %1,%2").arg(i).arg(j);
+  //    QString visible("true");
 
-      ModelPart *childChildItem = new ModelPart({name, visible});
+  //    ModelPart *childChildItem = new ModelPart({name, visible});
 
-      // Append to parent
-      childItem->appendChild(childChildItem);
-    }
-  }
+  //    // Append to parent
+  //    childItem->appendChild(childChildItem);
+  //  }
+  //}
 }
 
-MainWindow::~MainWindow() { delete ui; }
+MainWindow::~MainWindow() {
+  delete ui;
+  if (renderThread != nullptr) {
+    if (renderThread->isRunning()) {
+      renderThread->exit();
+      while (renderThread->isRunning()) {
+      }
+    }
+    delete renderThread;
+  }
+}
 
 void MainWindow::handleButton() {
   QMessageBox msgBox;
@@ -223,7 +239,41 @@ void MainWindow::updateRenderFromTree(const QModelIndex &index) {
 
 void MainWindow::scaleToFit(vtkRenderer *renderer) { renderer->ResetCamera(); }
 
-void MainWindow::on_actionOpen_VR_triggered() {}
+void MainWindow::on_actionOpen_VR_triggered() {
+  vtkSmartPointer<vtkRenderer> renderer;
+  vtkSmartPointer<vtkCamera> camera;
+  vtkSmartPointer<vtkRenderWindow> window;
+  vtkSmartPointer<vtkRenderWindowInteractor> interactor;
+  if (vr::VR_IsHmdPresent()) {
+    renderer = vtkOpenVRRenderer::New();
+    camera = vtkOpenVRCamera::New();
+    window = vtkOpenVRRenderWindow::New();
+    interactor = vtkOpenVRRenderWindowInteractor::New();
+  } else {
+    renderer = vtkRenderer::New();
+    camera = vtkCamera::New();
+    window = vtkRenderWindow::New();
+    interactor = vtkRenderWindowInteractor::New();
+  }
+  renderThread = new RenderThread(this, renderer, window, interactor, camera);
+  ModelPart *root = this->partList->getRootItem();
+  loadToRenderThread(root);
+  renderThread->start();
+}
+
+void MainWindow::loadToRenderThread(ModelPart *part) {
+  vtkActor* actor;
+  for (int i = 0; i < part->childCount(); i++) {
+    if (part->childCount() <= 0) {
+      loadToRenderThread(part->child(i));
+    } else {
+      actor = part->getNewActor();
+      if (actor != nullptr) {
+        renderThread->addActorOffline(part->getNewActor());
+      }
+    }
+  }
+}
 
 void MainWindow::on_actionOpenDir_triggered() {
   emit statusUpdateMessage(QString("Open Directory action triggered"), 0);
