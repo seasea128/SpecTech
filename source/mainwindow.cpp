@@ -228,7 +228,10 @@ void MainWindow::on_actionOpen_VR_triggered() {
   if (vr::VR_IsHmdPresent()) {
     renderer = vtkOpenVRRenderer::New();
     camera = vtkOpenVRCamera::New();
-    window = vtkOpenVRRenderWindow::New();
+    vtkSmartPointer<vtkOpenVRRenderWindow> localWindow =
+        vtkOpenVRRenderWindow::New();
+    localWindow->Initialize();
+    window = localWindow;
     interactor = vtkOpenVRRenderWindowInteractor::New();
   } else {
     renderer = vtkRenderer::New();

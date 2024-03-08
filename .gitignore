@@ -8,11 +8,9 @@
 *.so
 build*/
 *.user
-*.json
-
-
-
 *.zip
+
+compile_commands.json
 
 # Prerequisites
 *.d
