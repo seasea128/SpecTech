@@ -45,7 +45,8 @@ private slots:
 
 private:
   void loadToRenderThread(ModelPart *part);
-  QString splitFileName(QString &fileName);
+  QString splitFileName(const QString &fileName);
+  void recursiveDirSearch(QFileInfoList dir, ModelPart *root);
   Ui::MainWindow *ui;
   ModelPartList *partList;
   vtkSmartPointer<vtkRenderer> renderer;

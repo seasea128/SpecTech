@@ -245,6 +245,17 @@ void MainWindow::on_actionOpen_VR_triggered() {
   renderThread->start();
 }
 
+QString MainWindow::splitFileName(const QString &fileName) {
+  auto splittedFileName = fileName.split(QString('/'), Qt::KeepEmptyParts);
+  QString displayFileName;
+  if (splittedFileName.length() != 1) {
+    displayFileName = splittedFileName[splittedFileName.length() - 1];
+  } else {
+    displayFileName = fileName;
+  }
+  return displayFileName;
+}
+
 void MainWindow::loadToRenderThread(ModelPart *part) {
   std::cout << "Child count: " << part->childCount() << std::endl;
   if (part->childCount() > 0) {
@@ -267,21 +278,50 @@ void MainWindow::on_actionOpenDir_triggered() {
     return;
   }
   QDir directory(directoryName);
+  directory.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot |
+                      QDir::NoSymLinks);
   // Filters specifically for stl files
   QStringList filters;
   filters << "*.stl";
-  QStringList fileList = directory.entryList(filters, QDir::Files);
+  QFileInfoList selectedDir = directory.entryInfoList();
+  ModelPart *root = partList->getRootItem();
 
-  for (const QString &fileName : fileList) {
-    QString filePath = directory.filePath(fileName);
-    QString visible("true");
-    auto part = new ModelPart({filePath, visible});
-    part->loadSTL(filePath);
-    if (GetSelectedPart() == nullptr) {
-      partList->getRootItem()->appendChild(part);
+  recursiveDirSearch(selectedDir, root);
+  // QStringList fileList = directory.entryList(filters, QDir::Files);
+
+  // for (const QString &fileName : fileList) {
+  //   QString filePath = directory.filePath(fileName);
+  //   QString visible("true");
+  //   auto part = new ModelPart({filePath, visible});
+  //   part->loadSTL(filePath);
+  //   if (GetSelectedPart() == nullptr) {
+  //     partList->getRootItem()->appendChild(part);
+  //   } else {
+  //     GetSelectedPart()->appendChild(part);
+  //   }
+  // }
+  updateRender();
+}
+
+void MainWindow::recursiveDirSearch(QFileInfoList dir, ModelPart *root) {
+  QString visible("true");
+  for (const auto &file : dir) {
+    QString absFilePath = file.absoluteFilePath();
+    QString name = splitFileName(absFilePath);
+
+    ModelPart *part = new ModelPart({name, visible});
+
+    root->appendChild(part);
+
+    if (file.isDir()) {
+      QDir recurseDir = QDir(absFilePath);
+      recurseDir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot |
+                           QDir::NoSymLinks);
+      recursiveDirSearch(recurseDir.entryInfoList(), part);
+    } else if (file.completeSuffix() == "stl") {
+      part->loadSTL(absFilePath);
     } else {
-      GetSelectedPart()->appendChild(part);
+      qDebug() << "File type is not stl";
     }
   }
-  updateRender();
 }
