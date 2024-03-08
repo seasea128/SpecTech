@@ -92,6 +92,11 @@ int ModelPart::row() const {
 void ModelPart::setColour(const unsigned char R, const unsigned char G,
                           const unsigned char B) {
   colour.Set(R, G, B);
+
+  for (const auto &child : m_childItems) {
+    child->setColour(R, G, B);
+  }
+
   if (actor != nullptr) {
     actor->GetProperty()->SetColor(double(colour.GetRed()) / 255,
                                    double(colour.GetGreen()) / 255,
@@ -128,6 +133,9 @@ unsigned char ModelPart::getColourB() {
 
 void ModelPart::setVisible(bool isVisible) {
   this->isVisible = isVisible;
+  for (const auto &child : m_childItems) {
+    child->setVisible(isVisible);
+  }
   if (isVisible) {
     set(1, QString("true"));
   } else {

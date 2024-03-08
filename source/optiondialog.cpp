@@ -36,6 +36,5 @@ void OptionDialog::on_ColourDialog_clicked() {
     color = Dialogcolor;
     ui->DispColour->setStyleSheet("background-color: " + color.name() +
                                   "; border:none;");
-    SetValue();
   }
 }
