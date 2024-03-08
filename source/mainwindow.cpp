@@ -287,19 +287,6 @@ void MainWindow::on_actionOpenDir_triggered() {
   ModelPart *root = partList->getRootItem();
 
   recursiveDirSearch(selectedDir, root);
-  // QStringList fileList = directory.entryList(filters, QDir::Files);
-
-  // for (const QString &fileName : fileList) {
-  //   QString filePath = directory.filePath(fileName);
-  //   QString visible("true");
-  //   auto part = new ModelPart({filePath, visible});
-  //   part->loadSTL(filePath);
-  //   if (GetSelectedPart() == nullptr) {
-  //     partList->getRootItem()->appendChild(part);
-  //   } else {
-  //     GetSelectedPart()->appendChild(part);
-  //   }
-  // }
   updateRender();
 }
 
