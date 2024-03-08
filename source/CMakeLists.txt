@@ -2,6 +2,14 @@ cmake_minimum_required(VERSION 3.5)
 
 project(W6 VERSION 0.1 LANGUAGES CXX)
 
+if(WIN32)
+	set(CPACK_GENERATOR "NSIS")
+else()
+	set(CPACK_GENERATOR "ZIP")
+endif()
+include(CPACK)
+
+
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -73,15 +81,6 @@ set_target_properties(W6 PROPERTIES
 )
 
 include(GNUInstallDirs)
-install(TARGETS W6
-    BUNDLE DESTINATION .
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
-
-if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(W6)
-
 
 #Copy across Open VR bindings that map controllers
 #The program will expect to find these in the build dir when it runs
@@ -89,5 +88,36 @@ add_custom_target( VRBindings )
 add_custom_command( TARGET VRBindings PRE_BUILD
 COMMAND ${CMAKE_COMMAND} -E
 copy_directory ${CMAKE_SOURCE_DIR}/vrbindings ${CMAKE_BINARY_DIR})
+install(TARGETS W6
+    BUNDLE DESTINATION .
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+install( DIRECTORY VRBindings DESTINATION bin)
+install( FILES Combinear.qss DESTINATION bin)
+#qt_generate_deploy_app_script(
+#    TARGET W6
+#    OUTPUT_SCRIPT deploy_script
+#)
+#install(SCRIPT ${deploy_script})
+install(FILES $<TARGET_RUNTIME_DLLS:W6> TYPE BIN)
+
+
+
+#install(TARGETS W6
+#    RUNTIME ARCHIVE LIBRARY RUNTIME FRAMEWORK BUNDLE PUBLIC_HEADER RESOURCE)
+#install(TARGETS W6
+#    COMPONENT W6
+#    RUNTIME_DEPENDENCIES
+#    PRE_EXCLUDE_REGEXES "api-ms-" "ext-ms-"
+#    POST_EXCLUDE_REGEXES ".*system32/.*\\.dll"
+#    DIRECTORIES ${VTK_DIR}/bin)
+
+
+
+if(QT_VERSION_MAJOR EQUAL 6)
+    qt_finalize_executable(W6)
+
 
 endif()
+

@@ -43,10 +43,24 @@ private slots:
 
   void on_actionOpenDir_triggered();
 
+  void on_Slider_R_sliderMoved(int position);
+
+  void on_Slider_G_sliderMoved(int position);
+
+  void on_Slider_B_sliderMoved(int position);
+
+  void on_actiondelete_triggered();
+
 private:
   void loadToRenderThread(ModelPart *part);
   QString splitFileName(const QString &fileName);
   void recursiveDirSearch(QFileInfoList dir, ModelPart *root);
+
+  void updateColour();
+
+  void ReRender();
+
+private:
   Ui::MainWindow *ui;
   ModelPartList *partList;
   vtkSmartPointer<vtkRenderer> renderer;
