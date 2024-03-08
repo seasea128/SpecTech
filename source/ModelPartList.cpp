@@ -20,25 +20,6 @@ ModelPartList::ModelPartList(const QString &data, QObject *parent)
 
 ModelPartList::~ModelPartList() { delete rootItem; }
 
-void ModelPartList::remove(const QModelIndex &index) {
-  ModelPart *part;
-
-  if (index.isValid())
-    part = static_cast<ModelPart *>(index.internalPointer());
-  else {
-    return;
-  }
-
-  beginRemoveRows(index.parent(), rowCount(index), rowCount(index));
-
-  delete part;
-
-  endRemoveRows();
-
-  emit layoutChanged();
-
-  return;
-}
 
 int ModelPartList::columnCount(const QModelIndex &parent) const {
   Q_UNUSED(parent);

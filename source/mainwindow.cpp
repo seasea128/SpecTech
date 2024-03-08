@@ -34,6 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
   this->partList = new ModelPartList("PartsList");
   ui->treeView->setModel(this->partList);
   ui->treeView->addAction(ui->actionItem_Options);
+  ui->treeView->addAction(ui->actiondelete);
   ModelPart *rootItem = this->partList->getRootItem();
 
   /* This needs adding to MainWindow constructor */
@@ -133,7 +134,7 @@ void MainWindow::handleButton_2() {
     dialog.SetValue();
     emit statusUpdateMessage(
         QString("Dialog accepted ") + GetSelectedPart()->data(0).toString(), 0);
-    updateRender();
+    ReRender();
   } else {
     emit statusUpdateMessage(QString("Dialog rejected"), 0);
   }
@@ -154,6 +155,10 @@ void MainWindow::handleTreeClicked() {
   QString text = selectedPart->data(0).toString();
 
   emit statusUpdateMessage(QString("The selected item is: ") + text, 0);
+
+  ui->Slider_R->setValue(selectedPart->getColourR());
+  ui->Slider_G->setValue(selectedPart->getColourG());
+  ui->Slider_B->setValue(selectedPart->getColourB());
 }
 
 ModelPart *MainWindow::GetSelectedPart() {
@@ -172,11 +177,7 @@ void MainWindow::updateRender() {
   for (int i = 0; i < partList->rowCount(QModelIndex()); i++) {
     updateRenderFromTree(partList->index(i, 0, QModelIndex()));
   }
-  renderer->Render();
-  scaleToFit(renderer);
-  ui->vtkWidget->renderWindow()->Render();
-  ui->vtkWidget->update();
-
+  ReRender();
   ui->treeView->expandAll();
   ui->treeView->update();
 }
@@ -311,4 +312,29 @@ void MainWindow::recursiveDirSearch(QFileInfoList dir, ModelPart *root) {
       qDebug() << "File type is not stl";
     }
   }
+}
+
+void MainWindow::ReRender() {
+  renderer->Render();
+  scaleToFit(renderer);
+  ui->vtkWidget->renderWindow()->Render();
+  ui->vtkWidget->update();
+}
+
+void MainWindow::updateColour() {
+  GetSelectedPart()->setColour(ui->Slider_R->value(), ui->Slider_G->value(),
+                               ui->Slider_B->value());
+  ReRender();
+}
+
+void MainWindow::on_Slider_R_sliderMoved(int position) { updateColour(); }
+
+void MainWindow::on_Slider_G_sliderMoved(int position) { updateColour(); }
+
+void MainWindow::on_Slider_B_sliderMoved(int position) { updateColour(); }
+
+void MainWindow::on_actiondelete_triggered() {
+  QModelIndex ind = ui->treeView->currentIndex();
+  this->partList->removeItem(ind);
+  updateRender();
 }
