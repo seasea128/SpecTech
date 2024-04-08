@@ -7,7 +7,7 @@ if(WIN32)
 else()
 	set(CPACK_GENERATOR "ZIP")
 endif()
-include(CPACK)
+#include(CPACK)
 
 
 set(CMAKE_AUTOUIC ON)
@@ -24,18 +24,17 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 find_package( VTK REQUIRED )
 
 set(PROJECT_SOURCES
-        main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
-	ModelPart.cpp
-	ModelPart.h
-	ModelPartList.cpp
-	ModelPartList.h
-	Icons.qrc
+    main.cpp
+    mainwindow.cpp
+    mainwindow.h
+    mainwindow.ui
+    ModelPart.cpp
+    ModelPart.h
+    ModelPartList.cpp
+    ModelPartList.h
+    Icons.qrc
     RenderThread/RenderThread.cpp
     RenderThread/RenderThread.h
-	
     RenderThread/Callback.cpp
     RenderThread/Callback.h
 )
