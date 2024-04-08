@@ -42,7 +42,7 @@ void RenderThread::run() {
    * thread while the VR thread is running, the program could become corrupted
    * and crash. The solution is to get the VR thread to edit the model. Any
    * decision to change the VR model will come fromthe user via the GUI thread,
-   * so there needs to be a mechanism to pass data from the GUi thread to the VR
+   * so there needs to be a mechanism to pass data from the GUI thread to the VR
    * thread.
    */
 
