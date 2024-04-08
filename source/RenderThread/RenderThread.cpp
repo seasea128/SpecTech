@@ -8,7 +8,8 @@ RenderThread::RenderThread(
     QObject *parent, vtkSmartPointer<vtkRenderer> renderer,
     vtkSmartPointer<vtkRenderWindow> window,
     vtkSmartPointer<vtkRenderWindowInteractor> interactor,
-    vtkSmartPointer<vtkCamera> camera) {
+    vtkSmartPointer<vtkCamera> camera)
+    : endRender(false) {
   /* Initialise actor list */
   actors = vtkActorCollection::New();
 
@@ -17,12 +18,22 @@ RenderThread::RenderThread(
   rotateY = 0.;
   rotateZ = 0.;
 
-  callback = vtkTimerCallback::New(this);
+  callback = RenderThreadCallback::New(this);
 
   this->renderer = renderer;
   this->window = window;
   this->interactor = interactor;
   this->camera = camera;
+}
+
+RenderThread::~RenderThread() {
+  callback->Delete();
+  actors->InitTraversal();
+  vtkActor *a;
+  while ((a = (vtkActor *)actors->GetNextActor())) {
+    a->Delete();
+  }
+  actors->Delete();
 }
 
 void RenderThread::run() {
@@ -47,11 +58,6 @@ void RenderThread::run() {
   // vtkSmartPointer<vtkCompositePolyDataMapper> bigMapper =
   // vtkCompositePolyDataMapper::New();
   vtkActor *a;
-  // vtkMapper *m;
-  // mappers->InitTraversal();
-  // while ((m = (vtkMapper *)mappers->GetNextItem()))
-  //{
-  // }
   actors->InitTraversal();
   while ((a = (vtkActor *)actors->GetNextActor())) {
     renderer->AddActor(a);
@@ -72,15 +78,6 @@ void RenderThread::run() {
   window->Render();
 }
 
-RenderThread::~RenderThread() {
-  vtkActor *a;
-  actors->InitTraversal();
-  while ((a = actors->GetNextActor())) {
-    a->Delete();
-  }
-  callback->Delete();
-}
-
 void RenderThread::addActorOffline(vtkActor *actor) {
   if (!this->isRunning()) {
     double *ac = actor->GetOrigin();
@@ -95,14 +92,7 @@ void RenderThread::addActorOffline(vtkActor *actor) {
   }
 }
 
-void RenderThread::addMapperOffline(vtkMapper *mapper) {
-  if (!this->isRunning()) {
-    mappers->AddItem(mapper);
-  }
-}
-
 void RenderThread::issueCommand(int cmd, double value) {
-
   /* Update class variables according to command */
   switch (cmd) {
   /* These are just a few basic examples */
@@ -124,8 +114,7 @@ void RenderThread::issueCommand(int cmd, double value) {
 
   case RE_RENDER:
     // Cannot call Render() on renderWindow directly here, since it will be
-    // executed on main thread. It need to be called from renderThread itself. -
-    // Chanon Yothavut
+    // executed on main thread. It need to be called from renderThread itself.
     this->reRender = true;
     break;
   }

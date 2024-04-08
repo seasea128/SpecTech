@@ -13,7 +13,7 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkSmartPointer.h>
 
-class vtkTimerCallback;
+class RenderThreadCallback;
 
 class RenderThread : public QThread {
   Q_OBJECT
@@ -38,11 +38,6 @@ public:
    */
   virtual void addActorOffline(vtkActor *actor);
 
-  /** This allows actors to be added to the VR renderer BEFORE the VR
-   * interactor has been started
-   */
-  virtual void addMapperOffline(vtkMapper *mapper);
-
   /** This allows commands to be issued to the VR thread in a thread safe way.
    * Function will set variables within the class to indicate the type of
    * action / animation / etc to perform. The rendering thread will then
@@ -57,7 +52,7 @@ protected:
   // class should probably go through this callback since
   // vtkRenderWindowInteractor doesn't have DoOneEvent method, so handling the
   // command in main loop would be pretty much impossible. - Chanon Yothavut
-  vtkSmartPointer<vtkTimerCallback> callback;
+  vtkSmartPointer<RenderThreadCallback> callback;
 
   // VTK rendering related things - I think this should be reassignable to
   // vtkOpenVR alternative. - Chanon Yothavut
@@ -72,7 +67,6 @@ protected:
 
   /** List of actors that will need to be added to the VR scene */
   vtkSmartPointer<vtkActorCollection> actors;
-  vtkSmartPointer<vtkMapperCollection> mappers;
 
   /** This will be set to false by the constructor, if it is set to true
    * by the GUI then the rendering will end
@@ -91,10 +85,10 @@ protected:
   double rotateY; /*< Degrees to rotate around Y axis (per time-step) */
   double rotateZ; /*< Degrees to rotate around Z axis (per time-step) */
 
-  // vtkTimerCallback being a friend of RenderThread will make the code much
+  // RenderThreadCallback being a friend of RenderThread will make the code much
   // more simpler, since there isn't a need for getter/setter for protected
   // member variable.
-  friend class vtkTimerCallback;
+  friend class RenderThreadCallback;
 };
 
 #endif // RENDERTHREAD_H_
