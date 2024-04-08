@@ -36,6 +36,8 @@ set(PROJECT_SOURCES
     RenderThread/RenderThread.cpp
     RenderThread/RenderThread.h
 	
+    RenderThread/Callback.cpp
+    RenderThread/Callback.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
