@@ -258,7 +258,7 @@ QString MainWindow::splitFileName(const QString &fileName) {
 }
 
 void MainWindow::loadToRenderThread(ModelPart *part) {
-  std::cout << "Child count: " << part->childCount() << std::endl;
+  qDebug() << "Child count: " << part->childCount();
   if (part->childCount() > 0) {
     for (int i = 0; i < part->childCount(); i++) {
       loadToRenderThread(part->child(i));

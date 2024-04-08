@@ -161,7 +161,7 @@ void ModelPart::loadSTL(QString fileName) {
    */
   file = vtkSTLReader::New(); /**< Datafile from which part
                                                   loaded */
-  std::cout << "File pointer: " << file << std::endl;
+  qDebug() << "File pointer: " << file;
   file->SetFileName(fileName.toLocal8Bit().data());
   file->Update();
 
@@ -196,16 +196,16 @@ vtkActor *ModelPart::getNewActor() {
    * the role of this function. */
 
   /* 1. Create new mapper */
-  std::cout << "Creating new mapper" << std::endl;
+  qDebug() << "Creating new mapper";
   vtkNew<vtkDataSetMapper> newMapper;
-  std::cout << "Setting connection" << std::endl;
-  std::cout << "File pointer: " << file << std::endl;
+  qDebug() << "Setting connection";
+  qDebug() << "File pointer: " << file;
   if (file == nullptr) {
-    std::cout << "File is null pointer, stopping" << std::endl;
+    qDebug() << "File is null pointer, stopping";
     return nullptr;
   }
   newMapper->SetInputConnection(file->GetOutputPort());
-  std::cout << "Created new mapper" << std::endl;
+  qDebug() << "Created new mapper";
 
   /* 2. Create new actor and link to mapper */
   vtkQuadricLODActor *newActor = vtkQuadricLODActor::New();
