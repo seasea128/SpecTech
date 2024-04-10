@@ -1,22 +1,26 @@
-#include <vtkOpenVRCamera.h>
-#include <vtkOpenVRRenderWindow.h>
-#include <vtkOpenVRRenderWindowInteractor.h>
-#include <vtkOpenVRRenderer.h>
-
-#include "./ui_mainwindow.h"
-#include "mainwindow.h"
-#include "optiondialog.h"
-#include <QFile>
-#include <QMessageBox>
-#include <openvr.h>
 #include <vtkCamera.h>
 #include <vtkCylinderSource.h>
 #include <vtkLight.h>
 #include <vtkLightActor.h>
 #include <vtkNamedColors.h>
+#include <vtkOpenVRCamera.h>
+#include <vtkOpenVRRenderWindow.h>
+#include <vtkOpenVRRenderWindowInteractor.h>
+#include <vtkOpenVRRenderer.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
 #include <vtkSphereSource.h>
+
+#include <openvr.h>
+
+#include "./ui_mainwindow.h"
+#include "RenderThread/Commands/EndRenderCommand.h"
+#include "RenderThread/Commands/RefreshRenderCommand.h"
+#include "mainwindow.h"
+#include "optiondialog.h"
+
+#include <QFile>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow), renderThread(nullptr) {
@@ -105,15 +109,18 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 MainWindow::~MainWindow() {
-  delete ui;
   if (renderThread != nullptr) {
-    if (renderThread->isRunning()) {
-      renderThread->exit();
-      while (renderThread->isRunning()) {
-      }
+    std::shared_ptr<EndRenderCommand> endCommand =
+        std::make_shared<EndRenderCommand>();
+    renderThread->addCommand(endCommand);
+    if (!renderThread->wait(3000)) {
+      qDebug() << "Waited for 3 seconds, will terminate the render "
+                  "thread";
+      renderThread->terminate();
+      renderThread->wait();
     }
-    delete renderThread;
   }
+  delete ui;
 }
 
 void MainWindow::handleButton() {
@@ -222,6 +229,12 @@ void MainWindow::updateRenderFromTree(const QModelIndex &index) {
 void MainWindow::scaleToFit(vtkRenderer *renderer) { renderer->ResetCamera(); }
 
 void MainWindow::on_actionOpen_VR_triggered() {
+  if (renderThread != nullptr) {
+    emit statusUpdateMessage("VR rendering already running, please stop "
+                             "currently running rendering first.",
+                             0);
+    return;
+  }
   vtkSmartPointer<vtkRenderer> renderer;
   vtkSmartPointer<vtkCamera> camera;
   vtkSmartPointer<vtkRenderWindow> window;
@@ -319,9 +332,18 @@ void MainWindow::ReRender() {
   scaleToFit(renderer);
   ui->vtkWidget->renderWindow()->Render();
   ui->vtkWidget->update();
+  if (renderThread != nullptr) {
+    std::shared_ptr<RefreshRenderCommand> command =
+        std::make_shared<RefreshRenderCommand>();
+    renderThread->addCommand(command);
+  }
 }
 
 void MainWindow::updateColour() {
+  auto currentPart = GetSelectedPart();
+  if (currentPart == nullptr) {
+    return;
+  }
   GetSelectedPart()->setColour(ui->Slider_R->value(), ui->Slider_G->value(),
                                ui->Slider_B->value());
   ReRender();

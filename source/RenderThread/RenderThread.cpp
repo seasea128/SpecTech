@@ -1,8 +1,15 @@
 #include "RenderThread.h"
 #include "Callback.h"
+#include <vtkActorCollection.h>
+#include <vtkCallbackCommand.h>
 #include <vtkCompositePolyDataMapper.h>
 #include <vtkNamedColors.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRendererCollection.h>
 #include <vtkSmartPointer.h>
+
+#include <type_traits>
 
 RenderThread::RenderThread(
     QObject *parent, vtkSmartPointer<vtkRenderer> renderer,
@@ -119,3 +126,10 @@ void RenderThread::issueCommand(int cmd, double value) {
     break;
   }
 }
+
+void RenderThread::stopRender() const {
+  interactor->GetRenderWindow()->Finalize();
+  interactor->TerminateApp();
+}
+
+void RenderThread::refreshRender() const { this->window->Render(); }

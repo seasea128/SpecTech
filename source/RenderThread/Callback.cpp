@@ -1,8 +1,18 @@
 #include "Callback.h"
 
+#include <memory>
+
 void RenderThreadCallback::Execute(vtkObject *caller, unsigned long eventId,
                                    void *vtkNotUsed(callData)) {
   if (vtkCommand::TimerEvent == eventId) {
+
+    renderThread->mutex.lock();
+    if (!renderThread->queue.isEmpty()) {
+      std::shared_ptr<BaseCommand> command = renderThread->queue.dequeue();
+      command->Execute(*(this->renderThread));
+    }
+    renderThread->mutex.unlock();
+
     auto iren = dynamic_cast<vtkRenderWindowInteractor *>(caller);
 
     // This is where the logic for updating actors and thing should be

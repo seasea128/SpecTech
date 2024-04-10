@@ -37,6 +37,12 @@ set(PROJECT_SOURCES
     RenderThread/RenderThread.h
     RenderThread/Callback.cpp
     RenderThread/Callback.h
+    RenderThread/Commands/BaseCommand.cpp
+    RenderThread/Commands/BaseCommand.h
+    RenderThread/Commands/EndRenderCommand.cpp
+    RenderThread/Commands/EndRenderCommand.h
+    RenderThread/Commands/RefreshRenderCommand.cpp
+    RenderThread/Commands/RefreshRenderCommand.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
