@@ -56,10 +56,7 @@ public:
    */
   virtual void issueCommand(int cmd, double value);
 
-  template <typename T> void addCommand(const std::shared_ptr<T> &command) {
-    static_assert(
-        std::is_base_of<BaseCommand, T>::value,
-        "Type provided to addCommand is not derived from BaseCommand");
+  void addCommand(const std::shared_ptr<BaseCommand> &command) {
     mutex.lock();
     queue.enqueue(command);
     mutex.unlock();
