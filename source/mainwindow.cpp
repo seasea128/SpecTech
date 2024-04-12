@@ -16,6 +16,7 @@
 #include "./ui_mainwindow.h"
 #include "RenderThread/Commands/EndRenderCommand.h"
 #include "RenderThread/Commands/RefreshRenderCommand.h"
+#include "RenderThread/Commands/UpdateColourCommand.h"
 #include "mainwindow.h"
 #include "optiondialog.h"
 
@@ -142,6 +143,14 @@ void MainWindow::handleButton_2() {
     emit statusUpdateMessage(
         QString("Dialog accepted ") + GetSelectedPart()->data(0).toString(), 0);
     ReRender();
+    if (renderThread != nullptr) {
+      auto command = std::make_shared<UpdateColourCommand>(
+          GetSelectedPart()->getVRActor(), GetSelectedPart()->getColour());
+      renderThread->addCommand(command);
+    }
+    ui->Slider_R->setValue(GetSelectedPart()->getColourR());
+    ui->Slider_G->setValue(GetSelectedPart()->getColourG());
+    ui->Slider_B->setValue(GetSelectedPart()->getColourB());
   } else {
     emit statusUpdateMessage(QString("Dialog rejected"), 0);
   }
@@ -332,11 +341,11 @@ void MainWindow::ReRender() {
   scaleToFit(renderer);
   ui->vtkWidget->renderWindow()->Render();
   ui->vtkWidget->update();
-  if (renderThread != nullptr) {
-    std::shared_ptr<RefreshRenderCommand> command =
-        std::make_shared<RefreshRenderCommand>();
-    renderThread->addCommand(command);
-  }
+  // if (renderThread != nullptr) {
+  //   std::shared_ptr<RefreshRenderCommand> command =
+  //       std::make_shared<RefreshRenderCommand>();
+  //   renderThread->addCommand(command);
+  // }
 }
 
 void MainWindow::updateColour() {
@@ -344,9 +353,24 @@ void MainWindow::updateColour() {
   if (currentPart == nullptr) {
     return;
   }
-  GetSelectedPart()->setColour(ui->Slider_R->value(), ui->Slider_G->value(),
-                               ui->Slider_B->value());
+  currentPart->setColour(ui->Slider_R->value(), ui->Slider_G->value(),
+                         ui->Slider_B->value());
   ReRender();
+
+  // Send command to renderThread
+  if (renderThread != nullptr) {
+    auto command = std::make_shared<UpdateColourCommand>(
+        currentPart->getVRActor(), currentPart->getColour());
+    renderThread->addCommand(command);
+    for (int i = 0; i < currentPart->childCount(); i++) {
+      auto command = std::make_shared<UpdateColourCommand>(
+          currentPart->child(i)->getVRActor(),
+          currentPart->child(i)->getColour());
+      renderThread->addCommand(command);
+    }
+    auto refresh = std::make_shared<RefreshRenderCommand>();
+    renderThread->addCommand(refresh);
+  }
 }
 
 void MainWindow::on_Slider_R_sliderMoved(int position) { updateColour(); }
