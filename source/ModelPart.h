@@ -129,7 +129,11 @@ public:
   /** Return new actor for use in VR
    * @return pointer to new actor
    */
-  vtkActor *getNewActor();
+  vtkSmartPointer<vtkActor> getNewActor();
+
+  vtkColor3<unsigned char> getColour();
+
+  vtkActor *getVRActor();
 
 private:
   QList<ModelPart *> m_childItems; /**< List (array) of child items */
@@ -149,6 +153,9 @@ private:
   vtkSmartPointer<vtkMapper> mapper; /**< Mapper for rendering */
   vtkSmartPointer<vtkActor> actor;   /**< Actor for rendering */
   vtkColor3<unsigned char> colour;   /**< User defineable colour */
+
+  vtkSmartPointer<vtkMapper> vrMapper;
+  vtkSmartPointer<vtkActor> vrActor;
 };
 
 #endif
