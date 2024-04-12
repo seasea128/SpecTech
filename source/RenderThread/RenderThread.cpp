@@ -4,6 +4,7 @@
 #include <vtkCallbackCommand.h>
 #include <vtkCompositePolyDataMapper.h>
 #include <vtkNamedColors.h>
+#include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRendererCollection.h>
@@ -133,3 +134,10 @@ void RenderThread::stopRender() const {
 }
 
 void RenderThread::refreshRender() const { this->window->Render(); }
+
+void RenderThread::updateColour(vtkActor *actorToUpdate,
+                                vtkColor3<unsigned char> &updateColour) {
+  actorToUpdate->GetProperty()->SetColor(double(updateColour.GetRed()) / 255,
+                                         double(updateColour.GetGreen()) / 255,
+                                         double(updateColour.GetBlue()) / 255);
+}

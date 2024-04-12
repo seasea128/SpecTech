@@ -8,6 +8,7 @@
 
 #include <vtkActorCollection.h>
 #include <vtkCamera.h>
+#include <vtkColor.h>
 #include <vtkLODActor.h>
 #include <vtkMapperCollection.h>
 #include <vtkRenderWindow.h>
@@ -65,6 +66,9 @@ public:
   void stopRender() const;
 
   void refreshRender() const;
+
+  void updateColour(vtkActor *actorToUpdate,
+                    vtkColor3<unsigned char> &updateColour);
 
 protected:
   void run() override;
