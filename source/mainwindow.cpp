@@ -368,8 +368,8 @@ void MainWindow::updateColour() {
           currentPart->child(i)->getColour());
       renderThread->addCommand(command);
     }
-    auto refresh = std::make_shared<RefreshRenderCommand>();
-    renderThread->addCommand(refresh);
+    // auto refresh = std::make_shared<RefreshRenderCommand>();
+    // renderThread->addCommand(refresh);
   }
 }
 
