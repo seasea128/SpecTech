@@ -43,6 +43,7 @@ set(PROJECT_SOURCES
     RenderThread/Commands/EndRenderCommand.h
     RenderThread/Commands/RefreshRenderCommand.cpp
     RenderThread/Commands/RefreshRenderCommand.h
+    RenderThread/Commands/UpdateColourCommand.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
