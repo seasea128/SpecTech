@@ -1,4 +1,5 @@
 #include "Callback.h"
+#include "Commands/UpdateColourCommand.h"
 
 #include <memory>
 
@@ -7,9 +8,33 @@ void RenderThreadCallback::Execute(vtkObject *caller, unsigned long eventId,
   if (vtkCommand::TimerEvent == eventId) {
 
     renderThread->mutex.lock();
-    if (!renderThread->queue.isEmpty()) {
+    // if (!renderThread->queue.isEmpty()) {
+    //   std::shared_ptr<BaseCommand> command = renderThread->queue.dequeue();
+    //   command->Execute(*(this->renderThread));
+    // }
+
+    int counter = 0;
+    while (!renderThread->queue.isEmpty()) {
+      if (counter >= 10) {
+        break;
+      }
       std::shared_ptr<BaseCommand> command = renderThread->queue.dequeue();
-      command->Execute(*(this->renderThread));
+      if (!renderThread->queue.isEmpty()) {
+        std::shared_ptr<BaseCommand> nextCommand = renderThread->queue.head();
+        bool isCurrentCommandUpdateColour =
+            dynamic_cast<UpdateColourCommand *>(command.get()) != nullptr;
+        bool isNextCommandUpdateColour =
+            dynamic_cast<UpdateColourCommand *>(nextCommand.get()) != nullptr;
+        bool isBothCommandUpdateColour =
+            isCurrentCommandUpdateColour && isNextCommandUpdateColour;
+
+        if (isNextCommandUpdateColour) {
+          counter++;
+          continue;
+        }
+      }
+      command->Execute(*renderThread);
+      counter++;
     }
     renderThread->mutex.unlock();
 
