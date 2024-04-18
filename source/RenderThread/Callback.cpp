@@ -21,14 +21,7 @@ void RenderThreadCallback::Execute(vtkObject *caller, unsigned long eventId,
       std::shared_ptr<BaseCommand> command = renderThread->queue.dequeue();
       if (!renderThread->queue.isEmpty()) {
         std::shared_ptr<BaseCommand> nextCommand = renderThread->queue.head();
-        bool isCurrentCommandUpdateColour =
-            dynamic_cast<UpdateColourCommand *>(command.get()) != nullptr;
-        bool isNextCommandUpdateColour =
-            dynamic_cast<UpdateColourCommand *>(nextCommand.get()) != nullptr;
-        bool isBothCommandUpdateColour =
-            isCurrentCommandUpdateColour && isNextCommandUpdateColour;
-
-        if (isNextCommandUpdateColour) {
+        if (command == nextCommand) {
           counter++;
           continue;
         }
