@@ -119,7 +119,7 @@ install(TARGETS W6
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
-install( DIRECTORY VRBindings DESTINATION bin)
+install( DIRECTORY vrbindings DESTINATION bin)
 install( FILES Combinear.qss DESTINATION bin)
 #qt_generate_deploy_app_script(
 #    TARGET W6
