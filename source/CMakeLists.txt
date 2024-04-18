@@ -62,6 +62,7 @@ set(PROJECT_SOURCES
     RenderThread/Commands/RefreshRenderCommand.cpp
     RenderThread/Commands/RefreshRenderCommand.h
     RenderThread/Commands/UpdateColourCommand.cpp
+    RenderThread/Commands/UpdateVisibilityCommand.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
