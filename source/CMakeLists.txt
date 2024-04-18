@@ -113,7 +113,7 @@ include(GNUInstallDirs)
 add_custom_target( VRBindings )
 add_custom_command( TARGET VRBindings PRE_BUILD
 COMMAND ${CMAKE_COMMAND} -E
-copy_directory ${CMAKE_SOURCE_DIR}/vrbindings ${CMAKE_BINARY_DIR})
+copy_directory ${CMAKE_SOURCE_DIR}/vrbindings ${CMAKE_BINARY_DIR}/vrbindings)
 
 add_custom_target( Theme )
 add_custom_command( TARGET Theme PRE_BUILD
