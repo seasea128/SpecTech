@@ -17,11 +17,28 @@
 #include "RenderThread/Commands/EndRenderCommand.h"
 #include "RenderThread/Commands/RefreshRenderCommand.h"
 #include "RenderThread/Commands/UpdateColourCommand.h"
+#include "RenderThread/Commands/UpdateVisibilityCommand.h"
 #include "mainwindow.h"
 #include "optiondialog.h"
 
 #include <QFile>
 #include <QMessageBox>
+
+template <typename T>
+void recursiveAddCommand(RenderThread *renderThread, ModelPart *currentPart) {
+  static_assert(std::is_base_of<BaseCommand, T>::value,
+                "Given T is not derived from BaseCommand");
+  if (currentPart->getVRActor() != nullptr) {
+    qDebug() << "Command Added with Part pointer: " << currentPart;
+    auto command = std::make_shared<T>(currentPart);
+    renderThread->addCommand(command);
+  }
+  if (currentPart->childCount() > 0) {
+    for (int i = 0; i < currentPart->childCount(); i++) {
+      recursiveAddCommand<T>(renderThread, currentPart->child(i));
+    }
+  }
+}
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow), renderThread(nullptr) {
@@ -144,9 +161,9 @@ void MainWindow::handleButton_2() {
         QString("Dialog accepted ") + GetSelectedPart()->data(0).toString(), 0);
     ReRender();
     if (renderThread != nullptr) {
-      auto command = std::make_shared<UpdateColourCommand>(
-          GetSelectedPart()->getVRActor(), GetSelectedPart()->getColour());
-      renderThread->addCommand(command);
+      recursiveAddCommand<UpdateColourCommand>(renderThread, GetSelectedPart());
+      recursiveAddCommand<UpdateVisibilityCommand>(renderThread,
+                                                   GetSelectedPart());
     }
     ui->Slider_R->setValue(GetSelectedPart()->getColourR());
     ui->Slider_G->setValue(GetSelectedPart()->getColourG());
@@ -359,15 +376,7 @@ void MainWindow::updateColour() {
 
   // Send command to renderThread
   if (renderThread != nullptr) {
-    auto command = std::make_shared<UpdateColourCommand>(
-        currentPart->getVRActor(), currentPart->getColour());
-    renderThread->addCommand(command);
-    for (int i = 0; i < currentPart->childCount(); i++) {
-      auto command = std::make_shared<UpdateColourCommand>(
-          currentPart->child(i)->getVRActor(),
-          currentPart->child(i)->getColour());
-      renderThread->addCommand(command);
-    }
+    recursiveAddCommand<UpdateColourCommand>(renderThread, currentPart);
     // auto refresh = std::make_shared<RefreshRenderCommand>();
     // renderThread->addCommand(refresh);
   }
