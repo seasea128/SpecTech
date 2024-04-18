@@ -7,8 +7,7 @@ if(WIN32)
 else()
 	set(CPACK_GENERATOR "ZIP")
 endif()
-#include(CPACK)
-
+include(CPack)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
