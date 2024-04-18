@@ -114,6 +114,12 @@ add_custom_target( VRBindings )
 add_custom_command( TARGET VRBindings PRE_BUILD
 COMMAND ${CMAKE_COMMAND} -E
 copy_directory ${CMAKE_SOURCE_DIR}/vrbindings ${CMAKE_BINARY_DIR})
+
+add_custom_target( Theme )
+add_custom_command( TARGET Theme PRE_BUILD
+COMMAND ${CMAKE_COMMAND} -E
+copy ${CMAKE_SOURCE_DIR}/Combinear.qss ${CMAKE_BINARY_DIR})
+
 install(TARGETS W6
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
