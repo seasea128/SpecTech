@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 3.5)
 project(W6 VERSION 0.1 LANGUAGES CXX)
 
 if(WIN32)
+    set(CMAKE_INSTALL_UCRT_LIBRARIES TRUE)
+    include(InstallRequiredSystemLibraries)
 	set(CPACK_GENERATOR "NSIS")
 else()
 	set(CPACK_GENERATOR "ZIP")
