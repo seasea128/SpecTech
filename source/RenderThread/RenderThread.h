@@ -30,9 +30,9 @@ public:
   /** List of command names */
   enum { END_RENDER, ROTATE_X, ROTATE_Y, ROTATE_Z, RE_RENDER } Command;
 
-  RenderThread(const RenderThread &) = default;
+  RenderThread(const RenderThread &) = delete;
   RenderThread(RenderThread &&) = delete;
-  RenderThread &operator=(const RenderThread &) = default;
+  RenderThread &operator=(const RenderThread &) = delete;
   RenderThread &operator=(RenderThread &&) = delete;
   /**  Constructor
    */
@@ -69,6 +69,7 @@ public:
 
   void updateColour(vtkActor *actorToUpdate,
                     vtkColor3<unsigned char> &updateColour);
+  void updateVisibility(vtkActor *actorToUpdate, bool visible);
 
 protected:
   void run() override;

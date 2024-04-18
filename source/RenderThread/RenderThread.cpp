@@ -141,3 +141,9 @@ void RenderThread::updateColour(vtkActor *actorToUpdate,
                                          double(updateColour.GetGreen()) / 255,
                                          double(updateColour.GetBlue()) / 255);
 }
+
+void RenderThread::updateVisibility(vtkActor *actorToUpdate, bool visible) {
+  if (actorToUpdate != nullptr) {
+    actorToUpdate->GetProperty()->SetOpacity(visible ? 1.0 : 0.0);
+  }
+}
