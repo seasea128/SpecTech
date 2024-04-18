@@ -30,6 +30,7 @@ void RenderThreadCallback::Execute(vtkObject *caller, unsigned long eventId,
       counter++;
     }
     renderThread->mutex.unlock();
+    renderThread->refreshRender();
 
     auto iren = dynamic_cast<vtkRenderWindowInteractor *>(caller);
 

@@ -145,11 +145,6 @@ install(FILES $<TARGET_RUNTIME_DLLS:W6> TYPE BIN)
 #    POST_EXCLUDE_REGEXES ".*system32/.*\\.dll"
 #    DIRECTORIES ${VTK_DIR}/bin)
 
-
-
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(W6)
-
-
 endif()
-
