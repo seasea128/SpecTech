@@ -114,7 +114,7 @@ public:
   /** Get visible flag
    * @return visible flag as boolean
    */
-  bool visible();
+  bool visible() const;
 
   /** Load STL file
    * @param fileName
@@ -131,9 +131,9 @@ public:
    */
   vtkSmartPointer<vtkActor> getNewActor();
 
-  vtkColor3<unsigned char> getColour();
+  vtkColor3<unsigned char> getColour() const;
 
-  vtkActor *getVRActor();
+  vtkActor *getVRActor() const;
 
 private:
   QList<ModelPart *> m_childItems; /**< List (array) of child items */

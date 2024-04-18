@@ -104,9 +104,9 @@ void ModelPart::setColour(const unsigned char R, const unsigned char G,
   }
 }
 
-vtkColor3<unsigned char> ModelPart::getColour() { return colour; }
+vtkColor3<unsigned char> ModelPart::getColour() const { return colour; }
 
-vtkActor *ModelPart::getVRActor() { return vrActor; }
+vtkActor *ModelPart::getVRActor() const { return vrActor; }
 
 void ModelPart::removeChild(ModelPart *child) {
   auto index = m_childItems.indexOf(child);
@@ -150,7 +150,7 @@ void ModelPart::setVisible(bool isVisible) {
   }
 }
 
-bool ModelPart::visible() {
+bool ModelPart::visible() const {
   /* This is a placeholder function that will be used in the next worksheet */
 
   /* As the name suggests ... */
