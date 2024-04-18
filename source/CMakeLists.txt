@@ -20,7 +20,24 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 #Include all of VTK - previous example specified individual components but this is just likely to cause problems
-find_package( VTK REQUIRED )
+find_package( VTK REQUIRED COMPONENTS
+    CommonCore
+    CommonDataModel
+    CommonColor
+    IOGeometry
+    FiltersSources
+    GUISupportQt
+    InteractionStyle
+    RenderingContextOpenGL2
+    RenderingOpenVR
+    RenderingCore
+    RenderingLOD
+    RenderingFreeType
+    RenderingGL2PSOpenGL2
+    RenderingOpenGL2
+    GUISupportQt
+    RenderingQt
+)
 
 set(PROJECT_SOURCES
     main.cpp
