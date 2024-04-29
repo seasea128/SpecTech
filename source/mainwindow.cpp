@@ -1,5 +1,7 @@
+#include <type_traits>
 #include <vtkCamera.h>
 #include <vtkCylinderSource.h>
+#include <vtkFrustumCoverageCuller.h>
 #include <vtkLight.h>
 #include <vtkLightActor.h>
 #include <vtkNamedColors.h>
@@ -15,7 +17,7 @@
 
 #include "./ui_mainwindow.h"
 #include "RenderThread/Commands/EndRenderCommand.h"
-#include "RenderThread/Commands/RefreshRenderCommand.h"
+#include "RenderThread/Commands/RemoveActorCommand.h"
 #include "RenderThread/Commands/UpdateColourCommand.h"
 #include "RenderThread/Commands/UpdateVisibilityCommand.h"
 #include "mainwindow.h"
@@ -24,12 +26,13 @@
 #include <QFile>
 #include <QMessageBox>
 
+using namespace Commands;
+
 template <typename T>
 void recursiveAddCommand(RenderThread *renderThread, ModelPart *currentPart) {
   static_assert(std::is_base_of<BaseCommand, T>::value,
                 "Given T is not derived from BaseCommand");
   if (currentPart->getVRActor() != nullptr) {
-    qDebug() << "Command Added with Part pointer: " << currentPart;
     auto command = std::make_shared<T>(currentPart);
     renderThread->addCommand(command);
   }
@@ -117,6 +120,8 @@ MainWindow::MainWindow(QWidget *parent)
   cylinderActor->RotateY(-45.0);
 
   renderer->AddActor(cylinderActor);
+  vtkNew<vtkFrustumCoverageCuller> culler;
+  renderer->AddCuller(culler);
 
   // Reset Camera(probably needs to go in its own funcion that is called
   // whenever model is changed
@@ -303,7 +308,7 @@ void MainWindow::loadToRenderThread(ModelPart *part) {
       loadToRenderThread(part->child(i));
     }
   }
-  vtkActor *actor = part->getNewActor();
+  vtkSmartPointer<vtkActor> actor = part->getNewActor();
   if (actor != nullptr) {
     renderThread->addActorOffline(actor);
   }
@@ -390,6 +395,10 @@ void MainWindow::on_Slider_B_sliderMoved(int position) { updateColour(); }
 
 void MainWindow::on_actiondelete_triggered() {
   QModelIndex ind = ui->treeView->currentIndex();
+  if (renderThread != nullptr) {
+    recursiveAddCommand<RemoveActorCommand>(
+        renderThread, static_cast<ModelPart *>(ind.internalPointer()));
+  }
   this->partList->removeItem(ind);
   updateRender();
 }
