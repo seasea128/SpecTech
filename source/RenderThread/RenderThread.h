@@ -23,13 +23,14 @@
 // dependency with RenderThread.
 class RenderThreadCallback;
 
+/**
+ * Implementation of renderer agnostic thread where both normal rendering
+ * component or OpenVR rendering component can be used.
+ */
 class RenderThread : public QThread {
   Q_OBJECT
 
 public:
-  /** List of command names */
-  enum { END_RENDER, ROTATE_X, ROTATE_Y, ROTATE_Z, RE_RENDER } Command;
-
   RenderThread(const RenderThread &) = delete;
   RenderThread(RenderThread &&) = delete;
   RenderThread &operator=(const RenderThread &) = delete;
@@ -48,50 +49,65 @@ public:
   /** This allows actors to be added to the VR renderer BEFORE the VR
    * interactor has been started
    */
-  virtual void addActorOffline(vtkActor *actor);
+  virtual void addActorOffline(vtkSmartPointer<vtkActor> actor);
 
-  /** This allows commands to be issued to the VR thread in a thread safe way.
-   * Function will set variables within the class to indicate the type of
-   * action / animation / etc to perform. The rendering thread will then
-   * impelement this.
+  /**
+   * Add command to the queue inside this RenderThread. Should be thread-safe.
+   * @param command is the command that is being passed through to RenderThread.
    */
-  virtual void issueCommand(int cmd, double value);
+  void addCommand(const std::shared_ptr<Commands::BaseCommand> &command);
 
-  void addCommand(const std::shared_ptr<BaseCommand> &command) {
-    mutex.lock();
-    queue.enqueue(command);
-    mutex.unlock();
-  }
-
+  /**
+   * Stop renderWindow when it is called.
+   */
   void stopRender() const;
 
+  /**
+   * Re-render when called. Needed for testing since VTK doesn't continuosly
+   * render on normal OpenGL renderwindow with no interaction.
+   */
   void refreshRender() const;
 
-  void updateColour(vtkActor *actorToUpdate,
+  /**
+   * Update colour of the given actor with provided vtkColor.
+   */
+  void updateColour(vtkWeakPointer<vtkActor> actorToUpdate,
                     vtkColor3<unsigned char> &updateColour);
-  void updateVisibility(vtkActor *actorToUpdate, bool visible);
+
+  /**
+   * Update visibility of the given actor.
+   */
+  void updateVisibility(vtkWeakPointer<vtkActor> actorToUpdate, bool visible);
+
+  /**
+   * Remove actor from collection.
+   */
+  void removeActor(vtkWeakPointer<vtkActor> actorToRemove);
 
 protected:
   void run() override;
 
-  // Custom callback for renderThread. Any modification of data inside this
-  // class should probably go through this callback since
-  // vtkRenderWindowInteractor doesn't have DoOneEvent method, so handling the
-  // command in main loop would be pretty much impossible. - Chanon Yothavut
+  /** Custom callback for renderThread. Any modification of data inside
+   * RenderThread class should probably go through this callback since
+   * vtkRenderWindowInteractor doesn't have DoOneEvent method, so handling the
+   * command in main loop would be pretty much impossible.
+   */
   vtkSmartPointer<RenderThreadCallback> callback;
 
-  // VTK rendering related things - I think this should be reassignable to
-  // vtkOpenVR alternative. - Chanon Yothavut
+  // VTK rendering related things
   vtkSmartPointer<vtkRenderWindow> window;
   vtkSmartPointer<vtkRenderWindowInteractor> interactor;
   vtkSmartPointer<vtkRenderer> renderer;
   vtkSmartPointer<vtkCamera> camera;
 
-  /* Use to synchronise passing of data to VR thread */
+  /** Use to synchronise passing of data to VR thread */
   QMutex mutex;
   QWaitCondition condition;
 
-  QQueue<std::shared_ptr<BaseCommand>> queue;
+  /**
+   * Queue of commands waiting to be executed by RenderThreadCallback.
+   */
+  QQueue<std::shared_ptr<Commands::BaseCommand>> queue;
 
   /** List of actors that will need to be added to the VR scene */
   vtkSmartPointer<vtkActorCollection> actors;
