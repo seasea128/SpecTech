@@ -3,12 +3,13 @@ cmake_minimum_required(VERSION 3.5)
 project(W6 VERSION 0.1 LANGUAGES CXX)
 
 if(WIN32)
+    set(CMAKE_INSTALL_UCRT_LIBRARIES TRUE)
+    include(InstallRequiredSystemLibraries)
 	set(CPACK_GENERATOR "NSIS")
 else()
 	set(CPACK_GENERATOR "ZIP")
 endif()
-#include(CPACK)
-
+include(CPack)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -16,12 +17,30 @@ set(CMAKE_AUTORCC ON)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 #Include all of VTK - previous example specified individual components but this is just likely to cause problems
-find_package( VTK REQUIRED )
+find_package( VTK REQUIRED COMPONENTS
+    CommonCore
+    CommonDataModel
+    CommonColor
+    IOGeometry
+    FiltersSources
+    GUISupportQt
+    InteractionStyle
+    RenderingContextOpenGL2
+    RenderingOpenVR
+    RenderingCore
+    RenderingLOD
+    RenderingFreeType
+    RenderingGL2PSOpenGL2
+    RenderingOpenGL2
+    GUISupportQt
+    RenderingQt
+)
 
 set(PROJECT_SOURCES
     main.cpp
@@ -37,6 +56,15 @@ set(PROJECT_SOURCES
     RenderThread/RenderThread.h
     RenderThread/Callback.cpp
     RenderThread/Callback.h
+    RenderThread/Commands/BaseCommand.cpp
+    RenderThread/Commands/BaseCommand.h
+    RenderThread/Commands/EndRenderCommand.cpp
+    RenderThread/Commands/EndRenderCommand.h
+    RenderThread/Commands/RefreshRenderCommand.cpp
+    RenderThread/Commands/RefreshRenderCommand.h
+    RenderThread/Commands/UpdateColourCommand.cpp
+    RenderThread/Commands/UpdateVisibilityCommand.cpp
+    RenderThread/Commands/RemoveActorCommand.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -88,13 +116,19 @@ include(GNUInstallDirs)
 add_custom_target( VRBindings )
 add_custom_command( TARGET VRBindings PRE_BUILD
 COMMAND ${CMAKE_COMMAND} -E
-copy_directory ${CMAKE_SOURCE_DIR}/vrbindings ${CMAKE_BINARY_DIR})
+copy_directory ${CMAKE_SOURCE_DIR}/vrbindings ${CMAKE_BINARY_DIR}/vrbindings)
+
+add_custom_target( Theme )
+add_custom_command( TARGET Theme PRE_BUILD
+COMMAND ${CMAKE_COMMAND} -E
+copy ${CMAKE_SOURCE_DIR}/Combinear.qss ${CMAKE_BINARY_DIR})
+
 install(TARGETS W6
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
-install( DIRECTORY VRBindings DESTINATION bin)
+install( DIRECTORY vrbindings DESTINATION bin)
 install( FILES Combinear.qss DESTINATION bin)
 #qt_generate_deploy_app_script(
 #    TARGET W6
@@ -102,8 +136,6 @@ install( FILES Combinear.qss DESTINATION bin)
 #)
 #install(SCRIPT ${deploy_script})
 install(FILES $<TARGET_RUNTIME_DLLS:W6> TYPE BIN)
-
-
 
 #install(TARGETS W6
 #    RUNTIME ARCHIVE LIBRARY RUNTIME FRAMEWORK BUNDLE PUBLIC_HEADER RESOURCE)
@@ -114,11 +146,6 @@ install(FILES $<TARGET_RUNTIME_DLLS:W6> TYPE BIN)
 #    POST_EXCLUDE_REGEXES ".*system32/.*\\.dll"
 #    DIRECTORIES ${VTK_DIR}/bin)
 
-
-
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(W6)
-
-
 endif()
-

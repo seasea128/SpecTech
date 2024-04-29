@@ -16,6 +16,7 @@
 #include <vtkProperty.h>
 #include <vtkQuadricLODActor.h>
 #include <vtkSmartPointer.h>
+#include <vtkWeakPointerBase.h>
 
 ModelPart::ModelPart(const QList<QVariant> &data, ModelPart *parent)
     : m_itemData(data), m_parentItem(parent), file(nullptr) {
@@ -24,12 +25,7 @@ ModelPart::ModelPart(const QList<QVariant> &data, ModelPart *parent)
   setColour(255, 255, 255);
 }
 
-ModelPart::~ModelPart() {
-  qDeleteAll(m_childItems);
-  if (file != nullptr) {
-    file->Delete();
-  }
-}
+ModelPart::~ModelPart() { qDeleteAll(m_childItems); }
 
 void ModelPart::appendChild(ModelPart *item) {
   /* Add another model part as a child of this part
@@ -104,6 +100,10 @@ void ModelPart::setColour(const unsigned char R, const unsigned char G,
   }
 }
 
+vtkColor3<unsigned char> ModelPart::getColour() const { return colour; }
+
+vtkWeakPointer<vtkActor> ModelPart::getVRActor() const { return vrActor; }
+
 void ModelPart::removeChild(ModelPart *child) {
   auto index = m_childItems.indexOf(child);
   m_childItems.removeAt(index);
@@ -146,7 +146,7 @@ void ModelPart::setVisible(bool isVisible) {
   }
 }
 
-bool ModelPart::visible() {
+bool ModelPart::visible() const {
   /* This is a placeholder function that will be used in the next worksheet */
 
   /* As the name suggests ... */
@@ -159,7 +159,7 @@ void ModelPart::loadSTL(QString fileName) {
   /* 1. Use the vtkSTLReader class to load the STL file
    *     https://vtk.org/doc/nightly/html/classvtkSTLReader.html
    */
-  file = vtkSTLReader::New(); /**< Datafile from which part
+  file = vtkSmartPointer<vtkSTLReader>::New(); /**< Datafile from which part
                                                   loaded */
   qDebug() << "File pointer: " << file;
   file->SetFileName(fileName.toLocal8Bit().data());
@@ -187,7 +187,7 @@ vtkSmartPointer<vtkActor> ModelPart::getActor() {
   return actor;
 }
 
-vtkActor *ModelPart::getNewActor() {
+vtkSmartPointer<vtkActor> ModelPart::getNewActor() {
   /* This is a placeholder function that will be used in the next worksheet.
    *
    * The default mapper/actor combination can only be used to render the part in
@@ -197,28 +197,33 @@ vtkActor *ModelPart::getNewActor() {
 
   /* 1. Create new mapper */
   qDebug() << "Creating new mapper";
-  vtkNew<vtkDataSetMapper> newMapper;
+  vrMapper = vtkSmartPointer<vtkDataSetMapper>::New();
   qDebug() << "Setting connection";
   qDebug() << "File pointer: " << file;
   if (file == nullptr) {
     qDebug() << "File is null pointer, stopping";
     return nullptr;
   }
-  newMapper->SetInputConnection(file->GetOutputPort());
+  vrMapper->SetInputConnection(file->GetOutputPort());
   qDebug() << "Created new mapper";
 
   /* 2. Create new actor and link to mapper */
-  vtkQuadricLODActor *newActor = vtkQuadricLODActor::New();
-  newActor->SetMapper(newMapper);
+  auto localVRActor = vtkSmartPointer<vtkQuadricLODActor>::New();
+  localVRActor->SetMapper(vrMapper);
 
   /* 3. Link the vtkProperties of the original actor to the new actor. This
    * means if you change properties of the original part (colour, position,
    * etc), the changes will be reflected in the GUI AND VR rendering.
    *
-   *    See the vtkActor documentation, particularly the GetProperty() and
+   * See the vtkActor documentation, particularly the GetProperty() and
    * SetProperty() functions.
    */
-  newActor->SetProperty(actor->GetProperty());
+  // newActor->SetProperty(actor->GetProperty());
 
-  return newActor;
+  // Copy actor's property to newActor
+  localVRActor->GetProperty()->DeepCopy(actor->GetProperty());
+
+  vrActor = localVRActor;
+
+  return localVRActor;
 }

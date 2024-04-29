@@ -1,22 +1,47 @@
+#include <type_traits>
+#include <vtkCamera.h>
+#include <vtkCylinderSource.h>
+#include <vtkFrustumCoverageCuller.h>
+#include <vtkLight.h>
+#include <vtkLightActor.h>
+#include <vtkNamedColors.h>
 #include <vtkOpenVRCamera.h>
 #include <vtkOpenVRRenderWindow.h>
 #include <vtkOpenVRRenderWindowInteractor.h>
 #include <vtkOpenVRRenderer.h>
-
-#include "./ui_mainwindow.h"
-#include "mainwindow.h"
-#include "optiondialog.h"
-#include <QFile>
-#include <QMessageBox>
-#include <openvr.h>
-#include <vtkCamera.h>
-#include <vtkCylinderSource.h>
-#include <vtkLight.h>
-#include <vtkLightActor.h>
-#include <vtkNamedColors.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
 #include <vtkSphereSource.h>
+
+#include <openvr.h>
+
+#include "./ui_mainwindow.h"
+#include "RenderThread/Commands/EndRenderCommand.h"
+#include "RenderThread/Commands/RemoveActorCommand.h"
+#include "RenderThread/Commands/UpdateColourCommand.h"
+#include "RenderThread/Commands/UpdateVisibilityCommand.h"
+#include "mainwindow.h"
+#include "optiondialog.h"
+
+#include <QFile>
+#include <QMessageBox>
+
+using namespace Commands;
+
+template <typename T>
+void recursiveAddCommand(RenderThread *renderThread, ModelPart *currentPart) {
+  static_assert(std::is_base_of<BaseCommand, T>::value,
+                "Given T is not derived from BaseCommand");
+  if (currentPart->getVRActor() != nullptr) {
+    auto command = std::make_shared<T>(currentPart);
+    renderThread->addCommand(command);
+  }
+  if (currentPart->childCount() > 0) {
+    for (int i = 0; i < currentPart->childCount(); i++) {
+      recursiveAddCommand<T>(renderThread, currentPart->child(i));
+    }
+  }
+}
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow), renderThread(nullptr) {
@@ -95,6 +120,8 @@ MainWindow::MainWindow(QWidget *parent)
   cylinderActor->RotateY(-45.0);
 
   renderer->AddActor(cylinderActor);
+  vtkNew<vtkFrustumCoverageCuller> culler;
+  renderer->AddCuller(culler);
 
   // Reset Camera(probably needs to go in its own funcion that is called
   // whenever model is changed
@@ -105,15 +132,18 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 MainWindow::~MainWindow() {
-  delete ui;
   if (renderThread != nullptr) {
-    if (renderThread->isRunning()) {
-      renderThread->exit();
-      while (renderThread->isRunning()) {
-      }
+    std::shared_ptr<EndRenderCommand> endCommand =
+        std::make_shared<EndRenderCommand>();
+    renderThread->addCommand(endCommand);
+    if (!renderThread->wait(3000)) {
+      qDebug() << "Waited for 3 seconds, will terminate the render "
+                  "thread";
+      renderThread->terminate();
+      renderThread->wait();
     }
-    delete renderThread;
   }
+  delete ui;
 }
 
 void MainWindow::handleButton() {
@@ -135,6 +165,14 @@ void MainWindow::handleButton_2() {
     emit statusUpdateMessage(
         QString("Dialog accepted ") + GetSelectedPart()->data(0).toString(), 0);
     ReRender();
+    if (renderThread != nullptr) {
+      recursiveAddCommand<UpdateColourCommand>(renderThread, GetSelectedPart());
+      recursiveAddCommand<UpdateVisibilityCommand>(renderThread,
+                                                   GetSelectedPart());
+    }
+    ui->Slider_R->setValue(GetSelectedPart()->getColourR());
+    ui->Slider_G->setValue(GetSelectedPart()->getColourG());
+    ui->Slider_B->setValue(GetSelectedPart()->getColourB());
   } else {
     emit statusUpdateMessage(QString("Dialog rejected"), 0);
   }
@@ -222,6 +260,12 @@ void MainWindow::updateRenderFromTree(const QModelIndex &index) {
 void MainWindow::scaleToFit(vtkRenderer *renderer) { renderer->ResetCamera(); }
 
 void MainWindow::on_actionOpen_VR_triggered() {
+  if (renderThread != nullptr) {
+    emit statusUpdateMessage("VR rendering already running, please stop "
+                             "currently running rendering first.",
+                             0);
+    return;
+  }
   vtkSmartPointer<vtkRenderer> renderer;
   vtkSmartPointer<vtkCamera> camera;
   vtkSmartPointer<vtkRenderWindow> window;
@@ -264,7 +308,7 @@ void MainWindow::loadToRenderThread(ModelPart *part) {
       loadToRenderThread(part->child(i));
     }
   }
-  vtkActor *actor = part->getNewActor();
+  vtkSmartPointer<vtkActor> actor = part->getNewActor();
   if (actor != nullptr) {
     renderThread->addActorOffline(actor);
   }
@@ -319,12 +363,28 @@ void MainWindow::ReRender() {
   scaleToFit(renderer);
   ui->vtkWidget->renderWindow()->Render();
   ui->vtkWidget->update();
+  // if (renderThread != nullptr) {
+  //   std::shared_ptr<RefreshRenderCommand> command =
+  //       std::make_shared<RefreshRenderCommand>();
+  //   renderThread->addCommand(command);
+  // }
 }
 
 void MainWindow::updateColour() {
-  GetSelectedPart()->setColour(ui->Slider_R->value(), ui->Slider_G->value(),
-                               ui->Slider_B->value());
+  auto currentPart = GetSelectedPart();
+  if (currentPart == nullptr) {
+    return;
+  }
+  currentPart->setColour(ui->Slider_R->value(), ui->Slider_G->value(),
+                         ui->Slider_B->value());
   ReRender();
+
+  // Send command to renderThread
+  if (renderThread != nullptr) {
+    recursiveAddCommand<UpdateColourCommand>(renderThread, currentPart);
+    // auto refresh = std::make_shared<RefreshRenderCommand>();
+    // renderThread->addCommand(refresh);
+  }
 }
 
 void MainWindow::on_Slider_R_sliderMoved(int position) { updateColour(); }
@@ -335,6 +395,10 @@ void MainWindow::on_Slider_B_sliderMoved(int position) { updateColour(); }
 
 void MainWindow::on_actiondelete_triggered() {
   QModelIndex ind = ui->treeView->currentIndex();
+  if (renderThread != nullptr) {
+    recursiveAddCommand<RemoveActorCommand>(
+        renderThread, static_cast<ModelPart *>(ind.internalPointer()));
+  }
   this->partList->removeItem(ind);
   updateRender();
 }

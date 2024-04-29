@@ -1,8 +1,23 @@
 #include "RenderThread.h"
 #include "Callback.h"
+#include <qdebug.h>
+#include <vtkActorCollection.h>
+#include <vtkCallbackCommand.h>
 #include <vtkCompositePolyDataMapper.h>
+#include <vtkFrustumCoverageCuller.h>
+#include <vtkGenericOpenGLRenderWindow.h>
 #include <vtkNamedColors.h>
+#include <vtkOpenVRRenderWindowInteractor.h>
+#include <vtkProperty.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRendererCollection.h>
 #include <vtkSmartPointer.h>
+
+#include <type_traits>
+#include <vtkWeakPointer.h>
+
+using namespace Commands;
 
 RenderThread::RenderThread(
     QObject *parent, vtkSmartPointer<vtkRenderer> renderer,
@@ -66,19 +81,43 @@ void RenderThread::run() {
   // window->Initialize();
   window->AddRenderer(renderer);
 
+  vtkNew<vtkFrustumCoverageCuller> culler;
+  renderer->AddCuller(culler);
   renderer->SetActiveCamera(camera);
 
   interactor->SetRenderWindow(window);
   interactor->Initialize();
+  interactor->AddObserver(vtkCommand::RenderEvent, callback);
 
-  interactor->AddObserver(vtkCommand::TimerEvent, callback);
-  int timerId = interactor->CreateRepeatingTimer(20);
+  interactor->SetDesiredUpdateRate(60);
+  interactor->SetStillUpdateRate(60);
 
-  interactor->Start();
-  window->Render();
+  // interactor->AddObserver(vtkCommand::TimerEvent, callback);
+  // int timerId = interactor->CreateRepeatingTimer(20);
+
+  if (dynamic_cast<vtkOpenVRRenderWindowInteractor *>(
+          interactor.GetPointer()) == nullptr) {
+    interactor->SetDone(false);
+    while (!interactor->GetDone()) {
+      interactor->ProcessEvents();
+      interactor->Render();
+    }
+  } else {
+    interactor->Start();
+  }
 }
 
-void RenderThread::addActorOffline(vtkActor *actor) {
+void RenderThread::addCommand(const std::shared_ptr<BaseCommand> &command) {
+  // Lock the mutex to prevent the case where there is only one command and it
+  // is being added and removed from the queue at the same time.
+  this->mutex.lock();
+  this->queue.enqueue(command); // The ownership of command should be passed
+                                // through to the queue now, so command should
+                                // still exist after this scope end.
+  this->mutex.unlock();
+}
+
+void RenderThread::addActorOffline(vtkSmartPointer<vtkActor> actor) {
   if (!this->isRunning()) {
     double *ac = actor->GetOrigin();
 
@@ -92,30 +131,39 @@ void RenderThread::addActorOffline(vtkActor *actor) {
   }
 }
 
-void RenderThread::issueCommand(int cmd, double value) {
-  /* Update class variables according to command */
-  switch (cmd) {
-  /* These are just a few basic examples */
-  case END_RENDER:
-    this->endRender = true;
-    break;
+void RenderThread::stopRender() const {
+  interactor->GetRenderWindow()->Finalize();
+  interactor->TerminateApp();
+}
 
-  case ROTATE_X:
-    this->rotateX = value;
-    break;
+void RenderThread::refreshRender() const { this->window->Render(); }
 
-  case ROTATE_Y:
-    this->rotateY = value;
-    break;
+void RenderThread::updateColour(vtkWeakPointer<vtkActor> actorToUpdate,
+                                vtkColor3<unsigned char> &updateColour) {
+  if (actorToUpdate) {
+    actorToUpdate->GetProperty()->SetColor(
+        double(updateColour.GetRed()) / 255,
+        double(updateColour.GetGreen()) / 255,
+        double(updateColour.GetBlue()) / 255);
+  }
+}
 
-  case ROTATE_Z:
-    this->rotateZ = value;
-    break;
+void RenderThread::updateVisibility(vtkWeakPointer<vtkActor> actorToUpdate,
+                                    bool visible) {
+  if (actorToUpdate != nullptr) {
+    actorToUpdate->GetProperty()->SetOpacity(visible ? 1.0 : 0.0);
+  }
+}
 
-  case RE_RENDER:
-    // Cannot call Render() on renderWindow directly here, since it will be
-    // executed on main thread. It need to be called from renderThread itself.
-    this->reRender = true;
-    break;
+void RenderThread::removeActor(vtkWeakPointer<vtkActor> actorToRemove) {
+  if (actorToRemove) {
+    actors->RemoveItem(actorToRemove);
+
+    renderer->RemoveAllViewProps();
+    vtkActor *a;
+    actors->InitTraversal();
+    while ((a = (vtkActor *)actors->GetNextActor())) {
+      renderer->AddActor(a);
+    }
   }
 }
