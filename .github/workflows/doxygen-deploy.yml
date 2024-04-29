@@ -11,7 +11,7 @@ jobs:
   deploy-2023_GROUP_1:
     
     # Defines the operating system for the virtual computer
-    runs-on: archlinux-latest
+    runs-on: ubuntu-latest
         
     # A list of steps to follow to complete the build
     # (a list of commands to execute on the virtual computer)
@@ -23,7 +23,7 @@ jobs:
         submodules: 'true'
       
     - name: Install doxygen
-      run: sudo pacman -S --noconfirm doxygen
+      run: sudo apt-get install -y doxygen
       
     # Run Doxygen on 2023_GROUP_1 folder
     - name: Run Doxygen
