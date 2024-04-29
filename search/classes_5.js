@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['updatecolourcommand_64',['UpdateColourCommand',['../classCommands_1_1UpdateColourCommand.html',1,'Commands']]],
-  ['updatevisibilitycommand_65',['UpdateVisibilityCommand',['../classCommands_1_1UpdateVisibilityCommand.html',1,'Commands']]]
+  ['refreshrendercommand_62',['RefreshRenderCommand',['../classCommands_1_1RefreshRenderCommand.html',1,'Commands']]],
+  ['removeactorcommand_63',['RemoveActorCommand',['../classCommands_1_1RemoveActorCommand.html',1,'Commands']]],
+  ['renderthread_64',['RenderThread',['../classRenderThread.html',1,'']]],
+  ['renderthreadcallback_65',['RenderThreadCallback',['../classRenderThreadCallback.html',1,'']]]
 ];

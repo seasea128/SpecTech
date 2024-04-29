@@ -1,6 +1,7 @@
 var annotated_dup =
 [
     [ "Commands", null, [
+      [ "AddActorCommand", "classCommands_1_1AddActorCommand.html", "classCommands_1_1AddActorCommand" ],
       [ "BaseCommand", "classCommands_1_1BaseCommand.html", "classCommands_1_1BaseCommand" ],
       [ "EndRenderCommand", "classCommands_1_1EndRenderCommand.html", "classCommands_1_1EndRenderCommand" ],
       [ "RefreshRenderCommand", "classCommands_1_1RefreshRenderCommand.html", "classCommands_1_1RefreshRenderCommand" ],

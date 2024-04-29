@@ -149,6 +149,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a586ab61f44dae1b6dbc98bd6471d159d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33bdf31c0e2390957d47f3562ecb7cb3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderThread.html#a33bdf31c0e2390957d47f3562ecb7cb3">removeActor</a> (vtkWeakPointer&lt; vtkActor &gt; actorToRemove)</td></tr>
 <tr class="separator:a33bdf31c0e2390957d47f3562ecb7cb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4568df20c1aa28741017783c21f1295"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderThread.html#af4568df20c1aa28741017783c21f1295">addActor</a> (vtkSmartPointer&lt; vtkActor &gt; actorToAdd)</td></tr>
+<tr class="separator:af4568df20c1aa28741017783c21f1295"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -181,11 +183,6 @@ QWaitCondition&#160;</td><td class="memItemRight" valign="bottom"><b>condition</
 <tr class="separator:ae34e25f39565c44ea6491dfa6467e3af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8fc167b6e2674a31d1cc1c21db270f1"><td class="memItemLeft" align="right" valign="top">vtkSmartPointer&lt; vtkActorCollection &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderThread.html#aa8fc167b6e2674a31d1cc1c21db270f1">actors</a></td></tr>
 <tr class="separator:aa8fc167b6e2674a31d1cc1c21db270f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1d96ad7d8ab720fcd6dec42ba186900"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderThread.html#af1d96ad7d8ab720fcd6dec42ba186900">endRender</a></td></tr>
-<tr class="separator:af1d96ad7d8ab720fcd6dec42ba186900"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca375468833da6ac604dbad3f315d472"><td class="memItemLeft" align="right" valign="top"><a id="aca375468833da6ac604dbad3f315d472"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>reRender</b></td></tr>
-<tr class="separator:aca375468833da6ac604dbad3f315d472"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ba459786c362b58356dd49a7d525b3e"><td class="memItemLeft" align="right" valign="top"><a id="a9ba459786c362b58356dd49a7d525b3e"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>rotateX</b></td></tr>
 <tr class="separator:a9ba459786c362b58356dd49a7d525b3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -279,6 +276,25 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RenderThreadCallback
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="af4568df20c1aa28741017783c21f1295"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4568df20c1aa28741017783c21f1295">&#9670;&nbsp;</a></span>addActor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RenderThread::addActor </td>
+          <td>(</td>
+          <td class="paramtype">vtkSmartPointer&lt; vtkActor &gt;&#160;</td>
+          <td class="paramname"><em>actorToAdd</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add actor to collection. </p>
+
+</div>
+</div>
 <a id="a415cb0219c96182c56787a9c7040aca5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a415cb0219c96182c56787a9c7040aca5">&#9670;&nbsp;</a></span>addActorOffline()</h2>
 
@@ -487,29 +503,6 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RenderThreadCallback
 </table>
 </div><div class="memdoc">
 <p>Custom callback for renderThread. Any modification of data inside <a class="el" href="classRenderThread.html">RenderThread</a> class should probably go through this callback since vtkRenderWindowInteractor doesn't have DoOneEvent method, so handling the command in main loop would be pretty much impossible. </p>
-
-</div>
-</div>
-<a id="af1d96ad7d8ab720fcd6dec42ba186900"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1d96ad7d8ab720fcd6dec42ba186900">&#9670;&nbsp;</a></span>endRender</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool RenderThread::endRender</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>This will be set to false by the constructor, if it is set to true by the GUI then the rendering will end </p>
 
 </div>
 </div>

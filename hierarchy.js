@@ -1,6 +1,7 @@
 var hierarchy =
 [
     [ "Commands::BaseCommand", "classCommands_1_1BaseCommand.html", [
+      [ "Commands::AddActorCommand", "classCommands_1_1AddActorCommand.html", null ],
       [ "Commands::EndRenderCommand", "classCommands_1_1EndRenderCommand.html", null ],
       [ "Commands::RefreshRenderCommand", "classCommands_1_1RefreshRenderCommand.html", null ],
       [ "Commands::RemoveActorCommand", "classCommands_1_1RemoveActorCommand.html", null ],
