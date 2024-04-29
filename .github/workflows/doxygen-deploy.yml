@@ -19,6 +19,8 @@ jobs:
     # This is a predefined action that cheeks out a copy of your code
     - name: Checkout
       uses: actions/checkout@v2
+      with:
+        submodules: 'true'
       
     - name: Install doxygen
       run: sudo apt-get install -y doxygen
