@@ -113,15 +113,15 @@ include(GNUInstallDirs)
 
 #Copy across Open VR bindings that map controllers
 #The program will expect to find these in the build dir when it runs
-add_custom_target( VRBindings )
+add_custom_target( VRBindings ALL)
 add_custom_command( TARGET VRBindings PRE_BUILD
 COMMAND ${CMAKE_COMMAND} -E
 copy_directory ${CMAKE_SOURCE_DIR}/vrbindings ${CMAKE_BINARY_DIR}/vrbindings)
 
-add_custom_target( Theme )
+add_custom_target( Theme ALL)
 add_custom_command( TARGET Theme PRE_BUILD
 COMMAND ${CMAKE_COMMAND} -E
-copy ${CMAKE_SOURCE_DIR}/Combinear.qss ${CMAKE_BINARY_DIR})
+copy ${CMAKE_SOURCE_DIR}/Adaptic.qss ${CMAKE_BINARY_DIR})
 
 add_custom_target( OpenVRDLL ALL )
 add_custom_command( TARGET OpenVRDLL PRE_BUILD
