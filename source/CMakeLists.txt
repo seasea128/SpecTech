@@ -3,9 +3,9 @@ cmake_minimum_required(VERSION 3.5)
 project(W6 VERSION 0.1 LANGUAGES CXX)
 
 if(WIN32)
-    set(CMAKE_INSTALL_UCRT_LIBRARIES TRUE)
     include(InstallRequiredSystemLibraries)
-	set(CPACK_GENERATOR "NSIS")
+    set(CMAKE_INSTALL_UCRT_LIBRARIES TRUE)
+    set(CPACK_GENERATOR "NSIS")
 else()
 	set(CPACK_GENERATOR "ZIP")
 endif()
@@ -113,15 +113,20 @@ include(GNUInstallDirs)
 
 #Copy across Open VR bindings that map controllers
 #The program will expect to find these in the build dir when it runs
-add_custom_target( VRBindings ALL)
+add_custom_target( VRBindings )
 add_custom_command( TARGET VRBindings PRE_BUILD
 COMMAND ${CMAKE_COMMAND} -E
 copy_directory ${CMAKE_SOURCE_DIR}/vrbindings ${CMAKE_BINARY_DIR}/vrbindings)
 
-add_custom_target( Theme ALL)
+add_custom_target( Theme )
 add_custom_command( TARGET Theme PRE_BUILD
 COMMAND ${CMAKE_COMMAND} -E
-copy ${CMAKE_SOURCE_DIR}/Adaptic.qss ${CMAKE_BINARY_DIR})
+copy ${CMAKE_SOURCE_DIR}/Combinear.qss ${CMAKE_BINARY_DIR})
+
+add_custom_target( OpenVRDLL ALL )
+add_custom_command( TARGET OpenVRDLL PRE_BUILD
+COMMAND ${CMAKE_COMMAND} -E
+copy ${OpenVR_INCLUDE_DIR}/../bin/win64/openvr_api.dll ${CMAKE_BINARY_DIR})
 
 install(TARGETS W6
     BUNDLE DESTINATION .
@@ -130,11 +135,12 @@ install(TARGETS W6
 )
 install( DIRECTORY vrbindings DESTINATION bin)
 install( FILES Combinear.qss DESTINATION bin)
-#qt_generate_deploy_app_script(
-#    TARGET W6
-#    OUTPUT_SCRIPT deploy_script
-#)
-#install(SCRIPT ${deploy_script})
+install( FILES ./build/openvr_api.dll DESTINATION bin)
+qt_generate_deploy_app_script(
+    TARGET W6
+    OUTPUT_SCRIPT deploy_script
+)
+install(SCRIPT ${deploy_script})
 install(FILES $<TARGET_RUNTIME_DLLS:W6> TYPE BIN)
 
 #install(TARGETS W6
