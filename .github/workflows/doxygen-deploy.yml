@@ -25,7 +25,7 @@ jobs:
       
     # Run Doxygen on 2023_GROUP_1 folder
     - name: Run Doxygen
-      working-directory: ${{github.workspace}}/2023_GROUP_1
+      working-directory: ${{github.workspace}}
       run: doxygen
       
     # Deploy html output from Doxygen to ghpages branches- name: Deploy
@@ -35,4 +35,4 @@ jobs:
         # The branch the action should deploy to.
         branch: gh-pages
         # The folder the action should deploy.
-        folder: ${{github.workspace}}/2023_GROUP_1/html
+        folder: ${{github.workspace}}/html
