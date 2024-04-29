@@ -8,58 +8,34 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRendererCollection.h>
 
-class vtkTimerCallback : public vtkCallbackCommand
-{
-  public:
-    vtkTimerCallback() = default;
+class RenderThreadCallback : public vtkCallbackCommand {
+public:
+  RenderThreadCallback() = default;
 
-    static vtkTimerCallback *New(RenderThread *thread)
-    {
-        vtkTimerCallback *cb = new vtkTimerCallback;
-        cb->renderThread = thread;
-        return cb;
-    }
+  /**
+   * Static function that is used by vtkSmartPointer to create new instance of
+   * RenderThreadCallback.
+   */
+  static RenderThreadCallback *New(RenderThread *thread) {
+    RenderThreadCallback *createdCallback = new RenderThreadCallback;
+    createdCallback->renderThread = thread;
+    // cb->lastExecuted = std::chrono::system_clock::now();
+    return createdCallback;
+  }
 
-    virtual void Execute(vtkObject *caller, unsigned long eventId, void *vtkNotUsed(callData))
-    {
-        if (vtkCommand::TimerEvent == eventId)
-        {
-            auto iren = dynamic_cast<vtkRenderWindowInteractor *>(caller);
+  /**
+   * RenderThread will execute this function everytime it is rendering a frame.
+   *
+   * Currently, it process commands stored inside RenderThread::queue.
+   */
+  virtual void Execute(vtkObject *caller, unsigned long eventId,
+                       void *vtkNotUsed(callData));
 
-            // This is where the logic for updating actors and thing should be
-            vtkActorCollection *actorList = iren->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
-            vtkActor *a;
-
-            /* X Rotation */
-            actorList->InitTraversal();
-            while ((a = (vtkActor *)actorList->GetNextActor()))
-            {
-                a->RotateX(renderThread->rotateX);
-            }
-
-            /* Y Rotation */
-            actorList->InitTraversal();
-            while ((a = (vtkActor *)actorList->GetNextActor()))
-            {
-                a->RotateY(renderThread->rotateY);
-            }
-
-            /* Z Rotation */
-            actorList->InitTraversal();
-            while ((a = (vtkActor *)actorList->GetNextActor()))
-            {
-                a->RotateZ(renderThread->rotateZ);
-            }
-
-            // Rerender the window whenever it's updated
-            if (renderThread->reRender) {
-                renderThread->window->Render();
-                renderThread->reRender = false;
-            }
-        }
-    }
-
-  private:
-    RenderThread *renderThread;
+private:
+  /**
+   * Pointer to RenderThread. Needed to access current instance of RenderThread
+   */
+  RenderThread *renderThread;
+  // std::chrono::system_clock::time_point lastExecuted;
 };
 #endif // CALLBACK_H_

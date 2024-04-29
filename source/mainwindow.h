@@ -15,13 +15,25 @@ class MainWindow;
 }
 QT_END_NAMESPACE
 
+/**
+ * Main window of the program
+ */
 class MainWindow : public QMainWindow {
   Q_OBJECT
 
 public slots:
   // A slot is a function handled in response to a signal from a widget
+
+  /**
+   * Slot for handling button pressed
+   */
   void handleButton();
   void handleButton_2();
+
+  /**
+   * Slot for handling clicking on treeview. It will change the UI state
+   * according to selected part.
+   */
   void handleTreeClicked();
   void on_actionItem_Options_triggered();
 

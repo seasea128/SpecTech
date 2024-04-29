@@ -21,7 +21,7 @@ void OptionDialog::SetValue() {
   int R = color.red();
   int G = color.green();
   int B = color.blue();
-  std::cout << R << " " << G << " " << B << std::endl;
+  qDebug() << R << " " << G << " " << B;
 
   part->setColour(R, G, B);
 

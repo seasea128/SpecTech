@@ -20,7 +20,6 @@ ModelPartList::ModelPartList(const QString &data, QObject *parent)
 
 ModelPartList::~ModelPartList() { delete rootItem; }
 
-
 int ModelPartList::columnCount(const QModelIndex &parent) const {
   Q_UNUSED(parent);
 
