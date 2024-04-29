@@ -65,6 +65,7 @@ set(PROJECT_SOURCES
     RenderThread/Commands/UpdateColourCommand.cpp
     RenderThread/Commands/UpdateVisibilityCommand.cpp
     RenderThread/Commands/RemoveActorCommand.cpp
+    RenderThread/Commands/AddActorCommand.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
