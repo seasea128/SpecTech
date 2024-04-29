@@ -5,7 +5,7 @@ project(W6 VERSION 0.1 LANGUAGES CXX)
 if(WIN32)
     include(InstallRequiredSystemLibraries)
     set(CMAKE_INSTALL_UCRT_LIBRARIES TRUE)
-	set(CPACK_GENERATOR "NSIS")
+    set(CPACK_GENERATOR "NSIS")
 else()
 	set(CPACK_GENERATOR "ZIP")
 endif()
@@ -92,7 +92,7 @@ else()
     endif()
 endif()
 
-target_link_libraries(  W6 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(W6 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 target_link_libraries(W6 PRIVATE Qt6::Widgets ${VTK_LIBRARIES})
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -113,15 +113,15 @@ include(GNUInstallDirs)
 
 #Copy across Open VR bindings that map controllers
 #The program will expect to find these in the build dir when it runs
-add_custom_target( VRBindings ALL)
+add_custom_target( VRBindings )
 add_custom_command( TARGET VRBindings PRE_BUILD
 COMMAND ${CMAKE_COMMAND} -E
 copy_directory ${CMAKE_SOURCE_DIR}/vrbindings ${CMAKE_BINARY_DIR}/vrbindings)
 
-add_custom_target( Theme ALL)
+add_custom_target( Theme )
 add_custom_command( TARGET Theme PRE_BUILD
 COMMAND ${CMAKE_COMMAND} -E
-copy ${CMAKE_SOURCE_DIR}/Adaptic.qss ${CMAKE_BINARY_DIR})
+copy ${CMAKE_SOURCE_DIR}/Combinear.qss ${CMAKE_BINARY_DIR})
 
 add_custom_target( OpenVRDLL ALL )
 add_custom_command( TARGET OpenVRDLL PRE_BUILD
