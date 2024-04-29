@@ -124,11 +124,6 @@ add_custom_command( TARGET Theme PRE_BUILD
 COMMAND ${CMAKE_COMMAND} -E
 copy ${CMAKE_SOURCE_DIR}/Combinear.qss ${CMAKE_BINARY_DIR})
 
-add_custom_target( OpenVRDLL )
-add_custom_command( TARGET OpenVRDLL PRE_BUILD
-COMMAND ${CMAKE_COMMAND} -E
-copy ${OpenVR_INCLUDE_DIR}/../bin/win64/openvr_api.dll ${CMAKE_BINARY_DIR})
-
 install(TARGETS W6
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -137,8 +132,7 @@ install(TARGETS W6
 install( DIRECTORY vrbindings DESTINATION bin)
 install( FILES Combinear.qss DESTINATION bin)
 if (WIN32)
-    install(TARGETS OpenVRDLL)
-    install( FILES ./build/openvr_api.dll DESTINATION bin)
+    install( FILES ${OpenVR_INCLUDE_DIR}/../bin/win64/openvr_api.dll DESTINATION bin)
 endif()
 qt_generate_deploy_app_script(
     TARGET W6
