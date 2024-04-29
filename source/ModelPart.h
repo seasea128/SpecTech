@@ -26,6 +26,7 @@
 #include <vtkMapper.h>
 #include <vtkSTLReader.h>
 #include <vtkSmartPointer.h>
+#include <vtkWeakPointer.h>
 
 class ModelPart {
 public:
@@ -133,7 +134,7 @@ public:
 
   vtkColor3<unsigned char> getColour() const;
 
-  vtkActor *getVRActor() const;
+  vtkWeakPointer<vtkActor> getVRActor() const;
 
 private:
   QList<ModelPart *> m_childItems; /**< List (array) of child items */
@@ -149,13 +150,13 @@ private:
   /* These are vtk properties that will be used to load/render a model of this
    * part, commented out for now but will be used later
    */
-  vtkSTLReader *file;                /**< Datafile from which part loaded */
-  vtkSmartPointer<vtkMapper> mapper; /**< Mapper for rendering */
-  vtkSmartPointer<vtkActor> actor;   /**< Actor for rendering */
-  vtkColor3<unsigned char> colour;   /**< User defineable colour */
+  vtkSmartPointer<vtkSTLReader> file; /**< Datafile from which part loaded */
+  vtkSmartPointer<vtkMapper> mapper;  /**< Mapper for rendering */
+  vtkSmartPointer<vtkActor> actor;    /**< Actor for rendering */
+  vtkColor3<unsigned char> colour;    /**< User defineable colour */
 
   vtkSmartPointer<vtkMapper> vrMapper;
-  vtkSmartPointer<vtkActor> vrActor;
+  vtkWeakPointer<vtkActor> vrActor;
 };
 
 #endif

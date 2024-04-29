@@ -16,6 +16,7 @@
 #include <vtkProperty.h>
 #include <vtkQuadricLODActor.h>
 #include <vtkSmartPointer.h>
+#include <vtkWeakPointerBase.h>
 
 ModelPart::ModelPart(const QList<QVariant> &data, ModelPart *parent)
     : m_itemData(data), m_parentItem(parent), file(nullptr) {
@@ -24,12 +25,7 @@ ModelPart::ModelPart(const QList<QVariant> &data, ModelPart *parent)
   setColour(255, 255, 255);
 }
 
-ModelPart::~ModelPart() {
-  qDeleteAll(m_childItems);
-  if (file != nullptr) {
-    file->Delete();
-  }
-}
+ModelPart::~ModelPart() { qDeleteAll(m_childItems); }
 
 void ModelPart::appendChild(ModelPart *item) {
   /* Add another model part as a child of this part
@@ -106,7 +102,7 @@ void ModelPart::setColour(const unsigned char R, const unsigned char G,
 
 vtkColor3<unsigned char> ModelPart::getColour() const { return colour; }
 
-vtkActor *ModelPart::getVRActor() const { return vrActor; }
+vtkWeakPointer<vtkActor> ModelPart::getVRActor() const { return vrActor; }
 
 void ModelPart::removeChild(ModelPart *child) {
   auto index = m_childItems.indexOf(child);
@@ -163,7 +159,7 @@ void ModelPart::loadSTL(QString fileName) {
   /* 1. Use the vtkSTLReader class to load the STL file
    *     https://vtk.org/doc/nightly/html/classvtkSTLReader.html
    */
-  file = vtkSTLReader::New(); /**< Datafile from which part
+  file = vtkSmartPointer<vtkSTLReader>::New(); /**< Datafile from which part
                                                   loaded */
   qDebug() << "File pointer: " << file;
   file->SetFileName(fileName.toLocal8Bit().data());
@@ -212,8 +208,8 @@ vtkSmartPointer<vtkActor> ModelPart::getNewActor() {
   qDebug() << "Created new mapper";
 
   /* 2. Create new actor and link to mapper */
-  vrActor = vtkSmartPointer<vtkQuadricLODActor>::New();
-  vrActor->SetMapper(vrMapper);
+  auto localVRActor = vtkSmartPointer<vtkQuadricLODActor>::New();
+  localVRActor->SetMapper(vrMapper);
 
   /* 3. Link the vtkProperties of the original actor to the new actor. This
    * means if you change properties of the original part (colour, position,
@@ -225,7 +221,9 @@ vtkSmartPointer<vtkActor> ModelPart::getNewActor() {
   // newActor->SetProperty(actor->GetProperty());
 
   // Copy actor's property to newActor
-  vrActor->GetProperty()->DeepCopy(actor->GetProperty());
+  localVRActor->GetProperty()->DeepCopy(actor->GetProperty());
 
-  return vrActor;
+  vrActor = localVRActor;
+
+  return localVRActor;
 }
