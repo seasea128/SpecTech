@@ -1,5 +1,7 @@
 #include "BaseCommand.h"
 
+using Commands::BaseCommand;
+
 BaseCommand::BaseCommand() {}
 
 BaseCommand::~BaseCommand() {}

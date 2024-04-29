@@ -5,6 +5,7 @@
 #include <vtkActor.h>
 #include <vtkColor.h>
 
+namespace Commands {
 class UpdateColourCommand : public BaseCommand {
 
 public:
@@ -18,7 +19,7 @@ public:
 
 private:
   vtkColor3<unsigned char> updateColour;
-  vtkActor *actorToUpdate;
+  vtkWeakPointer<vtkActor> actorToUpdate;
 };
-
+} // namespace Commands
 #endif // UPDATECOLOURCOMMAND_H_

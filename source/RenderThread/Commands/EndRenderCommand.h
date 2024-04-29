@@ -3,6 +3,8 @@
 
 #include "BaseCommand.h"
 
+namespace Commands {
+
 class EndRenderCommand : public BaseCommand {
   using BaseCommand::BaseCommand;
   using BaseCommand::operator=;
@@ -10,5 +12,5 @@ class EndRenderCommand : public BaseCommand {
 public:
   virtual void Execute(RenderThread &renderThread) override;
 };
-
+} // namespace Commands
 #endif // ENDRENDERCOMMAND_H_

@@ -2,6 +2,8 @@
 
 #include "../RenderThread.h"
 
+using Commands::UpdateColourCommand;
+
 // UpdateColourCommand::UpdateColourCommand(vtkActor *_actorToUpdate,
 //                                          vtkColor3<unsigned char>
 //                                          _updateColour)

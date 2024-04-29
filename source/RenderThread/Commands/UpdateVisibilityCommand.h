@@ -5,10 +5,11 @@
 #include "BaseCommand.h"
 #include <vtkActor.h>
 
+namespace Commands {
+
 class UpdateVisibilityCommand : public BaseCommand {
 
 public:
-  // UpdateVisibilityCommand(vtkActor *_actorToUpdate, bool _visible);
   UpdateVisibilityCommand(const ModelPart *part);
   UpdateVisibilityCommand(const UpdateVisibilityCommand &command);
   UpdateVisibilityCommand &operator=(const UpdateVisibilityCommand &command);
@@ -17,7 +18,7 @@ public:
 
 private:
   bool visible;
-  vtkActor *actorToUpdate;
+  vtkWeakPointer<vtkActor> actorToUpdate;
 };
-
+} // namespace Commands
 #endif // UPDATEOPACITYCOMMAND_H_

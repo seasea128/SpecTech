@@ -2,6 +2,8 @@
 #include "../RenderThread.h"
 #include <vtkProperty.h>
 
+using Commands::UpdateVisibilityCommand;
+
 // UpdateVisibilityCommand::UpdateVisibilityCommand(vtkActor *_actorToUpdate,
 //                                                  bool _visible)
 //     : actorToUpdate(_actorToUpdate), visible(_visible) {}
