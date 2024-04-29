@@ -1,33 +1,22 @@
 #include "Callback.h"
-#include "Commands/UpdateColourCommand.h"
 
 #include <memory>
 
 void RenderThreadCallback::Execute(vtkObject *caller, unsigned long eventId,
                                    void *vtkNotUsed(callData)) {
-  if (vtkCommand::TimerEvent == eventId) {
-
+  if (vtkCommand::RenderEvent == eventId) {
     renderThread->mutex.lock();
-    // if (!renderThread->queue.isEmpty()) {
-    //   std::shared_ptr<BaseCommand> command = renderThread->queue.dequeue();
-    //   command->Execute(*(this->renderThread));
-    // }
-
-    int counter = 0;
+    auto lastExecuted = std::chrono::system_clock::now();
     while (!renderThread->queue.isEmpty()) {
-      if (counter >= 10) {
+      auto currentTime = std::chrono::system_clock::now();
+      // Execute as much command as the CPU can until 15ms passed (Should be
+      // lower than this)
+      if (currentTime - lastExecuted > std::chrono::milliseconds(15)) {
         break;
       }
-      std::shared_ptr<BaseCommand> command = renderThread->queue.dequeue();
-      if (!renderThread->queue.isEmpty()) {
-        std::shared_ptr<BaseCommand> nextCommand = renderThread->queue.head();
-        if (command == nextCommand) {
-          counter++;
-          continue;
-        }
-      }
+      std::shared_ptr<Commands::BaseCommand> command =
+          renderThread->queue.dequeue();
       command->Execute(*renderThread);
-      counter++;
     }
     renderThread->mutex.unlock();
     renderThread->refreshRender();
@@ -60,14 +49,14 @@ void RenderThreadCallback::Execute(vtkObject *caller, unsigned long eventId,
     }
 
     // Rerender the window whenever it's updated
-    if (renderThread->reRender) {
-      renderThread->window->Render();
-      renderThread->reRender = false;
-    }
+    // if (renderThread->reRender) {
+    //  renderThread->window->Render();
+    //  renderThread->reRender = false;
+    //}
 
-    if (renderThread->endRender) {
-      iren->GetRenderWindow()->Finalize();
-      iren->TerminateApp();
-    }
+    // if (renderThread->endRender) {
+    //   iren->GetRenderWindow()->Finalize();
+    //   iren->TerminateApp();
+    // }
   }
 }
