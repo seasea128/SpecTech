@@ -14,7 +14,6 @@
 #include <vtkRendererCollection.h>
 #include <vtkSmartPointer.h>
 
-#include <type_traits>
 #include <vtkWeakPointer.h>
 
 using namespace Commands;
@@ -24,14 +23,9 @@ RenderThread::RenderThread(
     vtkSmartPointer<vtkRenderWindow> window,
     vtkSmartPointer<vtkRenderWindowInteractor> interactor,
     vtkSmartPointer<vtkCamera> camera)
-    : endRender(false) {
+    : rotateX(0.), rotateY(0.), rotateZ(0.) {
   /* Initialise actor list */
   actors = vtkActorCollection::New();
-
-  /* Initialise command variables */
-  rotateX = 0.;
-  rotateY = 0.;
-  rotateZ = 0.;
 
   callback = RenderThreadCallback::New(this);
 

@@ -112,21 +112,6 @@ protected:
   /** List of actors that will need to be added to the VR scene */
   vtkSmartPointer<vtkActorCollection> actors;
 
-  // TODO: Add a command FIFO queue to handle communication from main thread,
-  // then process it in callback.
-  // TODO: Might need another queue in main thread to notify if command is done.
-
-  /** This will be set to false by the constructor, if it is set to true
-   * by the GUI then the rendering will end
-   */
-  bool endRender; // Instead of setting this to true, might as well just stop
-                  // the thread by calling renderThread->exit()
-                  // Edit: This assumption doesn't work.
-
-  // Need this to signal when the thread's renderWindow need to rerender. -
-  // Chanon Yothavut
-  bool reRender;
-
   /* Some variables to indicate animation actions to apply.
    *
    */
