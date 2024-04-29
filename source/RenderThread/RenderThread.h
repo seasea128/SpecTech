@@ -84,6 +84,11 @@ public:
    */
   void removeActor(vtkWeakPointer<vtkActor> actorToRemove);
 
+  /**
+   * Add actor to collection.
+   */
+  void addActor(vtkSmartPointer<vtkActor> actorToAdd);
+
 protected:
   void run() override;
 
