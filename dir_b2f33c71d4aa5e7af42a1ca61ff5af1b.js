@@ -9,5 +9,6 @@ var dir_b2f33c71d4aa5e7af42a1ca61ff5af1b =
     [ "ModelPartList.h", "ModelPartList_8h.html", [
       [ "ModelPartList", "classModelPartList.html", "classModelPartList" ]
     ] ],
-    [ "optiondialog.h", "optiondialog_8h_source.html", null ]
+    [ "optiondialog.h", "optiondialog_8h_source.html", null ],
+    [ "resource.h", "resource_8h_source.html", null ]
 ];

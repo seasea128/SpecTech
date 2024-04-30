@@ -19,7 +19,11 @@ var classModelPart =
     [ "removeChild", "classModelPart.html#a52b26b7adbeabaadce95ddf9df608937", null ],
     [ "row", "classModelPart.html#a05bc0dd06a3658d9a2c46fa717dec910", null ],
     [ "set", "classModelPart.html#a3232893d070ddcec42631bf5b043add8", null ],
+    [ "setAnisotropy", "classModelPart.html#a68f93a991c55eb8d95fd8a3cdba8a810", null ],
+    [ "setAnisotropyRotation", "classModelPart.html#a92056f85b5d9a73447afca64b2c9fb32", null ],
     [ "setColour", "classModelPart.html#abbaaa19d7d24b9f1138072d594bd838c", null ],
+    [ "setMetallic", "classModelPart.html#ae3837c4875fdb7f72e89c4f00cbb4c56", null ],
+    [ "setRoughness", "classModelPart.html#aeaa3b65c0d838475a4a58e124d068c0d", null ],
     [ "setVisible", "classModelPart.html#a96c8cca32bd530bf28c6ab6a1ccc2353", null ],
     [ "visible", "classModelPart.html#aa37200ef9b7eed6b970fef1b08234f3a", null ]
 ];
