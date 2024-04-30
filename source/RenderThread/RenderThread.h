@@ -9,10 +9,13 @@
 #include <vtkActorCollection.h>
 #include <vtkCamera.h>
 #include <vtkColor.h>
+#include <vtkHDRReader.h>
 #include <vtkLODActor.h>
 #include <vtkMapperCollection.h>
+#include <vtkOpenGLRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
+#include <vtkSkybox.h>
 #include <vtkSmartPointer.h>
 
 #include <memory>
@@ -40,7 +43,8 @@ public:
   RenderThread(QObject *parent, vtkSmartPointer<vtkRenderer> renderer,
                vtkSmartPointer<vtkRenderWindow> window,
                vtkSmartPointer<vtkRenderWindowInteractor> interactor,
-               vtkSmartPointer<vtkCamera> camera);
+               vtkSmartPointer<vtkCamera> camera,
+               vtkSmartPointer<vtkHDRReader> reader);
 
   /**  Destructor
    */
@@ -104,6 +108,8 @@ protected:
   vtkSmartPointer<vtkRenderWindowInteractor> interactor;
   vtkSmartPointer<vtkRenderer> renderer;
   vtkSmartPointer<vtkCamera> camera;
+  vtkSmartPointer<vtkSkybox> skybox;
+  vtkSmartPointer<vtkHDRReader> reader;
 
   /** Use to synchronise passing of data to VR thread */
   QMutex mutex;

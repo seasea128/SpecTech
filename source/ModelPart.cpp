@@ -12,9 +12,9 @@
 /* Commented out for now, will be uncommented later when you have
  * installed the VTK library
  */
+#include <vtkActor.h>
 #include <vtkDataSetMapper.h>
 #include <vtkProperty.h>
-#include <vtkQuadricLODActor.h>
 #include <vtkSmartPointer.h>
 #include <vtkWeakPointerBase.h>
 
@@ -169,13 +169,20 @@ void ModelPart::loadSTL(QString fileName) {
   mapper =
       vtkSmartPointer<vtkDataSetMapper>::New(); /**< Mapper for rendering */
   mapper->SetInputConnection(file->GetOutputPort());
+
   /* 3. Initialise the part's vtkActor and link to the mapper */
-  actor = vtkSmartPointer<vtkQuadricLODActor>::New();
+
+  actor = vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
   setColour(colour.GetRed(), colour.GetGreen(), colour.GetBlue());
-  // actor->GetProperty()->EdgeVisibilityOn();
+  actor->GetProperty()->SetInterpolationToPBR();
+  actor->GetProperty()->SetRoughness(0.5);
+  actor->GetProperty()->SetMetallic(0.5);
 
-  // Improving lighting
+  double *ac = actor->GetOrigin();
+
+  actor->RotateX(-90);
+  actor->AddPosition(-ac[0] + 0, -ac[1] - 100, -ac[2] - 200);
 }
 
 vtkSmartPointer<vtkActor> ModelPart::getActor() {
@@ -208,7 +215,7 @@ vtkSmartPointer<vtkActor> ModelPart::getNewActor() {
   qDebug() << "Created new mapper";
 
   /* 2. Create new actor and link to mapper */
-  auto localVRActor = vtkSmartPointer<vtkQuadricLODActor>::New();
+  auto localVRActor = vtkSmartPointer<vtkActor>::New();
   localVRActor->SetMapper(vrMapper);
 
   /* 3. Link the vtkProperties of the original actor to the new actor. This
