@@ -274,7 +274,8 @@ void MainWindow::on_actionOpen_VR_triggered() {
     window = vtkRenderWindow::New();
     interactor = vtkRenderWindowInteractor::New();
   }
-  renderThread = new RenderThread(this, renderer, window, interactor, camera);
+  renderThread =
+      new RenderThread(this, renderer, window, interactor, camera, reader);
   ModelPart *root = this->partList->getRootItem();
   loadToRenderThread(root);
   renderThread->start();

@@ -216,7 +216,7 @@ vtkSmartPointer<vtkActor> ModelPart::getNewActor() {
   qDebug() << "Created new mapper";
 
   /* 2. Create new actor and link to mapper */
-  auto localVRActor = vtkSmartPointer<vtkQuadricLODActor>::New();
+  auto localVRActor = vtkSmartPointer<vtkActor>::New();
   localVRActor->SetMapper(vrMapper);
 
   /* 3. Link the vtkProperties of the original actor to the new actor. This

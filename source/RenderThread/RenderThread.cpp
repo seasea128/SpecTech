@@ -6,13 +6,16 @@
 #include <vtkCompositePolyDataMapper.h>
 #include <vtkFrustumCoverageCuller.h>
 #include <vtkGenericOpenGLRenderWindow.h>
+#include <vtkHDRReader.h>
 #include <vtkNamedColors.h>
+#include <vtkOpenGLRenderer.h>
 #include <vtkOpenVRRenderWindowInteractor.h>
 #include <vtkProperty.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRendererCollection.h>
 #include <vtkSmartPointer.h>
+#include <vtkTexture.h>
 
 #include <vtkWeakPointer.h>
 
@@ -22,7 +25,7 @@ RenderThread::RenderThread(
     QObject *parent, vtkSmartPointer<vtkRenderer> renderer,
     vtkSmartPointer<vtkRenderWindow> window,
     vtkSmartPointer<vtkRenderWindowInteractor> interactor,
-    vtkSmartPointer<vtkCamera> camera)
+    vtkSmartPointer<vtkCamera> camera, vtkSmartPointer<vtkHDRReader> reader)
     : rotateX(0.), rotateY(0.), rotateZ(0.) {
   /* Initialise actor list */
   actors = vtkActorCollection::New();
@@ -33,6 +36,7 @@ RenderThread::RenderThread(
   this->window = window;
   this->interactor = interactor;
   this->camera = camera;
+  this->reader = reader;
 }
 
 RenderThread::~RenderThread() {
@@ -55,17 +59,28 @@ void RenderThread::run() {
    * thread.
    */
 
-  vtkNew<vtkNamedColors> colors;
+  vtkNew<vtkTexture> envTexture;
 
-  // Set the background color.
-  std::array<unsigned char, 4> bkg{{26, 51, 102, 255}};
-  colors->SetColor("BkgColor", bkg.data());
+  envTexture->SetInputConnection(reader->GetOutputPort());
+  envTexture->SetColorModeToDirectScalars();
+  envTexture->MipmapOn();
+  envTexture->InterpolateOn();
+  skybox = vtkSmartPointer<vtkSkybox>::New();
+  skybox->SetFloorRight(0, 0, 1);
+  skybox->SetProjection(vtkSkybox::Sphere);
+  skybox->SetTexture(envTexture);
+  skybox->GammaCorrectOn();
 
-  renderer->SetBackground(colors->GetColor3d("BkgColor").GetData());
+  vtkSmartPointer<vtkOpenGLRenderer> localRenderer =
+      vtkOpenGLRenderer::SafeDownCast(renderer);
+
+  // Set skybox and enable PBR and image based lightning
+  renderer->UseImageBasedLightingOn();
+  localRenderer->UseSphericalHarmonicsOn();
+  renderer->SetEnvironmentTexture(skybox->GetTexture(), false);
+  renderer->AddActor(skybox);
 
   /* Loop through list of actors provided and add to scene */
-  // vtkSmartPointer<vtkCompositePolyDataMapper> bigMapper =
-  // vtkCompositePolyDataMapper::New();
   vtkActor *a;
   actors->InitTraversal();
   while ((a = (vtkActor *)actors->GetNextActor())) {
@@ -85,9 +100,6 @@ void RenderThread::run() {
 
   interactor->SetDesiredUpdateRate(60);
   interactor->SetStillUpdateRate(60);
-
-  // interactor->AddObserver(vtkCommand::TimerEvent, callback);
-  // int timerId = interactor->CreateRepeatingTimer(20);
 
   if (dynamic_cast<vtkOpenVRRenderWindowInteractor *>(
           interactor.GetPointer()) == nullptr) {
