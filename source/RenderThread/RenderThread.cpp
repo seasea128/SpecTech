@@ -14,7 +14,6 @@
 #include <vtkRendererCollection.h>
 #include <vtkSmartPointer.h>
 
-#include <type_traits>
 #include <vtkWeakPointer.h>
 
 using namespace Commands;
@@ -24,14 +23,9 @@ RenderThread::RenderThread(
     vtkSmartPointer<vtkRenderWindow> window,
     vtkSmartPointer<vtkRenderWindowInteractor> interactor,
     vtkSmartPointer<vtkCamera> camera)
-    : endRender(false) {
+    : rotateX(0.), rotateY(0.), rotateZ(0.) {
   /* Initialise actor list */
   actors = vtkActorCollection::New();
-
-  /* Initialise command variables */
-  rotateX = 0.;
-  rotateY = 0.;
-  rotateZ = 0.;
 
   callback = RenderThreadCallback::New(this);
 
@@ -165,5 +159,19 @@ void RenderThread::removeActor(vtkWeakPointer<vtkActor> actorToRemove) {
     while ((a = (vtkActor *)actors->GetNextActor())) {
       renderer->AddActor(a);
     }
+  }
+}
+
+void RenderThread::addActor(vtkSmartPointer<vtkActor> actorToAdd) {
+  if (actorToAdd) {
+    double *ac = actorToAdd->GetOrigin();
+
+    /* I have found that these initial transforms will position the FS
+     * car model in a sensible position but you can experiment
+     */
+    actorToAdd->RotateX(-90);
+    actorToAdd->AddPosition(-ac[0] + 0, -ac[1] - 100, -ac[2] - 200);
+    actors->AddItem(actorToAdd);
+    renderer->AddActor(actorToAdd);
   }
 }

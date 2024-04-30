@@ -16,6 +16,7 @@
 #include <openvr.h>
 
 #include "./ui_mainwindow.h"
+#include "RenderThread/Commands/AddActorCommand.h"
 #include "RenderThread/Commands/EndRenderCommand.h"
 #include "RenderThread/Commands/RemoveActorCommand.h"
 #include "RenderThread/Commands/UpdateColourCommand.h"
@@ -236,6 +237,13 @@ void MainWindow::on_actionOpen_File_triggered() {
   } else {
     GetSelectedPart()->appendChild(part);
   }
+
+  if (renderThread != nullptr) {
+    qDebug() << "RenderThread detected, adding actor to RenderThread";
+    auto command = std::make_shared<AddActorCommand>(part->getNewActor());
+    renderThread->addCommand(command);
+  }
+
   updateRender();
 }
 
