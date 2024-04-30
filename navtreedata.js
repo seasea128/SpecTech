@@ -25,6 +25,16 @@
 var NAVTREE =
 [
   [ "Group 1", "index.html", [
+    [ "SpecTech", "index.html", [
+      [ "Features", "index.html#autotoc_md1", null ],
+      [ " ", "index.html#autotoc_md2", null ],
+      [ "Requirements", "index.html#autotoc_md3", null ],
+      [ "Install", "index.html#autotoc_md4", null ],
+      [ "Compile from source **CHANGE", "index.html#autotoc_md5", null ],
+      [ "Repo tree **CHANGE", "index.html#autotoc_md6", null ],
+      [ "Documentation", "index.html#autotoc_md7", null ],
+      [ "Testing and Continuous Integration **CHANGE", "index.html#autotoc_md8", null ]
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],

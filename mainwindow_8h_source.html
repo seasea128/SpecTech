@@ -157,29 +157,31 @@ $(document).ready(function(){initNavTree('mainwindow_8h_source.html',''); initRe
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="keywordtype">void</span> on_actiondelete_triggered();</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="keywordtype">void</span> loadToRenderThread(<a class="code" href="classModelPart.html">ModelPart</a> *part);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  QString splitFileName(<span class="keyword">const</span> QString &amp;fileName);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keywordtype">void</span> recursiveDirSearch(QFileInfoList dir, <a class="code" href="classModelPart.html">ModelPart</a> *root);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keywordtype">void</span> updateColour();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="keywordtype">void</span> on_actionstopbutton_triggered();</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keywordtype">void</span> loadToRenderThread(<a class="code" href="classModelPart.html">ModelPart</a> *part);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  QString splitFileName(<span class="keyword">const</span> QString &amp;fileName);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keywordtype">void</span> recursiveDirSearch(QFileInfoList dir, <a class="code" href="classModelPart.html">ModelPart</a> *root);</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keywordtype">void</span> ReRender();</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keywordtype">void</span> updateColour();</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  Ui::MainWindow *ui;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <a class="code" href="classModelPartList.html">ModelPartList</a> *partList;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  vtkSmartPointer&lt;vtkRenderer&gt; renderer;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  vtkSmartPointer&lt;vtkGenericOpenGLRenderWindow&gt; renderWindow;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <a class="code" href="classRenderThread.html">RenderThread</a> *renderThread;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;};</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// MAINWINDOW_H</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keywordtype">void</span> ReRender();</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  Ui::MainWindow *ui;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <a class="code" href="classModelPartList.html">ModelPartList</a> *partList;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  vtkSmartPointer&lt;vtkRenderer&gt; renderer;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  vtkSmartPointer&lt;vtkGenericOpenGLRenderWindow&gt; renderWindow;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <a class="code" href="classRenderThread.html">RenderThread</a> *renderThread;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;};</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// MAINWINDOW_H</span></div>
 <div class="ttc" id="aModelPartList_8h_html"><div class="ttname"><a href="ModelPartList_8h.html">ModelPartList.h</a></div></div>
 <div class="ttc" id="aModelPart_8h_html"><div class="ttname"><a href="ModelPart_8h.html">ModelPart.h</a></div></div>
 <div class="ttc" id="aclassMainWindow_html"><div class="ttname"><a href="classMainWindow.html">MainWindow</a></div><div class="ttdef"><b>Definition:</b> mainwindow.h:21</div></div>
-<div class="ttc" id="aclassMainWindow_html_a132f0e713c1a2e43662407ad9858f933"><div class="ttname"><a href="classMainWindow.html#a132f0e713c1a2e43662407ad9858f933">MainWindow::handleButton</a></div><div class="ttdeci">void handleButton()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:150</div></div>
-<div class="ttc" id="aclassMainWindow_html_a143bb60757a3e3f88e208eedb2af7539"><div class="ttname"><a href="classMainWindow.html#a143bb60757a3e3f88e208eedb2af7539">MainWindow::handleTreeClicked</a></div><div class="ttdeci">void handleTreeClicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:184</div></div>
+<div class="ttc" id="aclassMainWindow_html_a132f0e713c1a2e43662407ad9858f933"><div class="ttname"><a href="classMainWindow.html#a132f0e713c1a2e43662407ad9858f933">MainWindow::handleButton</a></div><div class="ttdeci">void handleButton()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:151</div></div>
+<div class="ttc" id="aclassMainWindow_html_a143bb60757a3e3f88e208eedb2af7539"><div class="ttname"><a href="classMainWindow.html#a143bb60757a3e3f88e208eedb2af7539">MainWindow::handleTreeClicked</a></div><div class="ttdeci">void handleTreeClicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:185</div></div>
 <div class="ttc" id="aclassModelPartList_html"><div class="ttname"><a href="classModelPartList.html">ModelPartList</a></div><div class="ttdef"><b>Definition:</b> ModelPartList.h:23</div></div>
 <div class="ttc" id="aclassModelPart_html"><div class="ttname"><a href="classModelPart.html">ModelPart</a></div><div class="ttdef"><b>Definition:</b> ModelPart.h:31</div></div>
 <div class="ttc" id="aclassRenderThread_html"><div class="ttname"><a href="classRenderThread.html">RenderThread</a></div><div class="ttdef"><b>Definition:</b> RenderThread.h:30</div></div>
