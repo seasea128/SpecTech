@@ -203,6 +203,7 @@ QTreeView::item:selected:!active {
      <string>VR</string>
     </property>
     <addaction name="actionOpen_VR"/>
+    <addaction name="actionstopbutton"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuVR"/>
@@ -225,7 +226,7 @@ QTreeView::item:selected:!active {
   </widget>
   <action name="actionOpen_File">
    <property name="icon">
-    <iconset>
+    <iconset resource="Icons.qrc">
      <normaloff>:/Icons/icons/fileopen.png</normaloff>
      <activeon>:/Icons/icons/fileopen.png</activeon>:/Icons/icons/fileopen.png</iconset>
    </property>
@@ -249,7 +250,7 @@ QTreeView::item:selected:!active {
   </action>
   <action name="actionOpen_VR">
    <property name="icon">
-    <iconset>
+    <iconset resource="Icons.qrc">
      <normaloff>:/Icons/icons/startVR.png</normaloff>:/Icons/icons/startVR.png</iconset>
    </property>
    <property name="text">
@@ -261,7 +262,7 @@ QTreeView::item:selected:!active {
   </action>
   <action name="actionOpenDir">
    <property name="icon">
-    <iconset>
+    <iconset resource="Icons.qrc">
      <normaloff>:/Icons/icons/Directory.png</normaloff>:/Icons/icons/Directory.png</iconset>
    </property>
    <property name="text">
@@ -284,8 +285,8 @@ QTreeView::item:selected:!active {
   </action>
   <action name="actionstopbutton">
    <property name="icon">
-    <iconset>
-     <normaloff>../../2023_20465699/Icons/stopVR.png</normaloff>../../2023_20465699/Icons/stopVR.png</iconset>
+    <iconset resource="Icons.qrc">
+     <normaloff>:/Icons/icons/stopVR.png</normaloff>:/Icons/icons/stopVR.png</iconset>
    </property>
    <property name="text">
     <string>Stop VR</string>
@@ -303,6 +304,8 @@ QTreeView::item:selected:!active {
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="Icons.qrc"/>
+ </resources>
  <connections/>
 </ui>
