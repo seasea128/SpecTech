@@ -7,7 +7,9 @@
 
 #include <QMainWindow>
 #include <vtkGenericOpenGLRenderWindow.h>
-#include <vtkRenderer.h>
+#include <vtkHDRReader.h>
+#include <vtkOpenGLRenderer.h>
+#include <vtkSkybox.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -63,6 +65,8 @@ private slots:
 
   void on_actiondelete_triggered();
 
+  void on_actionstopbutton_triggered();
+
 private:
   void loadToRenderThread(ModelPart *part);
   QString splitFileName(const QString &fileName);
@@ -72,10 +76,14 @@ private:
 
   void ReRender();
 
+  void loadPBR(std::string const &hdr_fileName);
+
 private:
   Ui::MainWindow *ui;
   ModelPartList *partList;
-  vtkSmartPointer<vtkRenderer> renderer;
+  vtkSmartPointer<vtkSkybox> skybox;
+  vtkSmartPointer<vtkHDRReader> reader;
+  vtkSmartPointer<vtkOpenGLRenderer> renderer;
   vtkSmartPointer<vtkGenericOpenGLRenderWindow> renderWindow;
   RenderThread *renderThread;
 };

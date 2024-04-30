@@ -2,6 +2,7 @@
 #include <vtkCamera.h>
 #include <vtkCylinderSource.h>
 #include <vtkFrustumCoverageCuller.h>
+#include <vtkHDRReader.h>
 #include <vtkLight.h>
 #include <vtkLightActor.h>
 #include <vtkNamedColors.h>
@@ -11,7 +12,10 @@
 #include <vtkOpenVRRenderer.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
+#include <vtkRenderer.h>
+#include <vtkSkybox.h>
 #include <vtkSphereSource.h>
+#include <vtkTexture.h>
 
 #include <openvr.h>
 
@@ -69,37 +73,10 @@ MainWindow::MainWindow(QWidget *parent)
   ui->vtkWidget->setRenderWindow(renderWindow);
 
   /* Add a renderer */
-  renderer = vtkSmartPointer<vtkRenderer>::New();
+  renderer = vtkSmartPointer<vtkOpenGLRenderer>::New();
   renderWindow->AddRenderer(renderer);
 
-  vtkNew<vtkNamedColors> colors;
-
-  double lightPosition[3] = {0, 0, 1};
-
-  // Create a light
-  double lightFocalPoint[3] = {0, 0, 0};
-
-  vtkNew<vtkLight> light;
-  light->SetLightTypeToSceneLight();
-  light->SetPosition(lightPosition[0], lightPosition[1], lightPosition[2]);
-  light->SetPositional(true); // required for vtkLightActor below
-  light->SetConeAngle(10);
-  light->SetFocalPoint(lightFocalPoint[0], lightFocalPoint[1],
-                       lightFocalPoint[2]);
-  light->SetDiffuseColor(colors->GetColor3d("Red").GetData());
-  light->SetAmbientColor(colors->GetColor3d("Green").GetData());
-  light->SetSpecularColor(colors->GetColor3d("Blue").GetData());
-
-  // Display where the light is
-  // vtkNew<vtkLightActor> lightActor;
-  // lightActor->SetLight(light);
-  // renderer->AddViewProp(lightActor);
-
-  // Display where the light is focused
-  vtkNew<vtkSphereSource> lightFocalPointSphere;
-  lightFocalPointSphere->SetCenter(lightFocalPoint);
-  lightFocalPointSphere->SetRadius(0.1);
-  lightFocalPointSphere->Update();
+  loadPBR("./skybox/rural_asphalt_road_4k.hdr");
 
   // Create an object and add to renderer (this will change later to display a
   // CAD model) Will just copy and paste  cylinder example from before This
@@ -213,6 +190,10 @@ ModelPart *MainWindow::GetSelectedPart() {
 
 void MainWindow::updateRender() {
   renderer->RemoveAllViewProps();
+
+  // Add skybox back
+  renderer->AddActor(skybox);
+
   for (int i = 0; i < partList->rowCount(QModelIndex()); i++) {
     updateRenderFromTree(partList->index(i, 0, QModelIndex()));
   }
@@ -230,7 +211,8 @@ void MainWindow::on_actionOpen_File_triggered() {
     return;
   }
   QString visible("true");
-  auto part = new ModelPart({fileName, visible});
+  QString splitted = splitFileName(fileName);
+  auto part = new ModelPart({splitted, visible});
   part->loadSTL(fileName);
   if (GetSelectedPart() == nullptr) {
     partList->getRootItem()->appendChild(part);
@@ -292,7 +274,8 @@ void MainWindow::on_actionOpen_VR_triggered() {
     window = vtkRenderWindow::New();
     interactor = vtkRenderWindowInteractor::New();
   }
-  renderThread = new RenderThread(this, renderer, window, interactor, camera);
+  renderThread =
+      new RenderThread(this, renderer, window, interactor, camera, reader);
   ModelPart *root = this->partList->getRootItem();
   loadToRenderThread(root);
   renderThread->start();
@@ -409,4 +392,49 @@ void MainWindow::on_actiondelete_triggered() {
   }
   this->partList->removeItem(ind);
   updateRender();
+}
+
+// Quit OpenVR (if OpenVR is open)
+void MainWindow::on_actionstopbutton_triggered() {
+  if (renderThread != nullptr) {
+    std::shared_ptr<EndRenderCommand> endCommand =
+        std::make_shared<EndRenderCommand>();
+    renderThread->addCommand(endCommand);
+    if (!renderThread->wait(3000)) {
+      qDebug() << "Waited for 3 seconds, will terminate the render "
+                  "thread";
+      renderThread->terminate();
+      renderThread->wait();
+    }
+    renderThread = nullptr;
+  }
+}
+
+void MainWindow::loadPBR(std::string const &hdr_fileName) {
+  skybox = vtkSmartPointer<vtkSkybox>::New();
+  vtkNew<vtkTexture> envTexture;
+  reader = vtkSmartPointer<vtkHDRReader>::New();
+
+  // Assume the file is an HDR file.
+  if (reader->CanReadFile(hdr_fileName.c_str())) {
+    reader->SetFileName(hdr_fileName.c_str());
+    envTexture->SetInputConnection(reader->GetOutputPort());
+    envTexture->SetColorModeToDirectScalars();
+  } else {
+    qDebug() << "Cannot read file:" << hdr_fileName;
+  }
+
+  envTexture->MipmapOn();
+  envTexture->InterpolateOn();
+
+  skybox->SetFloorRight(0, 0, 1);
+  skybox->SetProjection(vtkSkybox::Sphere);
+  skybox->SetTexture(envTexture);
+  skybox->GammaCorrectOn();
+
+  // Adding lighting to renderer
+  renderer->UseImageBasedLightingOn();
+  renderer->UseSphericalHarmonicsOn();
+  renderer->SetEnvironmentTexture(envTexture, false);
+  renderer->AddActor(skybox);
 }
