@@ -184,7 +184,7 @@ QTreeView::item:selected:!active {
      <x>0</x>
      <y>0</y>
      <width>998</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -221,10 +221,11 @@ QTreeView::item:selected:!active {
    <addaction name="actionOpen_File"/>
    <addaction name="actionOpenDir"/>
    <addaction name="actionOpen_VR"/>
+   <addaction name="actionstopbutton"/>
   </widget>
   <action name="actionOpen_File">
    <property name="icon">
-    <iconset resource="Icons.qrc">
+    <iconset>
      <normaloff>:/Icons/icons/fileopen.png</normaloff>
      <activeon>:/Icons/icons/fileopen.png</activeon>:/Icons/icons/fileopen.png</iconset>
    </property>
@@ -248,7 +249,7 @@ QTreeView::item:selected:!active {
   </action>
   <action name="actionOpen_VR">
    <property name="icon">
-    <iconset resource="Icons.qrc">
+    <iconset>
      <normaloff>:/Icons/icons/startVR.png</normaloff>:/Icons/icons/startVR.png</iconset>
    </property>
    <property name="text">
@@ -260,7 +261,7 @@ QTreeView::item:selected:!active {
   </action>
   <action name="actionOpenDir">
    <property name="icon">
-    <iconset resource="Icons.qrc">
+    <iconset>
      <normaloff>:/Icons/icons/Directory.png</normaloff>:/Icons/icons/Directory.png</iconset>
    </property>
    <property name="text">
@@ -281,6 +282,18 @@ QTreeView::item:selected:!active {
     <enum>QAction::NoRole</enum>
    </property>
   </action>
+  <action name="actionstopbutton">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../2023_20465699/Icons/stopVR.png</normaloff>../../2023_20465699/Icons/stopVR.png</iconset>
+   </property>
+   <property name="text">
+    <string>Stop VR</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -290,8 +303,6 @@ QTreeView::item:selected:!active {
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="Icons.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

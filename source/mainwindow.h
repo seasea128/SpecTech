@@ -63,6 +63,8 @@ private slots:
 
   void on_actiondelete_triggered();
 
+  void on_actionstopbutton_triggered();
+
 private:
   void loadToRenderThread(ModelPart *part);
   QString splitFileName(const QString &fileName);
