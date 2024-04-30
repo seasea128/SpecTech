@@ -184,7 +184,7 @@ QTreeView::item:selected:!active {
      <x>0</x>
      <y>0</y>
      <width>998</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -203,6 +203,7 @@ QTreeView::item:selected:!active {
      <string>VR</string>
     </property>
     <addaction name="actionOpen_VR"/>
+    <addaction name="actionstopbutton"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuVR"/>
@@ -221,6 +222,7 @@ QTreeView::item:selected:!active {
    <addaction name="actionOpen_File"/>
    <addaction name="actionOpenDir"/>
    <addaction name="actionOpen_VR"/>
+   <addaction name="actionstopbutton"/>
   </widget>
   <action name="actionOpen_File">
    <property name="icon">
@@ -276,6 +278,18 @@ QTreeView::item:selected:!active {
    </property>
    <property name="toolTip">
     <string>Delete</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionstopbutton">
+   <property name="icon">
+    <iconset resource="Icons.qrc">
+     <normaloff>:/Icons/icons/stopVR.png</normaloff>:/Icons/icons/stopVR.png</iconset>
+   </property>
+   <property name="text">
+    <string>Stop VR</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>

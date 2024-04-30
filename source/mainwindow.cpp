@@ -61,6 +61,7 @@ MainWindow::MainWindow(QWidget *parent)
   ui->treeView->setModel(this->partList);
   ui->treeView->addAction(ui->actionItem_Options);
   ui->treeView->addAction(ui->actiondelete);
+  ui->treeView->addAction(ui->actionstopbutton);
   ModelPart *rootItem = this->partList->getRootItem();
 
   /* This needs adding to MainWindow constructor */
@@ -409,4 +410,20 @@ void MainWindow::on_actiondelete_triggered() {
   }
   this->partList->removeItem(ind);
   updateRender();
+}
+
+// Quit OpenVR (if OpenVR is open)
+void MainWindow::on_actionstopbutton_triggered() {
+  if (renderThread != nullptr) {
+    std::shared_ptr<EndRenderCommand> endCommand =
+        std::make_shared<EndRenderCommand>();
+    renderThread->addCommand(endCommand);
+    if (!renderThread->wait(3000)) {
+      qDebug() << "Waited for 3 seconds, will terminate the render "
+                  "thread";
+      renderThread->terminate();
+      renderThread->wait();
+    }
+    renderThread = nullptr;
+  }
 }
