@@ -17,20 +17,25 @@ SpecTec is a visualisation application that utilises Virtual Reality for observi
 * Move models freely about xyz axes.
 * Observe models in Virtual Reality - OpenVR.
 * **Light** and **dark** modes are available upon button click.
-
 &nbsp;
-
 ---
 
 
-## Requirements **CHANGE
 
-...
+## Requirements
+
+The following requirements only apply if compiling from source.
+
+* CMake: 3.5
+* Qt: 6.6.1
+* VTK: 9.3.0
+
+>[Installers](#Install) are available.
 
 
-## Install **CHANGE
+## Install
 
-...
+An `exe` installer is available for Windows.
 
 
 ## Compile from source **CHANGE
