@@ -104,6 +104,10 @@ public:
   unsigned char getColourR();
   unsigned char getColourG();
   unsigned char getColourB();
+  void setMetallic(const float M);
+  void setRoughness(const float R);
+  void setAnisotropy(const float A);
+  void setAnisotropyRotation(const float AR);
 
   void removeChild(ModelPart *child);
 
@@ -154,6 +158,10 @@ private:
   vtkSmartPointer<vtkMapper> mapper;  /**< Mapper for rendering */
   vtkSmartPointer<vtkActor> actor;    /**< Actor for rendering */
   vtkColor3<unsigned char> colour;    /**< User defineable colour */
+  float metallic;
+  float roughness;
+  float anisotropy;
+  float anisotropyrotation;
 
   vtkSmartPointer<vtkMapper> vrMapper;
   vtkWeakPointer<vtkActor> vrActor;

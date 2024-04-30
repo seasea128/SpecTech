@@ -38,3 +38,27 @@ void OptionDialog::on_ColourDialog_clicked() {
                                   "; border:none;");
   }
 }
+
+void OptionDialog::on_RoughnessSlider_sliderMoved(int position) {
+  float Roughness = position / 100;
+  qDebug() << "This is Roughness: " << Roughness;
+  part->setRoughness(Roughness);
+}
+
+void OptionDialog::on_MetallicSlider_sliderMoved(int position) {
+  float Metallic = position / 100;
+  qDebug() << "This is Metallic: " << Metallic;
+  part->setMetallic(Metallic);
+}
+
+void OptionDialog::on_AnisotropySlider_sliderMoved(int position) {
+  float Anisotropy = position / 100;
+  qDebug() << "This is Anisotrophy: " << Anisotropy;
+  part->setAnisotropy(Anisotropy);
+}
+
+void OptionDialog::on_AnisotropyRotation_sliderMoved(int position) {
+  float AnisotropyRotation = position / 100;
+  qDebug() << "This is AnisotropyRotation: " << AnisotropyRotation;
+  part->setAnisotropyRotation(AnisotropyRotation);
+}

@@ -25,6 +25,14 @@ private slots:
 
   void on_ColourDialog_clicked();
 
+  void on_RoughnessSlider_sliderMoved(int position);
+
+  void on_MetallicSlider_sliderMoved(int position);
+
+  void on_AnisotropySlider_sliderMoved(int position);
+
+  void on_AnisotropyRotation_sliderMoved(int position);
+
 private:
   Ui::OptionDialog *ui;
   ModelPart *part;
