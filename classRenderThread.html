@@ -131,8 +131,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1763b5e349ce38e4a7ef3c3ee6f54bec"><td class="memItemLeft" align="right" valign="top"><a id="a1763b5e349ce38e4a7ef3c3ee6f54bec"></a>
 <a class="el" href="classRenderThread.html">RenderThread</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classRenderThread.html">RenderThread</a> &amp;&amp;)=delete</td></tr>
 <tr class="separator:a1763b5e349ce38e4a7ef3c3ee6f54bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3bf013dc7dc2d66b397b07a652e5814"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderThread.html#ad3bf013dc7dc2d66b397b07a652e5814">RenderThread</a> (QObject *parent, vtkSmartPointer&lt; vtkRenderer &gt; renderer, vtkSmartPointer&lt; vtkRenderWindow &gt; window, vtkSmartPointer&lt; vtkRenderWindowInteractor &gt; interactor, vtkSmartPointer&lt; vtkCamera &gt; camera)</td></tr>
-<tr class="separator:ad3bf013dc7dc2d66b397b07a652e5814"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6d0d2a0985e4b047b85fa751c72a1d9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderThread.html#af6d0d2a0985e4b047b85fa751c72a1d9">RenderThread</a> (QObject *parent, vtkSmartPointer&lt; vtkRenderer &gt; renderer, vtkSmartPointer&lt; vtkRenderWindow &gt; window, vtkSmartPointer&lt; vtkRenderWindowInteractor &gt; interactor, vtkSmartPointer&lt; vtkCamera &gt; camera, vtkSmartPointer&lt; vtkHDRReader &gt; reader)</td></tr>
+<tr class="separator:af6d0d2a0985e4b047b85fa751c72a1d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9a968ad63349a9eb1109d615406afd4"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderThread.html#ac9a968ad63349a9eb1109d615406afd4">~RenderThread</a> ()</td></tr>
 <tr class="separator:ac9a968ad63349a9eb1109d615406afd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a415cb0219c96182c56787a9c7040aca5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderThread.html#a415cb0219c96182c56787a9c7040aca5">addActorOffline</a> (vtkSmartPointer&lt; vtkActor &gt; actor)</td></tr>
@@ -174,6 +174,12 @@ vtkSmartPointer&lt; vtkRenderer &gt;&#160;</td><td class="memItemRight" valign="
 <tr class="memitem:a9f216f02ecc138f3c867cdff94c52df9"><td class="memItemLeft" align="right" valign="top"><a id="a9f216f02ecc138f3c867cdff94c52df9"></a>
 vtkSmartPointer&lt; vtkCamera &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>camera</b></td></tr>
 <tr class="separator:a9f216f02ecc138f3c867cdff94c52df9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeacb3bc75c3dd5707b9063ab6ad1e005"><td class="memItemLeft" align="right" valign="top"><a id="aeacb3bc75c3dd5707b9063ab6ad1e005"></a>
+vtkSmartPointer&lt; vtkSkybox &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>skybox</b></td></tr>
+<tr class="separator:aeacb3bc75c3dd5707b9063ab6ad1e005"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab64315c2591888cd666f1175e5789b5"><td class="memItemLeft" align="right" valign="top"><a id="aab64315c2591888cd666f1175e5789b5"></a>
+vtkSmartPointer&lt; vtkHDRReader &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>reader</b></td></tr>
+<tr class="separator:aab64315c2591888cd666f1175e5789b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a456a71420ffd0b9de3d5359f39c460fe"><td class="memItemLeft" align="right" valign="top">QMutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderThread.html#a456a71420ffd0b9de3d5359f39c460fe">mutex</a></td></tr>
 <tr class="separator:a456a71420ffd0b9de3d5359f39c460fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42e9185ce4717c52bbf321aef2c1f873"><td class="memItemLeft" align="right" valign="top"><a id="a42e9185ce4717c52bbf321aef2c1f873"></a>
@@ -202,8 +208,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RenderThreadCallback
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implementation of renderer agnostic thread where both normal rendering component or OpenVR rendering component can be used. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad3bf013dc7dc2d66b397b07a652e5814"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3bf013dc7dc2d66b397b07a652e5814">&#9670;&nbsp;</a></span>RenderThread()</h2>
+<a id="af6d0d2a0985e4b047b85fa751c72a1d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6d0d2a0985e4b047b85fa751c72a1d9">&#9670;&nbsp;</a></span>RenderThread()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -236,7 +242,13 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RenderThreadCallback
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">vtkSmartPointer&lt; vtkCamera &gt;&#160;</td>
-          <td class="paramname"><em>camera</em>&#160;</td>
+          <td class="paramname"><em>camera</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vtkSmartPointer&lt; vtkHDRReader &gt;&#160;</td>
+          <td class="paramname"><em>reader</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

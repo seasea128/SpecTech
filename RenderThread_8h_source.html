@@ -113,99 +113,105 @@ $(document).ready(function(){initNavTree('RenderThread_8h_source.html',''); init
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;vtkActorCollection.h&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;vtkCamera.h&gt;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;vtkColor.h&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;vtkLODActor.h&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;vtkMapperCollection.h&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;vtkRenderWindow.h&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;vtkRenderWindowInteractor.h&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;vtkSmartPointer.h&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;Commands/BaseCommand.h&quot;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">// RenderThreadCallback need to be forward declared since it has circular</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">// dependency with RenderThread.</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">class </span><a class="code" href="classRenderThreadCallback.html">RenderThreadCallback</a>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classRenderThread.html">   30</a></span>&#160;<span class="keyword">class </span><a class="code" href="classRenderThread.html">RenderThread</a> : <span class="keyword">public</span> QThread {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  Q_OBJECT</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <a class="code" href="classRenderThread.html">RenderThread</a>(<span class="keyword">const</span> <a class="code" href="classRenderThread.html">RenderThread</a> &amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <a class="code" href="classRenderThread.html">RenderThread</a>(<a class="code" href="classRenderThread.html">RenderThread</a> &amp;&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <a class="code" href="classRenderThread.html">RenderThread</a> &amp;operator=(<span class="keyword">const</span> <a class="code" href="classRenderThread.html">RenderThread</a> &amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <a class="code" href="classRenderThread.html">RenderThread</a> &amp;operator=(<a class="code" href="classRenderThread.html">RenderThread</a> &amp;&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <a class="code" href="classRenderThread.html">RenderThread</a>(QObject *parent, vtkSmartPointer&lt;vtkRenderer&gt; renderer,</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;               vtkSmartPointer&lt;vtkRenderWindow&gt; window,</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;               vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; interactor,</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;               vtkSmartPointer&lt;vtkCamera&gt; camera);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keyword">virtual</span> <a class="code" href="classRenderThread.html#ac9a968ad63349a9eb1109d615406afd4">~RenderThread</a>();</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;vtkHDRReader.h&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;vtkLODActor.h&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;vtkMapperCollection.h&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;vtkOpenGLRenderer.h&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;vtkRenderWindow.h&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;vtkRenderWindowInteractor.h&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;vtkSkybox.h&gt;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;vtkSmartPointer.h&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &quot;Commands/BaseCommand.h&quot;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">// RenderThreadCallback need to be forward declared since it has circular</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">// dependency with RenderThread.</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">class </span><a class="code" href="classRenderThreadCallback.html">RenderThreadCallback</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classRenderThread.html">   33</a></span>&#160;<span class="keyword">class </span><a class="code" href="classRenderThread.html">RenderThread</a> : <span class="keyword">public</span> QThread {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  Q_OBJECT</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <a class="code" href="classRenderThread.html">RenderThread</a>(<span class="keyword">const</span> <a class="code" href="classRenderThread.html">RenderThread</a> &amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <a class="code" href="classRenderThread.html">RenderThread</a>(<a class="code" href="classRenderThread.html">RenderThread</a> &amp;&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <a class="code" href="classRenderThread.html">RenderThread</a> &amp;operator=(<span class="keyword">const</span> <a class="code" href="classRenderThread.html">RenderThread</a> &amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <a class="code" href="classRenderThread.html">RenderThread</a> &amp;operator=(<a class="code" href="classRenderThread.html">RenderThread</a> &amp;&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <a class="code" href="classRenderThread.html">RenderThread</a>(QObject *parent, vtkSmartPointer&lt;vtkRenderer&gt; renderer,</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;               vtkSmartPointer&lt;vtkRenderWindow&gt; window,</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;               vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; interactor,</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;               vtkSmartPointer&lt;vtkCamera&gt; camera,</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;               vtkSmartPointer&lt;vtkHDRReader&gt; reader);</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classRenderThread.html#a415cb0219c96182c56787a9c7040aca5">addActorOffline</a>(vtkSmartPointer&lt;vtkActor&gt; actor);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classRenderThread.html#aacb654ec3af3ecec2640a718def2a719">addCommand</a>(<span class="keyword">const</span> std::shared_ptr&lt;Commands::BaseCommand&gt; &amp;command);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classRenderThread.html#ac344000f8945d693a946f5bc9c060cbc">stopRender</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classRenderThread.html#a4abd97dfe42725b13e26d0c4afbec4ba">refreshRender</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classRenderThread.html#a59d0623b123e8e77bc68f454176487ae">updateColour</a>(vtkWeakPointer&lt;vtkActor&gt; actorToUpdate,</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                    vtkColor3&lt;unsigned char&gt; &amp;<a class="code" href="classRenderThread.html#a59d0623b123e8e77bc68f454176487ae">updateColour</a>);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classRenderThread.html#a586ab61f44dae1b6dbc98bd6471d159d">updateVisibility</a>(vtkWeakPointer&lt;vtkActor&gt; actorToUpdate, <span class="keywordtype">bool</span> visible);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classRenderThread.html#a33bdf31c0e2390957d47f3562ecb7cb3">removeActor</a>(vtkWeakPointer&lt;vtkActor&gt; actorToRemove);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classRenderThread.html#af4568df20c1aa28741017783c21f1295">addActor</a>(vtkSmartPointer&lt;vtkActor&gt; actorToAdd);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="keywordtype">void</span> run() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="classRenderThread.html#a9f8d38d2799944c1a0e58413a870e590">  100</a></span>&#160;  vtkSmartPointer&lt;RenderThreadCallback&gt; <a class="code" href="classRenderThread.html#a9f8d38d2799944c1a0e58413a870e590">callback</a>;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <span class="comment">// VTK rendering related things</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  vtkSmartPointer&lt;vtkRenderWindow&gt; window;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; interactor;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  vtkSmartPointer&lt;vtkRenderer&gt; renderer;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  vtkSmartPointer&lt;vtkCamera&gt; camera;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="classRenderThread.html#a456a71420ffd0b9de3d5359f39c460fe">  109</a></span>&#160;  QMutex <a class="code" href="classRenderThread.html#a456a71420ffd0b9de3d5359f39c460fe">mutex</a>;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  QWaitCondition condition;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="classRenderThread.html#ae34e25f39565c44ea6491dfa6467e3af">  115</a></span>&#160;  QQueue&lt;std::shared_ptr&lt;Commands::BaseCommand&gt;&gt; <a class="code" href="classRenderThread.html#ae34e25f39565c44ea6491dfa6467e3af">queue</a>;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="classRenderThread.html#aa8fc167b6e2674a31d1cc1c21db270f1">  118</a></span>&#160;  vtkSmartPointer&lt;vtkActorCollection&gt; <a class="code" href="classRenderThread.html#aa8fc167b6e2674a31d1cc1c21db270f1">actors</a>;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  <span class="comment">/* Some variables to indicate animation actions to apply.</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment">   *</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment">   */</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  <span class="keywordtype">double</span> rotateX; <span class="comment">/*&lt; Degrees to rotate around X axis (per time-step) */</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  <span class="keywordtype">double</span> rotateY; <span class="comment">/*&lt; Degrees to rotate around Y axis (per time-step) */</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  <span class="keywordtype">double</span> rotateZ; <span class="comment">/*&lt; Degrees to rotate around Z axis (per time-step) */</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  <span class="comment">// RenderThreadCallback being a friend of RenderThread will make the code much</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;  <span class="comment">// more simpler, since there isn&#39;t a need for getter/setter for protected</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  <span class="comment">// member variable.</span></div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classRenderThreadCallback.html">RenderThreadCallback</a>;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;};</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keyword">virtual</span> <a class="code" href="classRenderThread.html#ac9a968ad63349a9eb1109d615406afd4">~RenderThread</a>();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classRenderThread.html#a415cb0219c96182c56787a9c7040aca5">addActorOffline</a>(vtkSmartPointer&lt;vtkActor&gt; actor);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classRenderThread.html#aacb654ec3af3ecec2640a718def2a719">addCommand</a>(<span class="keyword">const</span> std::shared_ptr&lt;Commands::BaseCommand&gt; &amp;command);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classRenderThread.html#ac344000f8945d693a946f5bc9c060cbc">stopRender</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classRenderThread.html#a4abd97dfe42725b13e26d0c4afbec4ba">refreshRender</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classRenderThread.html#a59d0623b123e8e77bc68f454176487ae">updateColour</a>(vtkWeakPointer&lt;vtkActor&gt; actorToUpdate,</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                    vtkColor3&lt;unsigned char&gt; &amp;<a class="code" href="classRenderThread.html#a59d0623b123e8e77bc68f454176487ae">updateColour</a>);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classRenderThread.html#a586ab61f44dae1b6dbc98bd6471d159d">updateVisibility</a>(vtkWeakPointer&lt;vtkActor&gt; actorToUpdate, <span class="keywordtype">bool</span> visible);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classRenderThread.html#a33bdf31c0e2390957d47f3562ecb7cb3">removeActor</a>(vtkWeakPointer&lt;vtkActor&gt; actorToRemove);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classRenderThread.html#af4568df20c1aa28741017783c21f1295">addActor</a>(vtkSmartPointer&lt;vtkActor&gt; actorToAdd);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <span class="keywordtype">void</span> run() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="classRenderThread.html#a9f8d38d2799944c1a0e58413a870e590">  104</a></span>&#160;  vtkSmartPointer&lt;RenderThreadCallback&gt; <a class="code" href="classRenderThread.html#a9f8d38d2799944c1a0e58413a870e590">callback</a>;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  <span class="comment">// VTK rendering related things</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  vtkSmartPointer&lt;vtkRenderWindow&gt; window;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  vtkSmartPointer&lt;vtkRenderWindowInteractor&gt; interactor;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  vtkSmartPointer&lt;vtkRenderer&gt; renderer;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  vtkSmartPointer&lt;vtkCamera&gt; camera;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  vtkSmartPointer&lt;vtkSkybox&gt; skybox;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  vtkSmartPointer&lt;vtkHDRReader&gt; reader;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="classRenderThread.html#a456a71420ffd0b9de3d5359f39c460fe">  115</a></span>&#160;  QMutex <a class="code" href="classRenderThread.html#a456a71420ffd0b9de3d5359f39c460fe">mutex</a>;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;  QWaitCondition condition;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="classRenderThread.html#ae34e25f39565c44ea6491dfa6467e3af">  121</a></span>&#160;  QQueue&lt;std::shared_ptr&lt;Commands::BaseCommand&gt;&gt; <a class="code" href="classRenderThread.html#ae34e25f39565c44ea6491dfa6467e3af">queue</a>;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="classRenderThread.html#aa8fc167b6e2674a31d1cc1c21db270f1">  124</a></span>&#160;  vtkSmartPointer&lt;vtkActorCollection&gt; <a class="code" href="classRenderThread.html#aa8fc167b6e2674a31d1cc1c21db270f1">actors</a>;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;  <span class="comment">/* Some variables to indicate animation actions to apply.</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="comment">   *</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  <span class="keywordtype">double</span> rotateX; <span class="comment">/*&lt; Degrees to rotate around X axis (per time-step) */</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  <span class="keywordtype">double</span> rotateY; <span class="comment">/*&lt; Degrees to rotate around Y axis (per time-step) */</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  <span class="keywordtype">double</span> rotateZ; <span class="comment">/*&lt; Degrees to rotate around Z axis (per time-step) */</span></div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// RENDERTHREAD_H_</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;  <span class="comment">// RenderThreadCallback being a friend of RenderThread will make the code much</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  <span class="comment">// more simpler, since there isn&#39;t a need for getter/setter for protected</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  <span class="comment">// member variable.</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classRenderThreadCallback.html">RenderThreadCallback</a>;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;};</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// RENDERTHREAD_H_</span></div>
 <div class="ttc" id="aclassRenderThreadCallback_html"><div class="ttname"><a href="classRenderThreadCallback.html">RenderThreadCallback</a></div><div class="ttdef"><b>Definition:</b> Callback.h:11</div></div>
-<div class="ttc" id="aclassRenderThread_html"><div class="ttname"><a href="classRenderThread.html">RenderThread</a></div><div class="ttdef"><b>Definition:</b> RenderThread.h:30</div></div>
-<div class="ttc" id="aclassRenderThread_html_a33bdf31c0e2390957d47f3562ecb7cb3"><div class="ttname"><a href="classRenderThread.html#a33bdf31c0e2390957d47f3562ecb7cb3">RenderThread::removeActor</a></div><div class="ttdeci">void removeActor(vtkWeakPointer&lt; vtkActor &gt; actorToRemove)</div><div class="ttdef"><b>Definition:</b> RenderThread.cpp:152</div></div>
-<div class="ttc" id="aclassRenderThread_html_a415cb0219c96182c56787a9c7040aca5"><div class="ttname"><a href="classRenderThread.html#a415cb0219c96182c56787a9c7040aca5">RenderThread::addActorOffline</a></div><div class="ttdeci">virtual void addActorOffline(vtkSmartPointer&lt; vtkActor &gt; actor)</div><div class="ttdef"><b>Definition:</b> RenderThread.cpp:114</div></div>
-<div class="ttc" id="aclassRenderThread_html_a456a71420ffd0b9de3d5359f39c460fe"><div class="ttname"><a href="classRenderThread.html#a456a71420ffd0b9de3d5359f39c460fe">RenderThread::mutex</a></div><div class="ttdeci">QMutex mutex</div><div class="ttdef"><b>Definition:</b> RenderThread.h:109</div></div>
-<div class="ttc" id="aclassRenderThread_html_a4abd97dfe42725b13e26d0c4afbec4ba"><div class="ttname"><a href="classRenderThread.html#a4abd97dfe42725b13e26d0c4afbec4ba">RenderThread::refreshRender</a></div><div class="ttdeci">void refreshRender() const</div><div class="ttdef"><b>Definition:</b> RenderThread.cpp:133</div></div>
-<div class="ttc" id="aclassRenderThread_html_a586ab61f44dae1b6dbc98bd6471d159d"><div class="ttname"><a href="classRenderThread.html#a586ab61f44dae1b6dbc98bd6471d159d">RenderThread::updateVisibility</a></div><div class="ttdeci">void updateVisibility(vtkWeakPointer&lt; vtkActor &gt; actorToUpdate, bool visible)</div><div class="ttdef"><b>Definition:</b> RenderThread.cpp:145</div></div>
-<div class="ttc" id="aclassRenderThread_html_a59d0623b123e8e77bc68f454176487ae"><div class="ttname"><a href="classRenderThread.html#a59d0623b123e8e77bc68f454176487ae">RenderThread::updateColour</a></div><div class="ttdeci">void updateColour(vtkWeakPointer&lt; vtkActor &gt; actorToUpdate, vtkColor3&lt; unsigned char &gt; &amp;updateColour)</div><div class="ttdef"><b>Definition:</b> RenderThread.cpp:135</div></div>
-<div class="ttc" id="aclassRenderThread_html_a9f8d38d2799944c1a0e58413a870e590"><div class="ttname"><a href="classRenderThread.html#a9f8d38d2799944c1a0e58413a870e590">RenderThread::callback</a></div><div class="ttdeci">vtkSmartPointer&lt; RenderThreadCallback &gt; callback</div><div class="ttdef"><b>Definition:</b> RenderThread.h:100</div></div>
-<div class="ttc" id="aclassRenderThread_html_aa8fc167b6e2674a31d1cc1c21db270f1"><div class="ttname"><a href="classRenderThread.html#aa8fc167b6e2674a31d1cc1c21db270f1">RenderThread::actors</a></div><div class="ttdeci">vtkSmartPointer&lt; vtkActorCollection &gt; actors</div><div class="ttdef"><b>Definition:</b> RenderThread.h:118</div></div>
-<div class="ttc" id="aclassRenderThread_html_aacb654ec3af3ecec2640a718def2a719"><div class="ttname"><a href="classRenderThread.html#aacb654ec3af3ecec2640a718def2a719">RenderThread::addCommand</a></div><div class="ttdeci">void addCommand(const std::shared_ptr&lt; Commands::BaseCommand &gt; &amp;command)</div><div class="ttdef"><b>Definition:</b> RenderThread.cpp:104</div></div>
-<div class="ttc" id="aclassRenderThread_html_ac344000f8945d693a946f5bc9c060cbc"><div class="ttname"><a href="classRenderThread.html#ac344000f8945d693a946f5bc9c060cbc">RenderThread::stopRender</a></div><div class="ttdeci">void stopRender() const</div><div class="ttdef"><b>Definition:</b> RenderThread.cpp:128</div></div>
-<div class="ttc" id="aclassRenderThread_html_ac9a968ad63349a9eb1109d615406afd4"><div class="ttname"><a href="classRenderThread.html#ac9a968ad63349a9eb1109d615406afd4">RenderThread::~RenderThread</a></div><div class="ttdeci">virtual ~RenderThread()</div><div class="ttdef"><b>Definition:</b> RenderThread.cpp:38</div></div>
-<div class="ttc" id="aclassRenderThread_html_ae34e25f39565c44ea6491dfa6467e3af"><div class="ttname"><a href="classRenderThread.html#ae34e25f39565c44ea6491dfa6467e3af">RenderThread::queue</a></div><div class="ttdeci">QQueue&lt; std::shared_ptr&lt; Commands::BaseCommand &gt; &gt; queue</div><div class="ttdef"><b>Definition:</b> RenderThread.h:115</div></div>
-<div class="ttc" id="aclassRenderThread_html_af4568df20c1aa28741017783c21f1295"><div class="ttname"><a href="classRenderThread.html#af4568df20c1aa28741017783c21f1295">RenderThread::addActor</a></div><div class="ttdeci">void addActor(vtkSmartPointer&lt; vtkActor &gt; actorToAdd)</div><div class="ttdef"><b>Definition:</b> RenderThread.cpp:165</div></div>
+<div class="ttc" id="aclassRenderThread_html"><div class="ttname"><a href="classRenderThread.html">RenderThread</a></div><div class="ttdef"><b>Definition:</b> RenderThread.h:33</div></div>
+<div class="ttc" id="aclassRenderThread_html_a33bdf31c0e2390957d47f3562ecb7cb3"><div class="ttname"><a href="classRenderThread.html#a33bdf31c0e2390957d47f3562ecb7cb3">RenderThread::removeActor</a></div><div class="ttdeci">void removeActor(vtkWeakPointer&lt; vtkActor &gt; actorToRemove)</div><div class="ttdef"><b>Definition:</b> RenderThread.cpp:164</div></div>
+<div class="ttc" id="aclassRenderThread_html_a415cb0219c96182c56787a9c7040aca5"><div class="ttname"><a href="classRenderThread.html#a415cb0219c96182c56787a9c7040aca5">RenderThread::addActorOffline</a></div><div class="ttdeci">virtual void addActorOffline(vtkSmartPointer&lt; vtkActor &gt; actor)</div><div class="ttdef"><b>Definition:</b> RenderThread.cpp:126</div></div>
+<div class="ttc" id="aclassRenderThread_html_a456a71420ffd0b9de3d5359f39c460fe"><div class="ttname"><a href="classRenderThread.html#a456a71420ffd0b9de3d5359f39c460fe">RenderThread::mutex</a></div><div class="ttdeci">QMutex mutex</div><div class="ttdef"><b>Definition:</b> RenderThread.h:115</div></div>
+<div class="ttc" id="aclassRenderThread_html_a4abd97dfe42725b13e26d0c4afbec4ba"><div class="ttname"><a href="classRenderThread.html#a4abd97dfe42725b13e26d0c4afbec4ba">RenderThread::refreshRender</a></div><div class="ttdeci">void refreshRender() const</div><div class="ttdef"><b>Definition:</b> RenderThread.cpp:145</div></div>
+<div class="ttc" id="aclassRenderThread_html_a586ab61f44dae1b6dbc98bd6471d159d"><div class="ttname"><a href="classRenderThread.html#a586ab61f44dae1b6dbc98bd6471d159d">RenderThread::updateVisibility</a></div><div class="ttdeci">void updateVisibility(vtkWeakPointer&lt; vtkActor &gt; actorToUpdate, bool visible)</div><div class="ttdef"><b>Definition:</b> RenderThread.cpp:157</div></div>
+<div class="ttc" id="aclassRenderThread_html_a59d0623b123e8e77bc68f454176487ae"><div class="ttname"><a href="classRenderThread.html#a59d0623b123e8e77bc68f454176487ae">RenderThread::updateColour</a></div><div class="ttdeci">void updateColour(vtkWeakPointer&lt; vtkActor &gt; actorToUpdate, vtkColor3&lt; unsigned char &gt; &amp;updateColour)</div><div class="ttdef"><b>Definition:</b> RenderThread.cpp:147</div></div>
+<div class="ttc" id="aclassRenderThread_html_a9f8d38d2799944c1a0e58413a870e590"><div class="ttname"><a href="classRenderThread.html#a9f8d38d2799944c1a0e58413a870e590">RenderThread::callback</a></div><div class="ttdeci">vtkSmartPointer&lt; RenderThreadCallback &gt; callback</div><div class="ttdef"><b>Definition:</b> RenderThread.h:104</div></div>
+<div class="ttc" id="aclassRenderThread_html_aa8fc167b6e2674a31d1cc1c21db270f1"><div class="ttname"><a href="classRenderThread.html#aa8fc167b6e2674a31d1cc1c21db270f1">RenderThread::actors</a></div><div class="ttdeci">vtkSmartPointer&lt; vtkActorCollection &gt; actors</div><div class="ttdef"><b>Definition:</b> RenderThread.h:124</div></div>
+<div class="ttc" id="aclassRenderThread_html_aacb654ec3af3ecec2640a718def2a719"><div class="ttname"><a href="classRenderThread.html#aacb654ec3af3ecec2640a718def2a719">RenderThread::addCommand</a></div><div class="ttdeci">void addCommand(const std::shared_ptr&lt; Commands::BaseCommand &gt; &amp;command)</div><div class="ttdef"><b>Definition:</b> RenderThread.cpp:116</div></div>
+<div class="ttc" id="aclassRenderThread_html_ac344000f8945d693a946f5bc9c060cbc"><div class="ttname"><a href="classRenderThread.html#ac344000f8945d693a946f5bc9c060cbc">RenderThread::stopRender</a></div><div class="ttdeci">void stopRender() const</div><div class="ttdef"><b>Definition:</b> RenderThread.cpp:140</div></div>
+<div class="ttc" id="aclassRenderThread_html_ac9a968ad63349a9eb1109d615406afd4"><div class="ttname"><a href="classRenderThread.html#ac9a968ad63349a9eb1109d615406afd4">RenderThread::~RenderThread</a></div><div class="ttdeci">virtual ~RenderThread()</div><div class="ttdef"><b>Definition:</b> RenderThread.cpp:42</div></div>
+<div class="ttc" id="aclassRenderThread_html_ae34e25f39565c44ea6491dfa6467e3af"><div class="ttname"><a href="classRenderThread.html#ae34e25f39565c44ea6491dfa6467e3af">RenderThread::queue</a></div><div class="ttdeci">QQueue&lt; std::shared_ptr&lt; Commands::BaseCommand &gt; &gt; queue</div><div class="ttdef"><b>Definition:</b> RenderThread.h:121</div></div>
+<div class="ttc" id="aclassRenderThread_html_af4568df20c1aa28741017783c21f1295"><div class="ttname"><a href="classRenderThread.html#af4568df20c1aa28741017783c21f1295">RenderThread::addActor</a></div><div class="ttdeci">void addActor(vtkSmartPointer&lt; vtkActor &gt; actorToAdd)</div><div class="ttdef"><b>Definition:</b> RenderThread.cpp:178</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

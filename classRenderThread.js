@@ -2,7 +2,7 @@ var classRenderThread =
 [
     [ "RenderThread", "classRenderThread.html#a2d146dd7b02ba6934d90abb6944a7843", null ],
     [ "RenderThread", "classRenderThread.html#a6c67a67fb6fa80429b8c586ee8e6a042", null ],
-    [ "RenderThread", "classRenderThread.html#ad3bf013dc7dc2d66b397b07a652e5814", null ],
+    [ "RenderThread", "classRenderThread.html#af6d0d2a0985e4b047b85fa751c72a1d9", null ],
     [ "~RenderThread", "classRenderThread.html#ac9a968ad63349a9eb1109d615406afd4", null ],
     [ "addActor", "classRenderThread.html#af4568df20c1aa28741017783c21f1295", null ],
     [ "addActorOffline", "classRenderThread.html#a415cb0219c96182c56787a9c7040aca5", null ],
@@ -23,9 +23,11 @@ var classRenderThread =
     [ "interactor", "classRenderThread.html#afe6389a7f30d2fea08102c54d0e6cbbc", null ],
     [ "mutex", "classRenderThread.html#a456a71420ffd0b9de3d5359f39c460fe", null ],
     [ "queue", "classRenderThread.html#ae34e25f39565c44ea6491dfa6467e3af", null ],
+    [ "reader", "classRenderThread.html#aab64315c2591888cd666f1175e5789b5", null ],
     [ "renderer", "classRenderThread.html#a37509fbc13dd50b8d58c9ea3ba1c1367", null ],
     [ "rotateX", "classRenderThread.html#a9ba459786c362b58356dd49a7d525b3e", null ],
     [ "rotateY", "classRenderThread.html#a485b88ad50bc21baeb3f72d7cd844254", null ],
     [ "rotateZ", "classRenderThread.html#aa382163c2dfd168404f816c5bbb669ec", null ],
+    [ "skybox", "classRenderThread.html#aeacb3bc75c3dd5707b9063ab6ad1e005", null ],
     [ "window", "classRenderThread.html#a143f35b696450aef619be0ab4d2aeb15", null ]
 ];

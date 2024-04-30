@@ -111,80 +111,86 @@ $(document).ready(function(){initNavTree('mainwindow_8h_source.html',''); initRe
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;QMainWindow&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;vtkGenericOpenGLRenderWindow.h&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;vtkRenderer.h&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;QT_BEGIN_NAMESPACE</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>Ui {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">class </span><a class="code" href="classMainWindow.html">MainWindow</a>;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;QT_END_NAMESPACE</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classMainWindow.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="classMainWindow.html">MainWindow</a> : <span class="keyword">public</span> QMainWindow {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  Q_OBJECT</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">public</span> slots:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="comment">// A slot is a function handled in response to a signal from a widget</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#a132f0e713c1a2e43662407ad9858f933">handleButton</a>();</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keywordtype">void</span> handleButton_2();</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#a143bb60757a3e3f88e208eedb2af7539">handleTreeClicked</a>();</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keywordtype">void</span> on_actionItem_Options_triggered();</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;signals:</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keywordtype">void</span> statusUpdateMessage(<span class="keyword">const</span> QString &amp;message, <span class="keywordtype">int</span> timeout);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <a class="code" href="classMainWindow.html">MainWindow</a>(QWidget *parent = <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  ~<a class="code" href="classMainWindow.html">MainWindow</a>();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <a class="code" href="classModelPart.html">ModelPart</a> *GetSelectedPart();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keywordtype">void</span> updateRender();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keywordtype">void</span> updateRenderFromTree(<span class="keyword">const</span> QModelIndex &amp;index);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordtype">void</span> scaleToFit(vtkRenderer *renderer);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">private</span> slots:</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordtype">void</span> on_actionOpen_File_triggered();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keywordtype">void</span> on_actionOpen_VR_triggered();</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;vtkHDRReader.h&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;vtkOpenGLRenderer.h&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;vtkSkybox.h&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;QT_BEGIN_NAMESPACE</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>Ui {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">class </span><a class="code" href="classMainWindow.html">MainWindow</a>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;QT_END_NAMESPACE</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classMainWindow.html">   23</a></span>&#160;<span class="keyword">class </span><a class="code" href="classMainWindow.html">MainWindow</a> : <span class="keyword">public</span> QMainWindow {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  Q_OBJECT</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span> slots:</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="comment">// A slot is a function handled in response to a signal from a widget</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#a132f0e713c1a2e43662407ad9858f933">handleButton</a>();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keywordtype">void</span> handleButton_2();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#a143bb60757a3e3f88e208eedb2af7539">handleTreeClicked</a>();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keywordtype">void</span> on_actionItem_Options_triggered();</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;signals:</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keywordtype">void</span> statusUpdateMessage(<span class="keyword">const</span> QString &amp;message, <span class="keywordtype">int</span> timeout);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <a class="code" href="classMainWindow.html">MainWindow</a>(QWidget *parent = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  ~<a class="code" href="classMainWindow.html">MainWindow</a>();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <a class="code" href="classModelPart.html">ModelPart</a> *GetSelectedPart();</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordtype">void</span> updateRender();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordtype">void</span> updateRenderFromTree(<span class="keyword">const</span> QModelIndex &amp;index);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keywordtype">void</span> scaleToFit(vtkRenderer *renderer);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">private</span> slots:</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keywordtype">void</span> on_actionOpen_File_triggered();</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keywordtype">void</span> on_actionOpenDir_triggered();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keywordtype">void</span> on_actionOpen_VR_triggered();</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordtype">void</span> on_Slider_R_sliderMoved(<span class="keywordtype">int</span> position);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordtype">void</span> on_actionOpenDir_triggered();</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keywordtype">void</span> on_Slider_G_sliderMoved(<span class="keywordtype">int</span> position);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keywordtype">void</span> on_Slider_R_sliderMoved(<span class="keywordtype">int</span> position);</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keywordtype">void</span> on_Slider_B_sliderMoved(<span class="keywordtype">int</span> position);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keywordtype">void</span> on_Slider_G_sliderMoved(<span class="keywordtype">int</span> position);</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="keywordtype">void</span> on_actiondelete_triggered();</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="keywordtype">void</span> on_Slider_B_sliderMoved(<span class="keywordtype">int</span> position);</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="keywordtype">void</span> on_actionstopbutton_triggered();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="keywordtype">void</span> on_actiondelete_triggered();</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keywordtype">void</span> loadToRenderThread(<a class="code" href="classModelPart.html">ModelPart</a> *part);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  QString splitFileName(<span class="keyword">const</span> QString &amp;fileName);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keywordtype">void</span> recursiveDirSearch(QFileInfoList dir, <a class="code" href="classModelPart.html">ModelPart</a> *root);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keywordtype">void</span> updateColour();</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keywordtype">void</span> on_actionstopbutton_triggered();</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keywordtype">void</span> loadToRenderThread(<a class="code" href="classModelPart.html">ModelPart</a> *part);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  QString splitFileName(<span class="keyword">const</span> QString &amp;fileName);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keywordtype">void</span> recursiveDirSearch(QFileInfoList dir, <a class="code" href="classModelPart.html">ModelPart</a> *root);</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keywordtype">void</span> ReRender();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keywordtype">void</span> updateColour();</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  Ui::MainWindow *ui;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <a class="code" href="classModelPartList.html">ModelPartList</a> *partList;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  vtkSmartPointer&lt;vtkRenderer&gt; renderer;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  vtkSmartPointer&lt;vtkGenericOpenGLRenderWindow&gt; renderWindow;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <a class="code" href="classRenderThread.html">RenderThread</a> *renderThread;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;};</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// MAINWINDOW_H</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keywordtype">void</span> ReRender();</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keywordtype">void</span> loadPBR(std::string <span class="keyword">const</span> &amp;hdr_fileName);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  Ui::MainWindow *ui;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <a class="code" href="classModelPartList.html">ModelPartList</a> *partList;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  vtkSmartPointer&lt;vtkSkybox&gt; skybox;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  vtkSmartPointer&lt;vtkHDRReader&gt; reader;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  vtkSmartPointer&lt;vtkOpenGLRenderer&gt; renderer;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  vtkSmartPointer&lt;vtkGenericOpenGLRenderWindow&gt; renderWindow;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <a class="code" href="classRenderThread.html">RenderThread</a> *renderThread;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;};</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// MAINWINDOW_H</span></div>
 <div class="ttc" id="aModelPartList_8h_html"><div class="ttname"><a href="ModelPartList_8h.html">ModelPartList.h</a></div></div>
 <div class="ttc" id="aModelPart_8h_html"><div class="ttname"><a href="ModelPart_8h.html">ModelPart.h</a></div></div>
-<div class="ttc" id="aclassMainWindow_html"><div class="ttname"><a href="classMainWindow.html">MainWindow</a></div><div class="ttdef"><b>Definition:</b> mainwindow.h:21</div></div>
-<div class="ttc" id="aclassMainWindow_html_a132f0e713c1a2e43662407ad9858f933"><div class="ttname"><a href="classMainWindow.html#a132f0e713c1a2e43662407ad9858f933">MainWindow::handleButton</a></div><div class="ttdeci">void handleButton()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:151</div></div>
-<div class="ttc" id="aclassMainWindow_html_a143bb60757a3e3f88e208eedb2af7539"><div class="ttname"><a href="classMainWindow.html#a143bb60757a3e3f88e208eedb2af7539">MainWindow::handleTreeClicked</a></div><div class="ttdeci">void handleTreeClicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:185</div></div>
+<div class="ttc" id="aclassMainWindow_html"><div class="ttname"><a href="classMainWindow.html">MainWindow</a></div><div class="ttdef"><b>Definition:</b> mainwindow.h:23</div></div>
+<div class="ttc" id="aclassMainWindow_html_a132f0e713c1a2e43662407ad9858f933"><div class="ttname"><a href="classMainWindow.html#a132f0e713c1a2e43662407ad9858f933">MainWindow::handleButton</a></div><div class="ttdeci">void handleButton()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:127</div></div>
+<div class="ttc" id="aclassMainWindow_html_a143bb60757a3e3f88e208eedb2af7539"><div class="ttname"><a href="classMainWindow.html#a143bb60757a3e3f88e208eedb2af7539">MainWindow::handleTreeClicked</a></div><div class="ttdeci">void handleTreeClicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:161</div></div>
 <div class="ttc" id="aclassModelPartList_html"><div class="ttname"><a href="classModelPartList.html">ModelPartList</a></div><div class="ttdef"><b>Definition:</b> ModelPartList.h:23</div></div>
 <div class="ttc" id="aclassModelPart_html"><div class="ttname"><a href="classModelPart.html">ModelPart</a></div><div class="ttdef"><b>Definition:</b> ModelPart.h:31</div></div>
-<div class="ttc" id="aclassRenderThread_html"><div class="ttname"><a href="classRenderThread.html">RenderThread</a></div><div class="ttdef"><b>Definition:</b> RenderThread.h:30</div></div>
+<div class="ttc" id="aclassRenderThread_html"><div class="ttname"><a href="classRenderThread.html">RenderThread</a></div><div class="ttdef"><b>Definition:</b> RenderThread.h:33</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
