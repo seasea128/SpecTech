@@ -130,6 +130,46 @@ unsigned char ModelPart::getColourB() {
   /* As the name suggests ... */
   return colour.GetBlue(); // needs updating
 }
+void ModelPart::setMetallic(const float M) {
+  metallic = M;
+  for (const auto &child : m_childItems) {
+    child->setMetallic(M);
+  }
+
+  if (actor != nullptr) {
+    actor->GetProperty()->SetMetallic(metallic);
+  }
+}
+void ModelPart::setRoughness(const float R) {
+  roughness = R;
+  for (const auto &child : m_childItems) {
+    child->setRoughness(R);
+  }
+
+  if (actor != nullptr) {
+    actor->GetProperty()->SetRoughness(roughness);
+  }
+}
+void ModelPart::setAnisotropy(const float A) {
+  anisotropy = A;
+  for (const auto &child : m_childItems) {
+    child->setAnisotropy(A);
+  }
+
+  if (actor != nullptr) {
+    actor->GetProperty()->SetAnisotropy(anisotropy);
+  }
+}
+void ModelPart::setAnisotropyRotation(const float AR) {
+  anisotropyrotation = AR;
+  for (const auto &child : m_childItems) {
+    child->setAnisotropyRotation(AR);
+  }
+
+  if (actor != nullptr) {
+    actor->GetProperty()->SetAnisotropyRotation(anisotropyrotation);
+  }
+}
 
 void ModelPart::setVisible(bool isVisible) {
   this->isVisible = isVisible;
@@ -171,7 +211,6 @@ void ModelPart::loadSTL(QString fileName) {
   mapper->SetInputConnection(file->GetOutputPort());
 
   /* 3. Initialise the part's vtkActor and link to the mapper */
-
   actor = vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
   setColour(colour.GetRed(), colour.GetGreen(), colour.GetBlue());

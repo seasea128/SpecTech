@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[]) {
   // Open Stylesheet file
-  QFile styleSheetFile("./Adaptic.qss"); // CHANGED THIS
+  QFile styleSheetFile("./Combinear.qss"); // CHANGED THIS
   styleSheetFile.open(QFile::ReadOnly);
   // Store all the contents of the file in a string
   QString styleSheet = QLatin1String(styleSheetFile.readAll());

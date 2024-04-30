@@ -9,6 +9,22 @@ if(WIN32)
 else()
 	set(CPACK_GENERATOR "ZIP")
 endif()
+
+
+
+set (CPACK_NSIS_MUI_ICON
+     "${CMAKE_SOURCE_DIR}/PepeLeFrog.ico")
+set (CPACK_NSIS_MUI_UNIICON
+     "${CMAKE_SOURCE_DIR}/PepeLeFrog.ico")
+set (CPACK_RESOURCE_FILE_LICENSE
+     "${CMAKE_CURRENT_SOURCE_DIR}/Copyright.txt")
+set(CPACK_NSIS_MODIFY_PATH on)
+
+set (CPACK_CREATE_DESKTOP_LINKS W6)
+
+set (CPACK_PACKAGE_EXECUTABLES W6;W6)
+
+
 include(CPack)
 
 set(CMAKE_AUTOUIC ON)
@@ -18,6 +34,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
@@ -74,6 +91,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
         Icons.qrc
         optiondialog.h optiondialog.cpp optiondialog.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/Resource.rc
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET W6 APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -136,6 +154,7 @@ install(TARGETS W6
 )
 install( DIRECTORY vrbindings DESTINATION bin)
 install( FILES Combinear.qss DESTINATION bin)
+
 install( DIRECTORY skybox DESTINATION bin)
 if (WIN32)
     install( FILES ${OpenVR_INCLUDE_DIR}/../bin/win64/openvr_api.dll DESTINATION bin)
