@@ -171,6 +171,7 @@ void RenderThread::removeActor(vtkWeakPointer<vtkActor> actorToRemove) {
     while ((a = (vtkActor *)actors->GetNextActor())) {
       renderer->AddActor(a);
     }
+    renderer->AddActor(skybox);
   }
 }
 
