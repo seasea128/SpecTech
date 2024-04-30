@@ -175,10 +175,9 @@ void ModelPart::loadSTL(QString fileName) {
   actor = vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
   setColour(colour.GetRed(), colour.GetGreen(), colour.GetBlue());
-  // actor->GetProperty()->EdgeVisibilityOn();
   actor->GetProperty()->SetInterpolationToPBR();
-  actor->GetProperty()->SetRoughness(0);
-  actor->GetProperty()->SetMetallic(1);
+  actor->GetProperty()->SetRoughness(0.5);
+  actor->GetProperty()->SetMetallic(0.5);
 
   double *ac = actor->GetOrigin();
 
