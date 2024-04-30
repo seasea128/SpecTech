@@ -124,6 +124,11 @@ add_custom_command( TARGET Theme PRE_BUILD
 COMMAND ${CMAKE_COMMAND} -E
 copy ${CMAKE_SOURCE_DIR}/Combinear.qss ${CMAKE_BINARY_DIR})
 
+add_custom_target( Skybox ALL )
+add_custom_command( TARGET Skybox PRE_BUILD
+COMMAND ${CMAKE_COMMAND} -E
+copy_directory ${CMAKE_SOURCE_DIR}/skybox ${CMAKE_BINARY_DIR}/skybox)
+
 install(TARGETS W6
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -131,6 +136,7 @@ install(TARGETS W6
 )
 install( DIRECTORY vrbindings DESTINATION bin)
 install( FILES Combinear.qss DESTINATION bin)
+install( DIRECTORY skybox DESTINATION bin)
 if (WIN32)
     install( FILES ${OpenVR_INCLUDE_DIR}/../bin/win64/openvr_api.dll DESTINATION bin)
 endif()
