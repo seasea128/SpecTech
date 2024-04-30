@@ -65,7 +65,6 @@ MainWindow::MainWindow(QWidget *parent)
   ui->treeView->setModel(this->partList);
   ui->treeView->addAction(ui->actionItem_Options);
   ui->treeView->addAction(ui->actiondelete);
-  ui->treeView->addAction(ui->actionstopbutton);
   ModelPart *rootItem = this->partList->getRootItem();
 
   /* This needs adding to MainWindow constructor */
@@ -212,7 +211,8 @@ void MainWindow::on_actionOpen_File_triggered() {
     return;
   }
   QString visible("true");
-  auto part = new ModelPart({fileName, visible});
+  QString splitted = splitFileName(fileName);
+  auto part = new ModelPart({splitted, visible});
   part->loadSTL(fileName);
   if (GetSelectedPart() == nullptr) {
     partList->getRootItem()->appendChild(part);
