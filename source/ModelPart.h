@@ -183,6 +183,12 @@ public:
   vtkSmartPointer<vtkActor> getNewActor();
 
   /**
+   * Function that return colour
+   * @return colour for this part
+   */
+  vtkColor3<unsigned char> getColour() const;
+
+  /**
    * Function that returns weak pointer to VR actor.
    * @return Weak pointer to VR actor.
    */

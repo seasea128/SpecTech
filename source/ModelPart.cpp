@@ -231,6 +231,8 @@ vtkSmartPointer<vtkActor> ModelPart::getActor() {
   return actor;
 }
 
+vtkColor3<unsigned char> ModelPart::getColour() const { return colour; }
+
 vtkSmartPointer<vtkActor> ModelPart::getNewActor() {
   /* This is a placeholder function that will be used in the next worksheet.
    *
