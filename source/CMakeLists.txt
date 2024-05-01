@@ -77,9 +77,13 @@ set(PROJECT_SOURCES
     RenderThread/Commands/RefreshRenderCommand.cpp
     RenderThread/Commands/RefreshRenderCommand.h
     RenderThread/Commands/UpdateColourCommand.cpp
+    RenderThread/Commands/UpdateColourCommand.h
     RenderThread/Commands/UpdateVisibilityCommand.cpp
+    RenderThread/Commands/UpdateVisibilityCommand.h
     RenderThread/Commands/RemoveActorCommand.cpp
-    RenderThread/Commands/AddActorCommand.cpp)
+    RenderThread/Commands/RemoveActorCommand.h
+    RenderThread/Commands/AddActorCommand.cpp
+    RenderThread/Commands/AddActorCommand.h)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
   qt_add_executable(
