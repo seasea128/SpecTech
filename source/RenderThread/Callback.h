@@ -8,6 +8,11 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRendererCollection.h>
 
+/**
+ * Callback for RenderThread to process commands and doing various other things.
+ *
+ * Code that should be run on render loop should be here.
+ */
 class RenderThreadCallback : public vtkCallbackCommand {
 public:
   RenderThreadCallback() = default;
@@ -15,6 +20,8 @@ public:
   /**
    * Static function that is used by vtkSmartPointer to create new instance of
    * RenderThreadCallback.
+   * @param thread is the parent RenderThread.
+   * @return new copy of RenderThreadCallback.
    */
   static RenderThreadCallback *New(RenderThread *thread) {
     RenderThreadCallback *createdCallback = new RenderThreadCallback;
@@ -27,6 +34,10 @@ public:
    * RenderThread will execute this function everytime it is rendering a frame.
    *
    * Currently, it process commands stored inside RenderThread::queue.
+   *
+   * @param caller is the object that is calling this function.
+   * @param eventId is the id of the event that call this function.
+   * @param vtkNotUsed is not used here.
    */
   virtual void Execute(vtkObject *caller, unsigned long eventId,
                        void *vtkNotUsed(callData));

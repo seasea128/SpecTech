@@ -100,8 +100,6 @@ void ModelPart::setColour(const unsigned char R, const unsigned char G,
   }
 }
 
-vtkColor3<unsigned char> ModelPart::getColour() const { return colour; }
-
 vtkWeakPointer<vtkActor> ModelPart::getVRActor() const { return vrActor; }
 
 void ModelPart::removeChild(ModelPart *child) {

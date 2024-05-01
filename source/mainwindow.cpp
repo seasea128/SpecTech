@@ -55,7 +55,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->pushButton, &QPushButton::released, this,
           &MainWindow::handleButton);
   connect(ui->ModifyPart, &QPushButton::released, this,
-          &MainWindow::handleButton_2);
+          &MainWindow::handleModifyPartButton);
   connect(ui->treeView, &QTreeView::clicked, this,
           &MainWindow::handleTreeClicked);
   connect(this, &MainWindow::statusUpdateMessage, ui->statusbar,
@@ -93,7 +93,10 @@ MainWindow::MainWindow(QWidget *parent)
 
   vtkNew<vtkActor> cylinderActor;
   cylinderActor->SetMapper(cylinderMapper);
+  cylinderActor->GetProperty()->SetInterpolationToPBR();
   cylinderActor->GetProperty()->SetColor(1., 0., 0.35);
+  cylinderActor->GetProperty()->SetMetallic(0);
+  cylinderActor->GetProperty()->SetRoughness(1);
   cylinderActor->RotateX(30.0);
   cylinderActor->RotateY(-45.0);
 
@@ -131,7 +134,7 @@ void MainWindow::handleButton() {
   emit statusUpdateMessage(QString("Add button was clicked"), 0);
 }
 
-void MainWindow::handleButton_2() {
+void MainWindow::handleModifyPartButton() {
   if (GetSelectedPart() == nullptr) {
     emit statusUpdateMessage(QString("Part hasn't been selected yet"), 0);
     return;
@@ -156,7 +159,7 @@ void MainWindow::handleButton_2() {
   }
 }
 
-void MainWindow::on_actionItem_Options_triggered() { handleButton_2(); }
+void MainWindow::on_actionItem_Options_triggered() { handleModifyPartButton(); }
 
 void MainWindow::handleTreeClicked() {
 

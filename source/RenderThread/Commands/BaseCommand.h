@@ -11,19 +11,32 @@ namespace Commands {
  */
 class BaseCommand {
 public:
+  /**
+   * Default constructor
+   */
   BaseCommand();
 
-  // Copy constructor
-  BaseCommand(const BaseCommand &command) {}
+  /**
+   * Copy constructor
+   * @param &command that is being copied.
+   */
+  BaseCommand(const BaseCommand &command);
 
-  // Assignment operator
+  /** Assignment operator
+   * @param command that is being assigned.
+   * @return assigned BaseCommand.
+   */
   BaseCommand &operator=(const BaseCommand &command);
 
+  /**
+   * Destructor
+   */
   virtual ~BaseCommand();
 
   /**
    * This function is what RenderThreadCallback will execute. Every derived
    * class of BaseCommand need to override this function.
+   * @param renderThread is the RenderThread that the command is executed on.
    */
   virtual void Execute(RenderThread &renderThread) = 0;
 };
