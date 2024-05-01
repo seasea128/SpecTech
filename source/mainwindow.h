@@ -3,6 +3,7 @@
 #include "ModelPart.h"
 #include "ModelPartList.h"
 #include "RenderThread/RenderThread.h"
+#include "RenderThread/VRRenderThread.h"
 #include <qfiledialog.h>
 
 #include <QMainWindow>
@@ -208,7 +209,7 @@ private:
   /**
    * Pointer to renderThread for VR.
    */
-  RenderThread *renderThread;
+  VRRenderThread *renderThread;
 };
 
 #endif // MAINWINDOW_H

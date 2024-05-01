@@ -34,16 +34,16 @@
 using namespace Commands;
 
 template <typename T>
-void recursiveAddCommand(RenderThread *renderThread, ModelPart *currentPart) {
+void recursiveAddCommand(VRRenderThread *renderThread, ModelPart *currentPart) {
   static_assert(std::is_base_of<BaseCommand, T>::value,
                 "Given T is not derived from BaseCommand");
   if (currentPart->getVRActor() != nullptr) {
-    auto command = std::make_shared<T>(currentPart);
-    renderThread->addCommand(command);
+    // auto command = std::make_shared<T>(currentPart);
+    // renderThread->addCommand(command);
   }
   if (currentPart->childCount() > 0) {
     for (int i = 0; i < currentPart->childCount(); i++) {
-      recursiveAddCommand<T>(renderThread, currentPart->child(i));
+      // recursiveAddCommand<T>(renderThread, currentPart->child(i));
     }
   }
 }
@@ -116,7 +116,7 @@ MainWindow::~MainWindow() {
   if (renderThread != nullptr) {
     std::shared_ptr<EndRenderCommand> endCommand =
         std::make_shared<EndRenderCommand>();
-    renderThread->addCommand(endCommand);
+    // renderThread->addCommand(endCommand);
     if (!renderThread->wait(3000)) {
       qDebug() << "Waited for 3 seconds, will terminate the render "
                   "thread";
@@ -147,9 +147,10 @@ void MainWindow::handleModifyPartButton() {
         QString("Dialog accepted ") + GetSelectedPart()->data(0).toString(), 0);
     ReRender();
     if (renderThread != nullptr) {
-      recursiveAddCommand<UpdateColourCommand>(renderThread, GetSelectedPart());
-      recursiveAddCommand<UpdateVisibilityCommand>(renderThread,
-                                                   GetSelectedPart());
+      // recursiveAddCommand<UpdateColourCommand>(renderThread,
+      // GetSelectedPart());
+      // recursiveAddCommand<UpdateVisibilityCommand>(renderThread,
+      // GetSelectedPart());
     }
     ui->Slider_R->setValue(GetSelectedPart()->getColourR());
     ui->Slider_G->setValue(GetSelectedPart()->getColourG());
@@ -226,7 +227,7 @@ void MainWindow::on_actionOpen_File_triggered() {
   if (renderThread != nullptr) {
     qDebug() << "RenderThread detected, adding actor to RenderThread";
     auto command = std::make_shared<AddActorCommand>(part->getNewActor());
-    renderThread->addCommand(command);
+    // renderThread->addCommand(command);
   }
 
   updateRender();
@@ -277,8 +278,7 @@ void MainWindow::on_actionOpen_VR_triggered() {
     window = vtkRenderWindow::New();
     interactor = vtkRenderWindowInteractor::New();
   }
-  renderThread =
-      new RenderThread(this, renderer, window, interactor, camera, reader);
+  renderThread = new VRRenderThread(this);
   ModelPart *root = this->partList->getRootItem();
   loadToRenderThread(root);
   renderThread->start();
@@ -375,9 +375,9 @@ void MainWindow::updateColour() {
 
   // Send command to renderThread
   if (renderThread != nullptr) {
-    recursiveAddCommand<UpdateColourCommand>(renderThread, currentPart);
-    // auto refresh = std::make_shared<RefreshRenderCommand>();
-    // renderThread->addCommand(refresh);
+    // recursiveAddCommand<UpdateColourCommand>(renderThread, currentPart);
+    //  auto refresh = std::make_shared<RefreshRenderCommand>();
+    //  renderThread->addCommand(refresh);
   }
 }
 
@@ -390,8 +390,8 @@ void MainWindow::on_Slider_B_sliderMoved(int position) { updateColour(); }
 void MainWindow::on_actiondelete_triggered() {
   QModelIndex ind = ui->treeView->currentIndex();
   if (renderThread != nullptr) {
-    recursiveAddCommand<RemoveActorCommand>(
-        renderThread, static_cast<ModelPart *>(ind.internalPointer()));
+    // recursiveAddCommand<RemoveActorCommand>(
+    // renderThread, static_cast<ModelPart *>(ind.internalPointer()));
   }
   this->partList->removeItem(ind);
   updateRender();
@@ -402,7 +402,7 @@ void MainWindow::on_actionstopbutton_triggered() {
   if (renderThread != nullptr) {
     std::shared_ptr<EndRenderCommand> endCommand =
         std::make_shared<EndRenderCommand>();
-    renderThread->addCommand(endCommand);
+    // renderThread->addCommand(endCommand);
     if (!renderThread->wait(3000)) {
       qDebug() << "Waited for 3 seconds, will terminate the render "
                   "thread";

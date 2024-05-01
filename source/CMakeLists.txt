@@ -70,6 +70,8 @@ set(PROJECT_SOURCES
     RenderThread/RenderThread.h
     RenderThread/Callback.cpp
     RenderThread/Callback.h
+    RenderThread/VRRenderThread.cpp
+    RenderThread/VRRenderThread.h
     RenderThread/Commands/BaseCommand.cpp
     RenderThread/Commands/BaseCommand.h
     RenderThread/Commands/EndRenderCommand.cpp
