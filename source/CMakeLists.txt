@@ -90,8 +90,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     optiondialog.h
     optiondialog.cpp
     optiondialog.ui
-    ${CMAKE_CURRENT_SOURCE_DIR}/Resource.rc
-    optiondialogwithlist.h optiondialogwithlist.cpp optiondialogwithlist.ui)
+    ${CMAKE_CURRENT_SOURCE_DIR}/Resource.rc)
+
   # Define target properties for Android with Qt 6 as: set_property(TARGET
   # SpecTech APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
   # ${CMAKE_CURRENT_SOURCE_DIR}/android) For more information, see
