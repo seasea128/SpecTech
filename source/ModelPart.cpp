@@ -19,7 +19,7 @@
 #include <vtkWeakPointerBase.h>
 
 ModelPart::ModelPart(const QList<QVariant> &data, ModelPart *parent)
-    : m_itemData(data), m_parentItem(parent), file(nullptr) {
+    : m_itemData(data), m_parentItem(parent), file(nullptr), fileName("") {
   /* You probably want to give the item a default colour */
   isVisible = true;
   setColour(255, 255, 255);
@@ -216,8 +216,11 @@ void ModelPart::loadSTL(QString fileName) {
    */
   file = vtkSmartPointer<vtkSTLReader>::New(); /**< Datafile from which part
                                                   loaded */
+
+  this->fileName = fileName.toStdString();
   qDebug() << "File pointer: " << file;
-  file->SetFileName(fileName.toLocal8Bit().data());
+  qDebug() << "File name: " << this->fileName.c_str();
+  file->SetFileName(this->fileName.c_str());
   file->Update();
 
   /* 2. Initialise the part's vtkMapper */
@@ -258,16 +261,20 @@ vtkSmartPointer<vtkActor> ModelPart::getNewActor() {
    * need to create a second mapper/actor combination for use in VR - that is
    * the role of this function. */
 
+  vtkSmartPointer<vtkSTLReader> vrReader = vtkSmartPointer<vtkSTLReader>::New();
+  if (fileName == "") {
+    qDebug() << "File haven't been loaded once before, returning.";
+    return nullptr;
+  }
+  qDebug() << "File name: " << fileName.c_str();
+  vrReader->SetFileName(fileName.c_str());
+
   /* 1. Create new mapper */
   qDebug() << "Creating new mapper";
   vrMapper = vtkSmartPointer<vtkDataSetMapper>::New();
   qDebug() << "Setting connection";
-  qDebug() << "File pointer: " << file;
-  if (file == nullptr) {
-    qDebug() << "File is null pointer, stopping";
-    return nullptr;
-  }
-  vrMapper->SetInputConnection(file->GetOutputPort());
+  qDebug() << "File pointer: " << vrReader;
+  vrMapper->SetInputConnection(vrReader->GetOutputPort());
   qDebug() << "Created new mapper";
 
   /* 2. Create new actor and link to mapper */
