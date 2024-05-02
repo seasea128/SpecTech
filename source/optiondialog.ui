@@ -178,7 +178,7 @@
    <item>
     <widget class="QLabel" name="label_5">
      <property name="text">
-      <string>AnisotropyRotation</string>
+      <string>Anisotropy Rotation</string>
      </property>
     </widget>
    </item>

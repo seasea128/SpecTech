@@ -77,6 +77,10 @@ private:
    * Color that is stored before actually applying to the part.
    */
   QColor color;
+  float roughnessValue;
+  float metallicValue;
+  float anisotropyValue;
+  float anisotropyRotationValue;
 };
 
 #endif // OPTIONDIALOG_H
