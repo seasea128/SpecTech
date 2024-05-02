@@ -218,6 +218,11 @@ public:
    */
   vtkWeakPointer<vtkActor> getVRActor() const;
 
+  /**
+   * Function that set the connections of filter inside the list;
+   */
+  void setFilterFromList();
+
 private:
   QList<ModelPart *> m_childItems; /**< List (array) of child items */
   QList<QVariant> m_itemData;      /**< List (array of column data for item */
@@ -240,6 +245,9 @@ private:
   float roughness;                    /**< Roughness property of actor */
   float anisotropy;                   /**< Anisotropy property of actor */
   float anisotropyrotation; /**< Anisotropy rotation property of actor */
+
+  std::vector<vtkSmartPointer<vtkAlgorithm>>
+      filterList; /**< List of filter that should be applied to this part*/
 
   vtkSmartPointer<vtkMapper> vrMapper; /**< Mapper for VR renderer*/
   vtkWeakPointer<vtkActor> vrActor;    /**< Actor for VR renderer*/

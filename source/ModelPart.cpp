@@ -13,13 +13,16 @@
  * installed the VTK library
  */
 #include <vtkActor.h>
+#include <vtkClipDataSet.h>
 #include <vtkDataSetMapper.h>
+#include <vtkPlane.h>
 #include <vtkProperty.h>
+#include <vtkShrinkFilter.h>
 #include <vtkSmartPointer.h>
 #include <vtkWeakPointerBase.h>
 
 ModelPart::ModelPart(const QList<QVariant> &data, ModelPart *parent)
-    : m_itemData(data), m_parentItem(parent), file(nullptr) {
+    : m_itemData(data), m_parentItem(parent), file(nullptr), filterList({}) {
   /* You probably want to give the item a default colour */
   isVisible = true;
   setColour(255, 255, 255);
@@ -233,6 +236,20 @@ void ModelPart::loadSTL(QString fileName) {
   actor->GetProperty()->SetRoughness(0.5);
   actor->GetProperty()->SetMetallic(0.5);
 
+  auto planeLeft = vtkSmartPointer<vtkPlane>::New();
+  planeLeft->SetOrigin(0., 0., 0.);
+  planeLeft->SetNormal(-1., 0., 0.);
+
+  auto clipFilter = vtkSmartPointer<vtkClipDataSet>::New();
+  clipFilter->SetClipFunction(planeLeft);
+  filterList.push_back(clipFilter);
+
+  auto shrinkFilter = vtkSmartPointer<vtkShrinkFilter>::New();
+  shrinkFilter->SetShrinkFactor(1);
+  filterList.push_back(shrinkFilter);
+
+  setFilterFromList();
+
   double *ac = actor->GetOrigin();
 
   actor->RotateX(-90);
@@ -289,4 +306,29 @@ vtkSmartPointer<vtkActor> ModelPart::getNewActor() {
   vrActor = localVRActor;
 
   return localVRActor;
+}
+
+void ModelPart::setFilterFromList() {
+  if (filterList.size() == 0) {
+    return;
+  }
+
+  // Set file to the filter
+  filterList[0]->SetInputConnection(file->GetOutputPort());
+  filterList[0]->Update();
+
+  // Set mapper to the last filter in the list
+  mapper->SetInputConnection(
+      filterList[filterList.size() - 1]->GetOutputPort());
+
+  // Don't need to do the loop if there's only 1 filter.
+  if (filterList.size() == 1) {
+    return;
+  }
+
+  // Set the filter chain to each other
+  for (int i = 0; i < filterList.size() - 1; i++) {
+    filterList[i + 1]->SetInputConnection(filterList[i]->GetOutputPort());
+    filterList[i + 1]->Update();
+  }
 }
