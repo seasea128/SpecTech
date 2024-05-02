@@ -27,6 +27,7 @@
 #include "RenderThread/Commands/UpdateVisibilityCommand.h"
 #include "mainwindow.h"
 #include "optiondialog.h"
+#include "optiondialogwithlist.h"
 
 #include <QFile>
 #include <QMessageBox>
@@ -128,9 +129,13 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::handleButton() {
-  QMessageBox msgBox;
-  msgBox.setText("Add button was clicked");
-  msgBox.exec();
+  auto part = GetSelectedPart();
+  if (part == nullptr) {
+    emit statusUpdateMessage(QString("Part hasn't been selected yet"), 0);
+    return;
+  }
+  OptionDialogWithList dialog(this, part);
+  dialog.exec();
   emit statusUpdateMessage(QString("Add button was clicked"), 0);
 }
 
