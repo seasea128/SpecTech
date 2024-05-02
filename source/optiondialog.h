@@ -77,9 +77,25 @@ private:
    * Color that is stored before actually applying to the part.
    */
   QColor color;
+
+  /**
+   * Stores how glossy an object is.
+   */
   float roughnessValue;
+
+  /**
+   * Metallic of the object that is stored. It is a value between 0 and 1.
+   */
   float metallicValue;
+
+  /**
+   * The strength of the anisotropy is stored. It is a value between 0 (isotropic) and 1 (anisotropic).
+   */
   float anisotropyValue;
+
+  /**
+   * The rotated direction of the anisotropy is stored around the normal counter-clockwise. It is a value between 0 and 1, where 1 is a rotation of 2*PI.
+   */
   float anisotropyRotationValue;
 };
 
