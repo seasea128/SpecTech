@@ -261,20 +261,23 @@ vtkSmartPointer<vtkActor> ModelPart::getNewActor() {
    * need to create a second mapper/actor combination for use in VR - that is
    * the role of this function. */
 
-  vtkSmartPointer<vtkSTLReader> vrReader = vtkSmartPointer<vtkSTLReader>::New();
-  if (fileName == "") {
-    qDebug() << "File haven't been loaded once before, returning.";
-    return nullptr;
-  }
-  qDebug() << "File name: " << fileName.c_str();
-  vrReader->SetFileName(fileName.c_str());
-
   /* 1. Create new mapper */
   qDebug() << "Creating new mapper";
   vrMapper = vtkSmartPointer<vtkDataSetMapper>::New();
   qDebug() << "Setting connection";
-  qDebug() << "File pointer: " << vrReader;
-  vrMapper->SetInputConnection(vrReader->GetOutputPort());
+  qDebug() << "GUI mapper pointer: " << mapper;
+  if (mapper == nullptr) {
+    qDebug() << "Mapper is null pointer, stopping";
+    return nullptr;
+  }
+
+  vtkSmartPointer<vtkPolyData> newPolyData =
+      vtkSmartPointer<vtkPolyData>::New();
+
+  newPolyData->DeepCopy(file->GetInputDataObject(0, 0));
+
+  vrMapper->SetInputDataObject(newPolyData);
+
   qDebug() << "Created new mapper";
 
   /* 2. Create new actor and link to mapper */
