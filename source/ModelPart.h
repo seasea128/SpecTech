@@ -221,7 +221,9 @@ public:
   /**
    * Function that set the connections of filter inside the list;
    */
-  void setFilterFromList();
+  void setFilterFromList(
+      const std::vector<vtkSmartPointer<vtkAlgorithm>> &filterList,
+      vtkSmartPointer<vtkSTLReader> file, vtkSmartPointer<vtkMapper> mapper);
 
 private:
   QList<ModelPart *> m_childItems; /**< List (array) of child items */
