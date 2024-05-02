@@ -30,7 +30,7 @@ The following requirements only apply if compiling from source.
 * Qt: 6.6.1
 * VTK: 9.3.0
 
->[Installers](#Install) are available.
+>[Installers](Install) are available.
 
 
 ## Install
@@ -49,7 +49,7 @@ An `exe` installer is available for Windows.
 
 
 ## Documentation
-The Doxygen theme is available [here](https://jothepro.github.io/doxygen-awesome-css/index.html).  by [@zadewg](https://github.com/zadewg).
+The Doxygen theme is available [here](https://jothepro.github.io/doxygen-awesome-css/index.html).  by [zadewg](https://github.com/zadewg).
 
 
 ## Testing and Continuous Integration **CHANGE
