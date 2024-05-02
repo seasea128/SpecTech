@@ -308,8 +308,11 @@ vtkSmartPointer<vtkActor> ModelPart::getNewActor() {
   return localVRActor;
 }
 
-void ModelPart::setFilterFromList() {
+void ModelPart::setFilterFromList(
+    const std::vector<vtkSmartPointer<vtkAlgorithm>> &filterList,
+    vtkSmartPointer<vtkSTLReader> file, vtkSmartPointer<vtkMapper> mapper) {
   if (filterList.size() == 0) {
+    mapper->SetInputConnection(file->GetOutputPort());
     return;
   }
 
