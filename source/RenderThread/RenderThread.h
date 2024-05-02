@@ -50,7 +50,7 @@ public:
                vtkSmartPointer<vtkRenderWindow> window,
                vtkSmartPointer<vtkRenderWindowInteractor> interactor,
                vtkSmartPointer<vtkCamera> camera,
-               vtkSmartPointer<vtkHDRReader> reader);
+               std::string_view hdr_fileName);
 
   /**  Destructor
    */
@@ -159,6 +159,8 @@ protected:
 
   /** List of actors that will need to be added to the VR scene */
   vtkSmartPointer<vtkActorCollection> actors;
+
+  std::string_view hdr_fileName;
 
   /* Some variables to indicate animation actions to apply.
    *

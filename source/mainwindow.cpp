@@ -77,7 +77,8 @@ MainWindow::MainWindow(QWidget *parent)
   renderer = vtkSmartPointer<vtkOpenGLRenderer>::New();
   renderWindow->AddRenderer(renderer);
 
-  loadPBR("./skybox/rural_asphalt_road_4k.hdr");
+  hdr_fileName = "./skybox/rural_asphalt_road_4k.hdr";
+  loadPBR(hdr_fileName);
 
   // Create an object and add to renderer (this will change later to display a
   // CAD model) Will just copy and paste  cylinder example from before This
@@ -282,8 +283,8 @@ void MainWindow::on_actionOpen_VR_triggered() {
     window = vtkRenderWindow::New();
     interactor = vtkRenderWindowInteractor::New();
   }
-  renderThread =
-      new RenderThread(this, renderer, window, interactor, camera, reader);
+  renderThread = new RenderThread(this, renderer, window, interactor, camera,
+                                  hdr_fileName);
   ModelPart *root = this->partList->getRootItem();
   loadToRenderThread(root);
   renderThread->start();
