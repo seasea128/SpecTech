@@ -1,7 +1,7 @@
 
 # SpecTech
 
-SpecTec is a visualisation application that utilises Virtual Reality for observing and interacting with three-dimentional models.
+SpecTech is a visualisation application that utilises Virtual Reality for observing and interacting with three-dimentional models.
 
 
 ## Features
@@ -30,7 +30,7 @@ The following requirements only apply if compiling from source.
 * Qt: 6.6.1
 * VTK: 9.3.0
 
->[Installers](#Install) are available.
+>[Installers](Install) are available.
 
 
 ## Install
@@ -40,8 +40,6 @@ An `exe` installer is available for Windows.
 
 ## Compile from source **CHANGE
 
-...
-
 
 ## Repo tree **CHANGE
 
@@ -49,7 +47,7 @@ An `exe` installer is available for Windows.
 
 
 ## Documentation
-The Doxygen theme is available [here](https://jothepro.github.io/doxygen-awesome-css/index.html).  by [@zadewg](https://github.com/zadewg).
+The Doxygen theme is available [here](https://jothepro.github.io/doxygen-awesome-css/index.html) by [zadewg](https://github.com/zadewg).
 
 
 ## Testing and Continuous Integration **CHANGE
