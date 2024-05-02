@@ -1,4 +1,19 @@
 var searchData=
 [
-  ['optiondialog_31',['OptionDialog',['../classOptionDialog.html',1,'']]]
+  ['on_5factiondelete_5ftriggered_64',['on_actiondelete_triggered',['../classMainWindow.html#a11c76fc6eda8389489ba3f2019cd34c5',1,'MainWindow']]],
+  ['on_5factionitem_5foptions_5ftriggered_65',['on_actionItem_Options_triggered',['../classMainWindow.html#ad3d17973d3111f1ba9805217b6ab58cf',1,'MainWindow']]],
+  ['on_5factionopen_5ffile_5ftriggered_66',['on_actionOpen_File_triggered',['../classMainWindow.html#a3a4866823ec0a9148c03ade962e65cf3',1,'MainWindow']]],
+  ['on_5factionopen_5fvr_5ftriggered_67',['on_actionOpen_VR_triggered',['../classMainWindow.html#ad8cebfe1b173b313f09af9443b909761',1,'MainWindow']]],
+  ['on_5factionopendir_5ftriggered_68',['on_actionOpenDir_triggered',['../classMainWindow.html#a504ac8e353ace730a6f53dbbc097442b',1,'MainWindow']]],
+  ['on_5factionstopbutton_5ftriggered_69',['on_actionstopbutton_triggered',['../classMainWindow.html#acc27b207fff4838f7e83c8fadb17b089',1,'MainWindow']]],
+  ['on_5fanisotropyrotation_5fslidermoved_70',['on_AnisotropyRotation_sliderMoved',['../classOptionDialog.html#a6334e33a15dad569ba1def66c5315831',1,'OptionDialog']]],
+  ['on_5fanisotropyslider_5fslidermoved_71',['on_AnisotropySlider_sliderMoved',['../classOptionDialog.html#a2eddf220c7f60b083474f4475bfe1066',1,'OptionDialog']]],
+  ['on_5fcolourdialog_5fclicked_72',['on_ColourDialog_clicked',['../classOptionDialog.html#acd286c117f093200cf00b3598d060834',1,'OptionDialog']]],
+  ['on_5fmetallicslider_5fslidermoved_73',['on_MetallicSlider_sliderMoved',['../classOptionDialog.html#ade8fd7689d3a5e10a6a07a62fe4b48d6',1,'OptionDialog']]],
+  ['on_5froughnessslider_5fslidermoved_74',['on_RoughnessSlider_sliderMoved',['../classOptionDialog.html#ac707edfc35a29f43867bfa6fcdd77e59',1,'OptionDialog']]],
+  ['on_5fslider_5fb_5fslidermoved_75',['on_Slider_B_sliderMoved',['../classMainWindow.html#ab84045541bc319535f2724e6d038b995',1,'MainWindow']]],
+  ['on_5fslider_5fg_5fslidermoved_76',['on_Slider_G_sliderMoved',['../classMainWindow.html#ab5f01934c576949457501468b23f0271',1,'MainWindow']]],
+  ['on_5fslider_5fr_5fslidermoved_77',['on_Slider_R_sliderMoved',['../classMainWindow.html#af3fc436f29f44e45c83847b97b07dd0f',1,'MainWindow']]],
+  ['operator_3d_78',['operator=',['../classCommands_1_1AddActorCommand.html#af9cc2efd7161f745919ac42516e74a18',1,'Commands::AddActorCommand::operator=()'],['../classCommands_1_1BaseCommand.html#a5907e34cc01814e993a0f3c2b6e10ed4',1,'Commands::BaseCommand::operator=()'],['../classCommands_1_1RemoveActorCommand.html#ab0a504af3fe38e0494fc8b6b026a59e2',1,'Commands::RemoveActorCommand::operator=()'],['../classCommands_1_1UpdateColourCommand.html#a69a5f8c425fa664c16dde6b7316a7258',1,'Commands::UpdateColourCommand::operator=()'],['../classCommands_1_1UpdateVisibilityCommand.html#a4c4b1f8a3be743df8f7de5599fa6b194',1,'Commands::UpdateVisibilityCommand::operator=()'],['../classCommands_1_1EndRenderCommand.html#a5907e34cc01814e993a0f3c2b6e10ed4',1,'Commands::EndRenderCommand::operator=()'],['../classCommands_1_1RefreshRenderCommand.html#a5907e34cc01814e993a0f3c2b6e10ed4',1,'Commands::RefreshRenderCommand::operator=()']]],
+  ['optiondialog_79',['OptionDialog',['../classOptionDialog.html',1,'OptionDialog'],['../classOptionDialog.html#a5c19251891070be2b608f12f6927961a',1,'OptionDialog::OptionDialog()']]]
 ];

@@ -124,18 +124,89 @@ Inheritance diagram for Commands::BaseCommand:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a61dc71e7e48200f76be087dbd6d82e2f"><td class="memItemLeft" align="right" valign="top"><a id="a61dc71e7e48200f76be087dbd6d82e2f"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>BaseCommand</b> (const <a class="el" href="classCommands_1_1BaseCommand.html">BaseCommand</a> &amp;command)</td></tr>
+<tr class="memitem:a5b2b04b249eebb6e92c9aeb27b857eeb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCommands_1_1BaseCommand.html#a5b2b04b249eebb6e92c9aeb27b857eeb">BaseCommand</a> ()</td></tr>
+<tr class="separator:a5b2b04b249eebb6e92c9aeb27b857eeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61dc71e7e48200f76be087dbd6d82e2f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCommands_1_1BaseCommand.html#a61dc71e7e48200f76be087dbd6d82e2f">BaseCommand</a> (const <a class="el" href="classCommands_1_1BaseCommand.html">BaseCommand</a> &amp;command)</td></tr>
 <tr class="separator:a61dc71e7e48200f76be087dbd6d82e2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5907e34cc01814e993a0f3c2b6e10ed4"><td class="memItemLeft" align="right" valign="top"><a id="a5907e34cc01814e993a0f3c2b6e10ed4"></a>
-<a class="el" href="classCommands_1_1BaseCommand.html">BaseCommand</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classCommands_1_1BaseCommand.html">BaseCommand</a> &amp;command)</td></tr>
+<tr class="memitem:a5907e34cc01814e993a0f3c2b6e10ed4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCommands_1_1BaseCommand.html">BaseCommand</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCommands_1_1BaseCommand.html#a5907e34cc01814e993a0f3c2b6e10ed4">operator=</a> (const <a class="el" href="classCommands_1_1BaseCommand.html">BaseCommand</a> &amp;command)</td></tr>
 <tr class="separator:a5907e34cc01814e993a0f3c2b6e10ed4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa20005aacc9e5e83aa48e5e560cf3ac"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCommands_1_1BaseCommand.html#afa20005aacc9e5e83aa48e5e560cf3ac">~BaseCommand</a> ()</td></tr>
+<tr class="separator:afa20005aacc9e5e83aa48e5e560cf3ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b94692d12ce78c11b61f6be211da8dc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCommands_1_1BaseCommand.html#a0b94692d12ce78c11b61f6be211da8dc">Execute</a> (<a class="el" href="classRenderThread.html">RenderThread</a> &amp;renderThread)=0</td></tr>
 <tr class="separator:a0b94692d12ce78c11b61f6be211da8dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class of the command used in sending data between <a class="el" href="classMainWindow.html">MainWindow</a> and <a class="el" href="classRenderThread.html">RenderThread</a>. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a5b2b04b249eebb6e92c9aeb27b857eeb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b2b04b249eebb6e92c9aeb27b857eeb">&#9670;&nbsp;</a></span>BaseCommand() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BaseCommand::BaseCommand </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Default constructor </p>
+
+</div>
+</div>
+<a id="a61dc71e7e48200f76be087dbd6d82e2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61dc71e7e48200f76be087dbd6d82e2f">&#9670;&nbsp;</a></span>BaseCommand() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Commands::BaseCommand::BaseCommand </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classCommands_1_1BaseCommand.html">BaseCommand</a> &amp;&#160;</td>
+          <td class="paramname"><em>command</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Copy constructor </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">&amp;command</td><td>that is being copied. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="afa20005aacc9e5e83aa48e5e560cf3ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa20005aacc9e5e83aa48e5e560cf3ac">&#9670;&nbsp;</a></span>~BaseCommand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">BaseCommand::~BaseCommand </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Destructor </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a0b94692d12ce78c11b61f6be211da8dc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0b94692d12ce78c11b61f6be211da8dc">&#9670;&nbsp;</a></span>Execute()</h2>
 
@@ -159,9 +230,39 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>This function is what <a class="el" href="classRenderThreadCallback.html">RenderThreadCallback</a> will execute. Every derived class of <a class="el" href="classCommands_1_1BaseCommand.html">BaseCommand</a> need to override this function. </p>
+<p>This function is what <a class="el" href="classRenderThreadCallback.html">RenderThreadCallback</a> will execute. Every derived class of <a class="el" href="classCommands_1_1BaseCommand.html">BaseCommand</a> need to override this function. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">renderThread</td><td>is the <a class="el" href="classRenderThread.html">RenderThread</a> that the command is executed on. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implemented in <a class="el" href="classCommands_1_1UpdateVisibilityCommand.html#af3d3246a0c050c8b65b748f3772a3cf4">Commands::UpdateVisibilityCommand</a>, <a class="el" href="classCommands_1_1UpdateColourCommand.html#a8cc3979e334c0d3da397c83eb2e8524f">Commands::UpdateColourCommand</a>, <a class="el" href="classCommands_1_1RemoveActorCommand.html#aeed0882539bcff6cf9393a5b65981b11">Commands::RemoveActorCommand</a>, <a class="el" href="classCommands_1_1RefreshRenderCommand.html#aa88caae6c1b2edf23345039c9628c392">Commands::RefreshRenderCommand</a>, <a class="el" href="classCommands_1_1EndRenderCommand.html#ad9cd302646cce5d1dcf6b8318a132159">Commands::EndRenderCommand</a>, and <a class="el" href="classCommands_1_1AddActorCommand.html#ac69854e0e85e021c289c4b4f88298006">Commands::AddActorCommand</a>.</p>
+
+</div>
+</div>
+<a id="a5907e34cc01814e993a0f3c2b6e10ed4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5907e34cc01814e993a0f3c2b6e10ed4">&#9670;&nbsp;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classCommands_1_1BaseCommand.html">BaseCommand</a> &amp; BaseCommand::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classCommands_1_1BaseCommand.html">BaseCommand</a> &amp;&#160;</td>
+          <td class="paramname"><em>command</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Assignment operator </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">command</td><td>that is being assigned. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>assigned <a class="el" href="classCommands_1_1BaseCommand.html">BaseCommand</a>. </dd></dl>
 
 </div>
 </div>

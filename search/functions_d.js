@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['set_100',['set',['../classModelPart.html#a3232893d070ddcec42631bf5b043add8',1,'ModelPart']]],
-  ['setcolour_101',['setColour',['../classModelPart.html#abbaaa19d7d24b9f1138072d594bd838c',1,'ModelPart']]],
-  ['setvisible_102',['setVisible',['../classModelPart.html#a96c8cca32bd530bf28c6ab6a1ccc2353',1,'ModelPart']]],
-  ['stoprender_103',['stopRender',['../classRenderThread.html#ac344000f8945d693a946f5bc9c060cbc',1,'RenderThread']]]
+  ['parent_212',['parent',['../classModelPartList.html#a2aeb9586030b325193894ddfe99e629c',1,'ModelPartList']]],
+  ['parentitem_213',['parentItem',['../classModelPart.html#a9be3859d2a298e88d850a2480b7639f7',1,'ModelPart']]]
 ];

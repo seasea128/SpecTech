@@ -101,11 +101,14 @@ $(document).ready(function(){initNavTree('classRenderThreadCallback.html',''); i
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classRenderThreadCallback-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">RenderThreadCallback Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="Callback_8h_source.html">Callback.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for RenderThreadCallback:</div>
 <div class="dyncontent">
@@ -122,8 +125,16 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a93cc9d7f0e24f4fd3ad56d2ba700bc57"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classRenderThreadCallback.html">RenderThreadCallback</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderThreadCallback.html#a93cc9d7f0e24f4fd3ad56d2ba700bc57">New</a> (<a class="el" href="classRenderThread.html">RenderThread</a> *thread)</td></tr>
 <tr class="separator:a93cc9d7f0e24f4fd3ad56d2ba700bc57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a3bd0f9455d3ede4619f753a724bf423a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRenderThread.html">RenderThread</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderThreadCallback.html#a3bd0f9455d3ede4619f753a724bf423a">renderThread</a></td></tr>
+<tr class="separator:a3bd0f9455d3ede4619f753a724bf423a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Callback for <a class="el" href="classRenderThread.html">RenderThread</a> to process commands and doing various other things.</p>
+<p>Code that should be run on render loop should be here. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a9b62ed2fff4262420bf0394cac99ac20"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9b62ed2fff4262420bf0394cac99ac20">&#9670;&nbsp;</a></span>Execute()</h2>
 
@@ -164,7 +175,15 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p><a class="el" href="classRenderThread.html">RenderThread</a> will execute this function everytime it is rendering a frame.</p>
-<p>Currently, it process commands stored inside <a class="el" href="classRenderThread.html#ae34e25f39565c44ea6491dfa6467e3af">RenderThread::queue</a>. </p>
+<p>Currently, it process commands stored inside <a class="el" href="classRenderThread.html#ae34e25f39565c44ea6491dfa6467e3af">RenderThread::queue</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">caller</td><td>is the object that is calling this function. </td></tr>
+    <tr><td class="paramname">eventId</td><td>is the id of the event that call this function. </td></tr>
+    <tr><td class="paramname">vtkNotUsed</td><td>is not used here. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -191,7 +210,37 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Static function that is used by vtkSmartPointer to create new instance of <a class="el" href="classRenderThreadCallback.html">RenderThreadCallback</a>. </p>
+<p>Static function that is used by vtkSmartPointer to create new instance of <a class="el" href="classRenderThreadCallback.html">RenderThreadCallback</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">thread</td><td>is the parent <a class="el" href="classRenderThread.html">RenderThread</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new copy of <a class="el" href="classRenderThreadCallback.html">RenderThreadCallback</a>. </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a3bd0f9455d3ede4619f753a724bf423a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bd0f9455d3ede4619f753a724bf423a">&#9670;&nbsp;</a></span>renderThread</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRenderThread.html">RenderThread</a>* RenderThreadCallback::renderThread</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Pointer to <a class="el" href="classRenderThread.html">RenderThread</a>. Needed to access current instance of <a class="el" href="classRenderThread.html">RenderThread</a> </p>
 
 </div>
 </div>

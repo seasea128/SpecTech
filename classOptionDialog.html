@@ -100,11 +100,15 @@ $(document).ready(function(){initNavTree('classOptionDialog.html',''); initResiz
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-slots">Private Slots</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classOptionDialog-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">OptionDialog Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="optiondialog_8h_source.html">optiondialog.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for OptionDialog:</div>
 <div class="dyncontent">
@@ -114,16 +118,422 @@ Inheritance diagram for OptionDialog:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5c19251891070be2b608f12f6927961a"><td class="memItemLeft" align="right" valign="top"><a id="a5c19251891070be2b608f12f6927961a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>OptionDialog</b> (QWidget *parent=nullptr, <a class="el" href="classModelPart.html">ModelPart</a> *part=nullptr)</td></tr>
+<tr class="memitem:a5c19251891070be2b608f12f6927961a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOptionDialog.html#a5c19251891070be2b608f12f6927961a">OptionDialog</a> (QWidget *parent=nullptr, <a class="el" href="classModelPart.html">ModelPart</a> *<a class="el" href="classOptionDialog.html#ae3ff90790ddfd498f7feff2851de48ac">part</a>=nullptr)</td></tr>
 <tr class="separator:a5c19251891070be2b608f12f6927961a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e1f7295bda1c6cfc8801f5d7e1503c7"><td class="memItemLeft" align="right" valign="top"><a id="a7e1f7295bda1c6cfc8801f5d7e1503c7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetValue</b> ()</td></tr>
+<tr class="memitem:a640a1faddda44f2567cf386de0085ec7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOptionDialog.html#a640a1faddda44f2567cf386de0085ec7">~OptionDialog</a> ()</td></tr>
+<tr class="separator:a640a1faddda44f2567cf386de0085ec7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e1f7295bda1c6cfc8801f5d7e1503c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOptionDialog.html#a7e1f7295bda1c6cfc8801f5d7e1503c7">SetValue</a> ()</td></tr>
 <tr class="separator:a7e1f7295bda1c6cfc8801f5d7e1503c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1bbb9c3ae5e85116d8be56837eb00d2e"><td class="memItemLeft" align="right" valign="top"><a id="a1bbb9c3ae5e85116d8be56837eb00d2e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>updateColorDisplay</b> ()</td></tr>
-<tr class="separator:a1bbb9c3ae5e85116d8be56837eb00d2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-slots"></a>
+Private Slots</h2></td></tr>
+<tr class="memitem:acd286c117f093200cf00b3598d060834"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOptionDialog.html#acd286c117f093200cf00b3598d060834">on_ColourDialog_clicked</a> ()</td></tr>
+<tr class="separator:acd286c117f093200cf00b3598d060834"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac707edfc35a29f43867bfa6fcdd77e59"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOptionDialog.html#ac707edfc35a29f43867bfa6fcdd77e59">on_RoughnessSlider_sliderMoved</a> (int position)</td></tr>
+<tr class="separator:ac707edfc35a29f43867bfa6fcdd77e59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade8fd7689d3a5e10a6a07a62fe4b48d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOptionDialog.html#ade8fd7689d3a5e10a6a07a62fe4b48d6">on_MetallicSlider_sliderMoved</a> (int position)</td></tr>
+<tr class="separator:ade8fd7689d3a5e10a6a07a62fe4b48d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2eddf220c7f60b083474f4475bfe1066"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOptionDialog.html#a2eddf220c7f60b083474f4475bfe1066">on_AnisotropySlider_sliderMoved</a> (int position)</td></tr>
+<tr class="separator:a2eddf220c7f60b083474f4475bfe1066"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6334e33a15dad569ba1def66c5315831"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOptionDialog.html#a6334e33a15dad569ba1def66c5315831">on_AnisotropyRotation_sliderMoved</a> (int position)</td></tr>
+<tr class="separator:a6334e33a15dad569ba1def66c5315831"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a6933e851c61c5257ff195f177006ce4b"><td class="memItemLeft" align="right" valign="top">Ui::OptionDialog *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOptionDialog.html#a6933e851c61c5257ff195f177006ce4b">ui</a></td></tr>
+<tr class="separator:a6933e851c61c5257ff195f177006ce4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3ff90790ddfd498f7feff2851de48ac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classModelPart.html">ModelPart</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOptionDialog.html#ae3ff90790ddfd498f7feff2851de48ac">part</a></td></tr>
+<tr class="separator:ae3ff90790ddfd498f7feff2851de48ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade0154d497783c8d6a40726dfa2eb080"><td class="memItemLeft" align="right" valign="top">QColor&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOptionDialog.html#ade0154d497783c8d6a40726dfa2eb080">color</a></td></tr>
+<tr class="separator:ade0154d497783c8d6a40726dfa2eb080"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a728db3d4a824db9f6a8e8ba201c4da58"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOptionDialog.html#a728db3d4a824db9f6a8e8ba201c4da58">roughnessValue</a></td></tr>
+<tr class="separator:a728db3d4a824db9f6a8e8ba201c4da58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0cb536756538cee10095e6d56b16a07"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOptionDialog.html#ab0cb536756538cee10095e6d56b16a07">metallicValue</a></td></tr>
+<tr class="separator:ab0cb536756538cee10095e6d56b16a07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedcf4bb248c62de0312eae3d3abce217"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOptionDialog.html#aedcf4bb248c62de0312eae3d3abce217">anisotropyValue</a></td></tr>
+<tr class="separator:aedcf4bb248c62de0312eae3d3abce217"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac82eaaa3c90fbe2a03c3708b6234d7ba"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOptionDialog.html#ac82eaaa3c90fbe2a03c3708b6234d7ba">anisotropyRotationValue</a></td></tr>
+<tr class="separator:ac82eaaa3c90fbe2a03c3708b6234d7ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Dialog for changing options of <a class="el" href="classModelPart.html">ModelPart</a>. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a5c19251891070be2b608f12f6927961a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c19251891070be2b608f12f6927961a">&#9670;&nbsp;</a></span>OptionDialog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">OptionDialog::OptionDialog </td>
+          <td>(</td>
+          <td class="paramtype">QWidget *&#160;</td>
+          <td class="paramname"><em>parent</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classModelPart.html">ModelPart</a> *&#160;</td>
+          <td class="paramname"><em>part</em> = <code>nullptr</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Constructor of <a class="el" href="classOptionDialog.html">OptionDialog</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parent</td><td>is the parent of the dialog. </td></tr>
+    <tr><td class="paramname">part</td><td>is the current part that are being modified. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a640a1faddda44f2567cf386de0085ec7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a640a1faddda44f2567cf386de0085ec7">&#9670;&nbsp;</a></span>~OptionDialog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OptionDialog::~OptionDialog </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Destructor of <a class="el" href="classOptionDialog.html">OptionDialog</a>. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a6334e33a15dad569ba1def66c5315831"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6334e33a15dad569ba1def66c5315831">&#9670;&nbsp;</a></span>on_AnisotropyRotation_sliderMoved</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OptionDialog::on_AnisotropyRotation_sliderMoved </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>position</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Slot for when anisotropy rotation slider is moved. </p>
+
+</div>
+</div>
+<a id="a2eddf220c7f60b083474f4475bfe1066"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2eddf220c7f60b083474f4475bfe1066">&#9670;&nbsp;</a></span>on_AnisotropySlider_sliderMoved</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OptionDialog::on_AnisotropySlider_sliderMoved </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>position</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Slot for when anisotropy slider is moved. </p>
+
+</div>
+</div>
+<a id="acd286c117f093200cf00b3598d060834"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd286c117f093200cf00b3598d060834">&#9670;&nbsp;</a></span>on_ColourDialog_clicked</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OptionDialog::on_ColourDialog_clicked </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Slot for when color dialog button is clicked. </p>
+
+</div>
+</div>
+<a id="ade8fd7689d3a5e10a6a07a62fe4b48d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade8fd7689d3a5e10a6a07a62fe4b48d6">&#9670;&nbsp;</a></span>on_MetallicSlider_sliderMoved</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OptionDialog::on_MetallicSlider_sliderMoved </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>position</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Slot for when metallic slider is moved. </p>
+
+</div>
+</div>
+<a id="ac707edfc35a29f43867bfa6fcdd77e59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac707edfc35a29f43867bfa6fcdd77e59">&#9670;&nbsp;</a></span>on_RoughnessSlider_sliderMoved</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OptionDialog::on_RoughnessSlider_sliderMoved </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>position</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Slot for when roughness slider is moved. </p>
+
+</div>
+</div>
+<a id="a7e1f7295bda1c6cfc8801f5d7e1503c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e1f7295bda1c6cfc8801f5d7e1503c7">&#9670;&nbsp;</a></span>SetValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OptionDialog::SetValue </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set value to the part. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ac82eaaa3c90fbe2a03c3708b6234d7ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac82eaaa3c90fbe2a03c3708b6234d7ba">&#9670;&nbsp;</a></span>anisotropyRotationValue</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float OptionDialog::anisotropyRotationValue</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>The rotated direction of the anisotropy is stored around the normal counter-clockwise. It is a value between 0 and 1, where 1 is a rotation of 2*PI. </p>
+
+</div>
+</div>
+<a id="aedcf4bb248c62de0312eae3d3abce217"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedcf4bb248c62de0312eae3d3abce217">&#9670;&nbsp;</a></span>anisotropyValue</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float OptionDialog::anisotropyValue</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>The strength of the anisotropy is stored. It is a value between 0 (isotropic) and 1 (anisotropic). </p>
+
+</div>
+</div>
+<a id="ade0154d497783c8d6a40726dfa2eb080"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade0154d497783c8d6a40726dfa2eb080">&#9670;&nbsp;</a></span>color</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QColor OptionDialog::color</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Color that is stored before actually applying to the part. </p>
+
+</div>
+</div>
+<a id="ab0cb536756538cee10095e6d56b16a07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0cb536756538cee10095e6d56b16a07">&#9670;&nbsp;</a></span>metallicValue</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float OptionDialog::metallicValue</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Metallic of the object that is stored. It is a value between 0 and 1. </p>
+
+</div>
+</div>
+<a id="ae3ff90790ddfd498f7feff2851de48ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3ff90790ddfd498f7feff2851de48ac">&#9670;&nbsp;</a></span>part</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classModelPart.html">ModelPart</a>* OptionDialog::part</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p><a class="el" href="classModelPart.html">ModelPart</a> pointer to current part that are modifying. </p>
+
+</div>
+</div>
+<a id="a728db3d4a824db9f6a8e8ba201c4da58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a728db3d4a824db9f6a8e8ba201c4da58">&#9670;&nbsp;</a></span>roughnessValue</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float OptionDialog::roughnessValue</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Stores how glossy an object is. </p>
+
+</div>
+</div>
+<a id="a6933e851c61c5257ff195f177006ce4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6933e851c61c5257ff195f177006ce4b">&#9670;&nbsp;</a></span>ui</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Ui::OptionDialog* OptionDialog::ui</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>The UI component of <a class="el" href="classOptionDialog.html">OptionDialog</a>. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>source/<a class="el" href="optiondialog_8h_source.html">optiondialog.h</a></li>
 <li>source/optiondialog.cpp</li>

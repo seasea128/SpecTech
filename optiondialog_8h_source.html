@@ -113,40 +113,65 @@ $(document).ready(function(){initNavTree('optiondialog_8h_source.html',''); init
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">class </span><a class="code" href="classOptionDialog.html">OptionDialog</a>;</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;}</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classOptionDialog.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="classOptionDialog.html">OptionDialog</a> : <span class="keyword">public</span> QDialog {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  Q_OBJECT</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">public</span> slots:</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classOptionDialog.html">OptionDialog</a>(QWidget *parent = <span class="keyword">nullptr</span>, <a class="code" href="classModelPart.html">ModelPart</a> *part = <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  ~<a class="code" href="classOptionDialog.html">OptionDialog</a>();</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keywordtype">void</span> SetValue();</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="keywordtype">void</span> updateColorDisplay();</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">private</span> slots:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keywordtype">void</span> on_ColourDialog_clicked();</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classOptionDialog.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="classOptionDialog.html">OptionDialog</a> : <span class="keyword">public</span> QDialog {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  Q_OBJECT</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span> slots:</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classOptionDialog.html#a5c19251891070be2b608f12f6927961a">OptionDialog</a>(QWidget *parent = <span class="keyword">nullptr</span>, <a class="code" href="classModelPart.html">ModelPart</a> *<a class="code" href="classOptionDialog.html#ae3ff90790ddfd498f7feff2851de48ac">part</a> = <span class="keyword">nullptr</span>);</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keywordtype">void</span> on_RoughnessSlider_sliderMoved(<span class="keywordtype">int</span> position);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keywordtype">void</span> on_MetallicSlider_sliderMoved(<span class="keywordtype">int</span> position);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keywordtype">void</span> on_AnisotropySlider_sliderMoved(<span class="keywordtype">int</span> position);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keywordtype">void</span> on_AnisotropyRotation_sliderMoved(<span class="keywordtype">int</span> position);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  Ui::OptionDialog *ui;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <a class="code" href="classModelPart.html">ModelPart</a> *part;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  QColor color;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;};</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// OPTIONDIALOG_H</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <a class="code" href="classOptionDialog.html#a640a1faddda44f2567cf386de0085ec7">~OptionDialog</a>();</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classOptionDialog.html#a7e1f7295bda1c6cfc8801f5d7e1503c7">SetValue</a>();</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">private</span> slots:</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classOptionDialog.html#acd286c117f093200cf00b3598d060834">on_ColourDialog_clicked</a>();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classOptionDialog.html#ac707edfc35a29f43867bfa6fcdd77e59">on_RoughnessSlider_sliderMoved</a>(<span class="keywordtype">int</span> position);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classOptionDialog.html#ade8fd7689d3a5e10a6a07a62fe4b48d6">on_MetallicSlider_sliderMoved</a>(<span class="keywordtype">int</span> position);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classOptionDialog.html#a2eddf220c7f60b083474f4475bfe1066">on_AnisotropySlider_sliderMoved</a>(<span class="keywordtype">int</span> position);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classOptionDialog.html#a6334e33a15dad569ba1def66c5315831">on_AnisotropyRotation_sliderMoved</a>(<span class="keywordtype">int</span> position);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="classOptionDialog.html#a6933e851c61c5257ff195f177006ce4b">   69</a></span>&#160;  Ui::OptionDialog *<a class="code" href="classOptionDialog.html#a6933e851c61c5257ff195f177006ce4b">ui</a>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="classOptionDialog.html#ae3ff90790ddfd498f7feff2851de48ac">   74</a></span>&#160;  <a class="code" href="classModelPart.html">ModelPart</a> *<a class="code" href="classOptionDialog.html#ae3ff90790ddfd498f7feff2851de48ac">part</a>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="classOptionDialog.html#ade0154d497783c8d6a40726dfa2eb080">   79</a></span>&#160;  QColor <a class="code" href="classOptionDialog.html#ade0154d497783c8d6a40726dfa2eb080">color</a>;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="classOptionDialog.html#a728db3d4a824db9f6a8e8ba201c4da58">   84</a></span>&#160;  <span class="keywordtype">float</span> <a class="code" href="classOptionDialog.html#a728db3d4a824db9f6a8e8ba201c4da58">roughnessValue</a>;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="classOptionDialog.html#ab0cb536756538cee10095e6d56b16a07">   89</a></span>&#160;  <span class="keywordtype">float</span> <a class="code" href="classOptionDialog.html#ab0cb536756538cee10095e6d56b16a07">metallicValue</a>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="classOptionDialog.html#aedcf4bb248c62de0312eae3d3abce217">   94</a></span>&#160;  <span class="keywordtype">float</span> <a class="code" href="classOptionDialog.html#aedcf4bb248c62de0312eae3d3abce217">anisotropyValue</a>;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="classOptionDialog.html#ac82eaaa3c90fbe2a03c3708b6234d7ba">   99</a></span>&#160;  <span class="keywordtype">float</span> <a class="code" href="classOptionDialog.html#ac82eaaa3c90fbe2a03c3708b6234d7ba">anisotropyRotationValue</a>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;};</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// OPTIONDIALOG_H</span></div>
 <div class="ttc" id="aModelPart_8h_html"><div class="ttname"><a href="ModelPart_8h.html">ModelPart.h</a></div></div>
-<div class="ttc" id="aclassModelPart_html"><div class="ttname"><a href="classModelPart.html">ModelPart</a></div><div class="ttdef"><b>Definition:</b> ModelPart.h:31</div></div>
-<div class="ttc" id="aclassOptionDialog_html"><div class="ttname"><a href="classOptionDialog.html">OptionDialog</a></div><div class="ttdef"><b>Definition:</b> optiondialog.h:12</div></div>
+<div class="ttc" id="aclassModelPart_html"><div class="ttname"><a href="classModelPart.html">ModelPart</a></div><div class="ttdef"><b>Definition:</b> ModelPart.h:35</div></div>
+<div class="ttc" id="aclassOptionDialog_html"><div class="ttname"><a href="classOptionDialog.html">OptionDialog</a></div><div class="ttdef"><b>Definition:</b> optiondialog.h:15</div></div>
+<div class="ttc" id="aclassOptionDialog_html_a2eddf220c7f60b083474f4475bfe1066"><div class="ttname"><a href="classOptionDialog.html#a2eddf220c7f60b083474f4475bfe1066">OptionDialog::on_AnisotropySlider_sliderMoved</a></div><div class="ttdeci">void on_AnisotropySlider_sliderMoved(int position)</div><div class="ttdef"><b>Definition:</b> optiondialog.cpp:84</div></div>
+<div class="ttc" id="aclassOptionDialog_html_a5c19251891070be2b608f12f6927961a"><div class="ttname"><a href="classOptionDialog.html#a5c19251891070be2b608f12f6927961a">OptionDialog::OptionDialog</a></div><div class="ttdeci">OptionDialog(QWidget *parent=nullptr, ModelPart *part=nullptr)</div><div class="ttdef"><b>Definition:</b> optiondialog.cpp:7</div></div>
+<div class="ttc" id="aclassOptionDialog_html_a6334e33a15dad569ba1def66c5315831"><div class="ttname"><a href="classOptionDialog.html#a6334e33a15dad569ba1def66c5315831">OptionDialog::on_AnisotropyRotation_sliderMoved</a></div><div class="ttdeci">void on_AnisotropyRotation_sliderMoved(int position)</div><div class="ttdef"><b>Definition:</b> optiondialog.cpp:89</div></div>
+<div class="ttc" id="aclassOptionDialog_html_a640a1faddda44f2567cf386de0085ec7"><div class="ttname"><a href="classOptionDialog.html#a640a1faddda44f2567cf386de0085ec7">OptionDialog::~OptionDialog</a></div><div class="ttdeci">~OptionDialog()</div><div class="ttdef"><b>Definition:</b> optiondialog.cpp:40</div></div>
+<div class="ttc" id="aclassOptionDialog_html_a6933e851c61c5257ff195f177006ce4b"><div class="ttname"><a href="classOptionDialog.html#a6933e851c61c5257ff195f177006ce4b">OptionDialog::ui</a></div><div class="ttdeci">Ui::OptionDialog * ui</div><div class="ttdef"><b>Definition:</b> optiondialog.h:69</div></div>
+<div class="ttc" id="aclassOptionDialog_html_a728db3d4a824db9f6a8e8ba201c4da58"><div class="ttname"><a href="classOptionDialog.html#a728db3d4a824db9f6a8e8ba201c4da58">OptionDialog::roughnessValue</a></div><div class="ttdeci">float roughnessValue</div><div class="ttdef"><b>Definition:</b> optiondialog.h:84</div></div>
+<div class="ttc" id="aclassOptionDialog_html_a7e1f7295bda1c6cfc8801f5d7e1503c7"><div class="ttname"><a href="classOptionDialog.html#a7e1f7295bda1c6cfc8801f5d7e1503c7">OptionDialog::SetValue</a></div><div class="ttdeci">void SetValue()</div><div class="ttdef"><b>Definition:</b> optiondialog.cpp:42</div></div>
+<div class="ttc" id="aclassOptionDialog_html_ab0cb536756538cee10095e6d56b16a07"><div class="ttname"><a href="classOptionDialog.html#ab0cb536756538cee10095e6d56b16a07">OptionDialog::metallicValue</a></div><div class="ttdeci">float metallicValue</div><div class="ttdef"><b>Definition:</b> optiondialog.h:89</div></div>
+<div class="ttc" id="aclassOptionDialog_html_ac707edfc35a29f43867bfa6fcdd77e59"><div class="ttname"><a href="classOptionDialog.html#ac707edfc35a29f43867bfa6fcdd77e59">OptionDialog::on_RoughnessSlider_sliderMoved</a></div><div class="ttdeci">void on_RoughnessSlider_sliderMoved(int position)</div><div class="ttdef"><b>Definition:</b> optiondialog.cpp:74</div></div>
+<div class="ttc" id="aclassOptionDialog_html_ac82eaaa3c90fbe2a03c3708b6234d7ba"><div class="ttname"><a href="classOptionDialog.html#ac82eaaa3c90fbe2a03c3708b6234d7ba">OptionDialog::anisotropyRotationValue</a></div><div class="ttdeci">float anisotropyRotationValue</div><div class="ttdef"><b>Definition:</b> optiondialog.h:99</div></div>
+<div class="ttc" id="aclassOptionDialog_html_acd286c117f093200cf00b3598d060834"><div class="ttname"><a href="classOptionDialog.html#acd286c117f093200cf00b3598d060834">OptionDialog::on_ColourDialog_clicked</a></div><div class="ttdeci">void on_ColourDialog_clicked()</div><div class="ttdef"><b>Definition:</b> optiondialog.cpp:65</div></div>
+<div class="ttc" id="aclassOptionDialog_html_ade0154d497783c8d6a40726dfa2eb080"><div class="ttname"><a href="classOptionDialog.html#ade0154d497783c8d6a40726dfa2eb080">OptionDialog::color</a></div><div class="ttdeci">QColor color</div><div class="ttdef"><b>Definition:</b> optiondialog.h:79</div></div>
+<div class="ttc" id="aclassOptionDialog_html_ade8fd7689d3a5e10a6a07a62fe4b48d6"><div class="ttname"><a href="classOptionDialog.html#ade8fd7689d3a5e10a6a07a62fe4b48d6">OptionDialog::on_MetallicSlider_sliderMoved</a></div><div class="ttdeci">void on_MetallicSlider_sliderMoved(int position)</div><div class="ttdef"><b>Definition:</b> optiondialog.cpp:79</div></div>
+<div class="ttc" id="aclassOptionDialog_html_ae3ff90790ddfd498f7feff2851de48ac"><div class="ttname"><a href="classOptionDialog.html#ae3ff90790ddfd498f7feff2851de48ac">OptionDialog::part</a></div><div class="ttdeci">ModelPart * part</div><div class="ttdef"><b>Definition:</b> optiondialog.h:74</div></div>
+<div class="ttc" id="aclassOptionDialog_html_aedcf4bb248c62de0312eae3d3abce217"><div class="ttname"><a href="classOptionDialog.html#aedcf4bb248c62de0312eae3d3abce217">OptionDialog::anisotropyValue</a></div><div class="ttdeci">float anisotropyValue</div><div class="ttdef"><b>Definition:</b> optiondialog.h:94</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -10,7 +10,7 @@ var classModelPartList =
     [ "headerData", "classModelPartList.html#a6a54464c7907f0c18c2f5edd7cb4a51e", null ],
     [ "index", "classModelPartList.html#a5698ba9ca23f010369f12ff4a97976e2", null ],
     [ "parent", "classModelPartList.html#a2aeb9586030b325193894ddfe99e629c", null ],
-    [ "remove", "classModelPartList.html#a8a2f107cce1f2a037428f4e7dae74b07", null ],
     [ "removeItem", "classModelPartList.html#a331e367f122a0d84daa1e0298aa037e4", null ],
-    [ "rowCount", "classModelPartList.html#a05d52c5cac09750d28ad041ec6a3d5ab", null ]
+    [ "rowCount", "classModelPartList.html#a05d52c5cac09750d28ad041ec6a3d5ab", null ],
+    [ "rootItem", "classModelPartList.html#a464a7abc3799ad9498c0ace03f38f87e", null ]
 ];

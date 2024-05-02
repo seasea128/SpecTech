@@ -112,27 +112,28 @@ $(document).ready(function(){initNavTree('Callback_8h_source.html',''); initResi
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;vtkRenderWindowInteractor.h&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;vtkRendererCollection.h&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classRenderThreadCallback.html">   11</a></span>&#160;<span class="keyword">class </span><a class="code" href="classRenderThreadCallback.html">RenderThreadCallback</a> : <span class="keyword">public</span> vtkCallbackCommand {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  <a class="code" href="classRenderThreadCallback.html">RenderThreadCallback</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classRenderThreadCallback.html#a93cc9d7f0e24f4fd3ad56d2ba700bc57">   19</a></span>&#160;  <span class="keyword">static</span> <a class="code" href="classRenderThreadCallback.html">RenderThreadCallback</a> *<a class="code" href="classRenderThreadCallback.html#a93cc9d7f0e24f4fd3ad56d2ba700bc57">New</a>(<a class="code" href="classRenderThread.html">RenderThread</a> *thread) {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="classRenderThreadCallback.html">RenderThreadCallback</a> *createdCallback = <span class="keyword">new</span> <a class="code" href="classRenderThreadCallback.html">RenderThreadCallback</a>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    createdCallback-&gt;renderThread = thread;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="comment">// cb-&gt;lastExecuted = std::chrono::system_clock::now();</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">return</span> createdCallback;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  }</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classRenderThreadCallback.html#a9b62ed2fff4262420bf0394cac99ac20">Execute</a>(vtkObject *caller, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> eventId,</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                       <span class="keywordtype">void</span> *vtkNotUsed(callData));</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <a class="code" href="classRenderThread.html">RenderThread</a> *renderThread;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="comment">// std::chrono::system_clock::time_point lastExecuted;</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;};</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// CALLBACK_H_</span></div>
-<div class="ttc" id="aclassRenderThreadCallback_html"><div class="ttname"><a href="classRenderThreadCallback.html">RenderThreadCallback</a></div><div class="ttdef"><b>Definition:</b> Callback.h:11</div></div>
-<div class="ttc" id="aclassRenderThreadCallback_html_a93cc9d7f0e24f4fd3ad56d2ba700bc57"><div class="ttname"><a href="classRenderThreadCallback.html#a93cc9d7f0e24f4fd3ad56d2ba700bc57">RenderThreadCallback::New</a></div><div class="ttdeci">static RenderThreadCallback * New(RenderThread *thread)</div><div class="ttdef"><b>Definition:</b> Callback.h:19</div></div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classRenderThreadCallback.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="classRenderThreadCallback.html">RenderThreadCallback</a> : <span class="keyword">public</span> vtkCallbackCommand {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <a class="code" href="classRenderThreadCallback.html">RenderThreadCallback</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classRenderThreadCallback.html#a93cc9d7f0e24f4fd3ad56d2ba700bc57">   26</a></span>&#160;  <span class="keyword">static</span> <a class="code" href="classRenderThreadCallback.html">RenderThreadCallback</a> *<a class="code" href="classRenderThreadCallback.html#a93cc9d7f0e24f4fd3ad56d2ba700bc57">New</a>(<a class="code" href="classRenderThread.html">RenderThread</a> *thread) {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="classRenderThreadCallback.html">RenderThreadCallback</a> *createdCallback = <span class="keyword">new</span> <a class="code" href="classRenderThreadCallback.html">RenderThreadCallback</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    createdCallback-&gt;<a class="code" href="classRenderThreadCallback.html#a3bd0f9455d3ede4619f753a724bf423a">renderThread</a> = thread;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="comment">// cb-&gt;lastExecuted = std::chrono::system_clock::now();</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">return</span> createdCallback;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  }</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classRenderThreadCallback.html#a9b62ed2fff4262420bf0394cac99ac20">Execute</a>(vtkObject *caller, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> eventId,</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                       <span class="keywordtype">void</span> *vtkNotUsed(callData));</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classRenderThreadCallback.html#a3bd0f9455d3ede4619f753a724bf423a">   49</a></span>&#160;  <a class="code" href="classRenderThread.html">RenderThread</a> *<a class="code" href="classRenderThreadCallback.html#a3bd0f9455d3ede4619f753a724bf423a">renderThread</a>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="comment">// std::chrono::system_clock::time_point lastExecuted;</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;};</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// CALLBACK_H_</span></div>
+<div class="ttc" id="aclassRenderThreadCallback_html"><div class="ttname"><a href="classRenderThreadCallback.html">RenderThreadCallback</a></div><div class="ttdef"><b>Definition:</b> Callback.h:16</div></div>
+<div class="ttc" id="aclassRenderThreadCallback_html_a3bd0f9455d3ede4619f753a724bf423a"><div class="ttname"><a href="classRenderThreadCallback.html#a3bd0f9455d3ede4619f753a724bf423a">RenderThreadCallback::renderThread</a></div><div class="ttdeci">RenderThread * renderThread</div><div class="ttdef"><b>Definition:</b> Callback.h:49</div></div>
+<div class="ttc" id="aclassRenderThreadCallback_html_a93cc9d7f0e24f4fd3ad56d2ba700bc57"><div class="ttname"><a href="classRenderThreadCallback.html#a93cc9d7f0e24f4fd3ad56d2ba700bc57">RenderThreadCallback::New</a></div><div class="ttdeci">static RenderThreadCallback * New(RenderThread *thread)</div><div class="ttdef"><b>Definition:</b> Callback.h:26</div></div>
 <div class="ttc" id="aclassRenderThreadCallback_html_a9b62ed2fff4262420bf0394cac99ac20"><div class="ttname"><a href="classRenderThreadCallback.html#a9b62ed2fff4262420bf0394cac99ac20">RenderThreadCallback::Execute</a></div><div class="ttdeci">virtual void Execute(vtkObject *caller, unsigned long eventId, void *vtkNotUsed(callData))</div><div class="ttdef"><b>Definition:</b> Callback.cpp:5</div></div>
 <div class="ttc" id="aclassRenderThread_html"><div class="ttname"><a href="classRenderThread.html">RenderThread</a></div><div class="ttdef"><b>Definition:</b> RenderThread.h:33</div></div>
 </div><!-- fragment --></div><!-- contents -->

@@ -19,7 +19,6 @@ var classRenderThread =
     [ "actors", "classRenderThread.html#aa8fc167b6e2674a31d1cc1c21db270f1", null ],
     [ "callback", "classRenderThread.html#a9f8d38d2799944c1a0e58413a870e590", null ],
     [ "camera", "classRenderThread.html#a9f216f02ecc138f3c867cdff94c52df9", null ],
-    [ "condition", "classRenderThread.html#a42e9185ce4717c52bbf321aef2c1f873", null ],
     [ "interactor", "classRenderThread.html#afe6389a7f30d2fea08102c54d0e6cbbc", null ],
     [ "mutex", "classRenderThread.html#a456a71420ffd0b9de3d5359f39c460fe", null ],
     [ "queue", "classRenderThread.html#ae34e25f39565c44ea6491dfa6467e3af", null ],
