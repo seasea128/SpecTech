@@ -12,6 +12,7 @@ int main(int argc, char *argv[]) {
   // Load the stylesheet
   QApplication a(argc, argv);
   MainWindow w;
+  w.setWindowTitle("SpecTech");
   w.setStyleSheet(styleSheet);
   w.show();
 

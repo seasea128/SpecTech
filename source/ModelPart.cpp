@@ -100,8 +100,6 @@ void ModelPart::setColour(const unsigned char R, const unsigned char G,
   }
 }
 
-vtkColor3<unsigned char> ModelPart::getColour() const { return colour; }
-
 vtkWeakPointer<vtkActor> ModelPart::getVRActor() const { return vrActor; }
 
 void ModelPart::removeChild(ModelPart *child) {
@@ -232,6 +230,8 @@ vtkSmartPointer<vtkActor> ModelPart::getActor() {
    */
   return actor;
 }
+
+vtkColor3<unsigned char> ModelPart::getColour() const { return colour; }
 
 vtkSmartPointer<vtkActor> ModelPart::getNewActor() {
   /* This is a placeholder function that will be used in the next worksheet.

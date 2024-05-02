@@ -39,6 +39,12 @@ public:
   RenderThread &operator=(const RenderThread &) = delete;
   RenderThread &operator=(RenderThread &&) = delete;
   /**  Constructor
+   *  @param parent is the parent of this RenderThread.
+   *  @param renderer is the renderer of this RenderThread.
+   *  @param window is the render window of this RenderThread.
+   *  @param interactor is the render window interactor of this RenderThread.
+   *  @param camera is the camera of this RenderThread.
+   *  @param reader is the HDR file reader of this RenderThread.
    */
   RenderThread(QObject *parent, vtkSmartPointer<vtkRenderer> renderer,
                vtkSmartPointer<vtkRenderWindow> window,
@@ -52,6 +58,7 @@ public:
 
   /** This allows actors to be added to the VR renderer BEFORE the VR
    * interactor has been started
+   * @param actor is the actor that is being added to the RenderThread.
    */
   virtual void addActorOffline(vtkSmartPointer<vtkActor> actor);
 
@@ -74,26 +81,35 @@ public:
 
   /**
    * Update colour of the given actor with provided vtkColor.
+   * @param actorToUpdate is the actor where colour is being updated.
+   * @param updateColour is the new colour of the actor.
    */
   void updateColour(vtkWeakPointer<vtkActor> actorToUpdate,
                     vtkColor3<unsigned char> &updateColour);
 
   /**
    * Update visibility of the given actor.
+   * @param actorToUpdate is the actor where visibility is being updated.
+   * @param visible is the new visibility of the actor.
    */
   void updateVisibility(vtkWeakPointer<vtkActor> actorToUpdate, bool visible);
 
   /**
    * Remove actor from collection.
+   * @param actorToRemove is the actor that is being removed.
    */
   void removeActor(vtkWeakPointer<vtkActor> actorToRemove);
 
   /**
    * Add actor to collection.
+   * @param actorToAdd is the actor that is being added.
    */
   void addActor(vtkSmartPointer<vtkActor> actorToAdd);
 
 protected:
+  /**
+   * Function that will start the RenderThread.
+   */
   void run() override;
 
   /** Custom callback for renderThread. Any modification of data inside
@@ -103,17 +119,38 @@ protected:
    */
   vtkSmartPointer<RenderThreadCallback> callback;
 
-  // VTK rendering related things
+  /**
+   * Render window of RenderThread.
+   */
   vtkSmartPointer<vtkRenderWindow> window;
+
+  /**
+   * Render window interactor of RenderThread.
+   */
   vtkSmartPointer<vtkRenderWindowInteractor> interactor;
+
+  /**
+   * Renderer of RenderThread.
+   */
   vtkSmartPointer<vtkRenderer> renderer;
+
+  /**
+   * Camera of RenderThread.
+   */
   vtkSmartPointer<vtkCamera> camera;
+
+  /**
+   * Skybox of RenderThread.
+   */
   vtkSmartPointer<vtkSkybox> skybox;
+
+  /**
+   * HDR file reader of RenderThread.
+   */
   vtkSmartPointer<vtkHDRReader> reader;
 
   /** Use to synchronise passing of data to VR thread */
   QMutex mutex;
-  QWaitCondition condition;
 
   /**
    * Queue of commands waiting to be executed by RenderThreadCallback.
@@ -126,9 +163,9 @@ protected:
   /* Some variables to indicate animation actions to apply.
    *
    */
-  double rotateX; /*< Degrees to rotate around X axis (per time-step) */
-  double rotateY; /*< Degrees to rotate around Y axis (per time-step) */
-  double rotateZ; /*< Degrees to rotate around Z axis (per time-step) */
+  double rotateX; /**< Degrees to rotate around X axis (per time-step) */
+  double rotateY; /**< Degrees to rotate around Y axis (per time-step) */
+  double rotateZ; /**< Degrees to rotate around Z axis (per time-step) */
 
   // RenderThreadCallback being a friend of RenderThread will make the code much
   // more simpler, since there isn't a need for getter/setter for protected

@@ -20,6 +20,9 @@
 
 class ModelPart;
 
+/**
+ * ModelPartList is a list for ModelPart used for TreeView in the MainWindow UI.
+ */
 class ModelPartList : public QAbstractItemModel {
   Q_OBJECT /**< A special Qt tag used to indicate that this is a special Qt
               class that might require preprocessing before compiling. */
@@ -64,6 +67,10 @@ class ModelPartList : public QAbstractItemModel {
   Qt::ItemFlags flags(const QModelIndex &index) const;
 
   /** Standard function used by Qt internally.
+   * @param section unk
+   * @param orientation unk
+   * @param role unk
+   * @return unk
    */
   QVariant headerData(int section, Qt::Orientation orientation, int role) const;
 
@@ -77,6 +84,10 @@ class ModelPartList : public QAbstractItemModel {
    */
   QModelIndex index(int row, int column, const QModelIndex &parent) const;
 
+  /**
+   * Function that will remove item from the list.
+   * @param index of item being removed.
+   */
   void removeItem(const QModelIndex &index);
 
   /** Take a QModelIndex for an item, get a QModel Index for its parent
@@ -86,7 +97,7 @@ class ModelPartList : public QAbstractItemModel {
   QModelIndex parent(const QModelIndex &index) const;
 
   /** Get number of rows (items) under an item in tree
-   *  @param is the parent, all items under this will be counted
+   *  @param parent is the parent, all items under this will be counted
    *  @return number of children
    */
   int rowCount(const QModelIndex &parent) const;
@@ -95,9 +106,12 @@ class ModelPartList : public QAbstractItemModel {
    * @return the root item pointer
    */
   ModelPart *getRootItem();
-  void remove(const QModelIndex &index);
 
   /**
+   * Append child to the list.
+   * @param parent is the parent index of the child.
+   * @param data is the data that is being append.
+   * @return The index of child that is appended.
    */
   QModelIndex appendChild(QModelIndex &parent, const QList<QVariant> &data);
 
