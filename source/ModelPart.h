@@ -150,6 +150,10 @@ public:
    * @param AR is the new anisotropy rotation property.
    */
   void setAnisotropyRotation(const float AR);
+  float getMetallic();
+  float getRoughness();
+  float getAnisotropy();
+  float getAnisotropyRotation();
 
   /**
    * Function that will search through the child and deletes it.

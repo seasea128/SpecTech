@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>998</width>
-    <height>455</height>
+    <width>1000</width>
+    <height>607</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -183,7 +183,7 @@ QTreeView::item:selected:!active {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>998</width>
+     <width>1000</width>
      <height>26</height>
     </rect>
    </property>

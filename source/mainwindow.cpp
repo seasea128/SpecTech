@@ -353,7 +353,6 @@ void MainWindow::recursiveDirSearch(QFileInfoList dir, ModelPart *root) {
 }
 
 void MainWindow::ReRender() {
-  renderer->Render();
   scaleToFit(renderer);
   ui->vtkWidget->renderWindow()->Render();
   ui->vtkWidget->update();

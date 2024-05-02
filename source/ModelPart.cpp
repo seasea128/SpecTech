@@ -128,6 +128,23 @@ unsigned char ModelPart::getColourB() {
   /* As the name suggests ... */
   return colour.GetBlue(); // needs updating
 }
+
+float ModelPart::getMetallic() {
+  return metallic;
+}
+
+float ModelPart::getRoughness() {
+  return roughness;
+}
+
+float ModelPart::getAnisotropy() {
+  return anisotropy;
+}
+
+float ModelPart::getAnisotropyRotation() {
+  return anisotropyrotation;
+}
+
 void ModelPart::setMetallic(const float M) {
   metallic = M;
   for (const auto &child : m_childItems) {
