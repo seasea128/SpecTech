@@ -226,7 +226,6 @@ void ModelPart::loadSTL(QString fileName) {
   /* 2. Initialise the part's vtkMapper */
   mapper =
       vtkSmartPointer<vtkDataSetMapper>::New(); /**< Mapper for rendering */
-  mapper->SetInputConnection(file->GetOutputPort());
 
   /* 3. Initialise the part's vtkActor and link to the mapper */
   actor = vtkSmartPointer<vtkActor>::New();
@@ -245,10 +244,10 @@ void ModelPart::loadSTL(QString fileName) {
   filterList.push_back(clipFilter);
 
   auto shrinkFilter = vtkSmartPointer<vtkShrinkFilter>::New();
-  shrinkFilter->SetShrinkFactor(1);
+  shrinkFilter->SetShrinkFactor(0.4);
   filterList.push_back(shrinkFilter);
 
-  setFilterFromList();
+  setFilterFromList(filterList, file, mapper);
 
   double *ac = actor->GetOrigin();
 
