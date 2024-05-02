@@ -1,6 +1,7 @@
 #ifndef OPTIONDIALOGWITHLIST_H
 #define OPTIONDIALOGWITHLIST_H
 
+#include "filteroption.h"
 #include "optiondialog.h"
 #include <QDialog>
 
@@ -23,6 +24,7 @@ private:
   enum ListItem { General, Filters };
   Ui::OptionDialogWithList *ui;
   std::unique_ptr<OptionDialog> optionDialog;
+  std::unique_ptr<FilterOption> filterOption;
 };
 
 #endif // OPTIONDIALOGWITHLIST_H

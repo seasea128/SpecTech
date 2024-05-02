@@ -5,12 +5,13 @@
 
 OptionDialogWithList::OptionDialogWithList(QWidget *parent, ModelPart *part)
     : QDialog(parent), ui(new Ui::OptionDialogWithList),
-      optionDialog(std::make_unique<OptionDialog>(this, part)) {
+      optionDialog(std::make_unique<OptionDialog>(this, part)),
+      filterOption(std::make_unique<FilterOption>(this)) {
 
   ui->setupUi(this);
   ui->listWidget->setViewMode(QListWidget::ListMode);
   const std::array<std::pair<QString, QWidget *>, 2> optionList = {
-      {{"General", optionDialog.get()}, {"Filters", optionDialog.get()}}};
+      {{"General", optionDialog.get()}, {"Filters", filterOption.get()}}};
   for (const auto &option : optionList) {
     auto item = new QListWidgetItem(option.first);
     item->setData(Qt::UserRole, QVariant::fromValue(option.second));
@@ -20,8 +21,8 @@ OptionDialogWithList::OptionDialogWithList(QWidget *parent, ModelPart *part)
   connect(ui->listWidget, &QListWidget::itemSelectionChanged, this,
           &OptionDialogWithList::handleListClick);
   ui->listWidget->setCurrentRow(0);
-  adjustSize();
   ui->tabWidget->addTab(optionList[0].second, optionList[0].first);
+  adjustSize();
 }
 
 void OptionDialogWithList::handleListClick() {
@@ -34,6 +35,7 @@ void OptionDialogWithList::handleListClick() {
 
   ui->tabWidget->clear();
   ui->tabWidget->addTab(widget, item[0]->text());
+  adjustSize();
 }
 
 OptionDialogWithList::~OptionDialogWithList() { delete ui; }
