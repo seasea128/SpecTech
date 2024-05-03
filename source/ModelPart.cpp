@@ -315,12 +315,11 @@ std::vector<Filter::FilterData> ModelPart::getFilterList() const {
   return filterList;
 }
 
+vtkSmartPointer<vtkMapper> ModelPart::getMapper() const { return mapper; };
+
 void ModelPart::setFilterFromList() {
   if (file != nullptr && mapper != nullptr) {
     Utils::setFilterFromListWithFile(filterList, file, mapper);
-  }
-  for (auto &child : m_childItems) {
-    child->setFilterFromList();
   }
 }
 

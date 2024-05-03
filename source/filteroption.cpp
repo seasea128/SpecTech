@@ -2,6 +2,7 @@
 #include "Filters/FilterOptionInterface.h"
 #include "Filters/clipfilteroption.h"
 #include "Filters/shrinkfilteroption.h"
+#include "Utils.h"
 #include "ui_filteroption.h"
 #include <qmenu.h>
 #include <qnamespace.h>
@@ -97,7 +98,8 @@ void FilterOption::SetValue() {
     }
   }
   part->setFilterList(filterList);
-  part->setFilterFromList();
+  Utils::recursiveSetFilter(part);
+  // part->setFilterFromList();
 }
 
 void FilterOption::handleListClick() {
