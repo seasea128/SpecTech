@@ -239,12 +239,6 @@ public:
   vtkSmartPointer<vtkSTLReader> getFileReader() const;
 
   /**
-   * Get mapper from this part.
-   * @return Mapper of this part.
-   */
-  vtkSmartPointer<vtkMapper> getMapper() const;
-
-  /**
    * Set vrPolyData to the given vtkPolyData.
    * @param newPolyData is the new polyData that will be set to vrPolyData.
    */

@@ -30,20 +30,6 @@ public:
     }
   }
 
-  static void recursiveSetFilter(ModelPart *currentPart) {
-    if (currentPart->getFileReader() != nullptr &&
-        currentPart->getMapper() != nullptr) {
-      Utils::setFilterFromListWithFile(currentPart->getFilterList(),
-                                       currentPart->getFileReader(),
-                                       currentPart->getMapper());
-    }
-    if (currentPart->childCount() > 0) {
-      for (int i = 0; i < currentPart->childCount(); i++) {
-        recursiveSetFilter(currentPart->child(i));
-      }
-    }
-  }
-
   /**
    * Function that set the connections of filter inside the list.
    * @param filterList is the list to apply.
