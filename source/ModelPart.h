@@ -110,19 +110,19 @@ public:
                  const unsigned char B);
 
   /**
-   * Function that return red channel of vtkColour.
+   * Function that returns the red channel of vtkColour.
    * @return Red channel of vtkColour.
    */
   unsigned char getColourR();
 
   /**
-   * Function that return green channel of vtkColour.
+   * Function that returns the green channel of vtkColour.
    * @return Green channel of vtkColour.
    */
   unsigned char getColourG();
 
   /**
-   * Function that return blue channel of vtkColour.
+   * Function that returns the blue channel of vtkColour.
    * @return Blue channel of vtkColour.
    */
   unsigned char getColourB();
@@ -150,9 +150,29 @@ public:
    * @param AR is the new anisotropy rotation property.
    */
   void setAnisotropyRotation(const float AR);
+
+  /**
+   * Function that returns the metallic value of the object.
+   * @return Metallic value.
+   */
   float getMetallic();
+
+  /**
+   * Function that returns the roughness value of the object.
+   * @return Roughness value.
+   */
   float getRoughness();
+
+  /**
+   * Function that returns the anisotropy value of the object.
+   * @return Anisotropy value.
+   */
   float getAnisotropy();
+
+  /**
+   * Function that returns the anisotropy rotation of the object.
+   * @return Anisotropy rotation.
+   */
   float getAnisotropyRotation();
 
   /**
