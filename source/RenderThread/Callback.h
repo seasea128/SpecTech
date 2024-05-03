@@ -26,7 +26,6 @@ public:
   static RenderThreadCallback *New(RenderThread *thread) {
     RenderThreadCallback *createdCallback = new RenderThreadCallback;
     createdCallback->renderThread = thread;
-    // cb->lastExecuted = std::chrono::system_clock::now();
     return createdCallback;
   }
 
