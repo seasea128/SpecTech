@@ -78,29 +78,6 @@ MainWindow::MainWindow(QWidget *parent)
 
   loadPBR("./skybox/rural_asphalt_road_4k.hdr");
 
-  // Create an object and add to renderer (this will change later to display a
-  // CAD model) Will just copy and paste  cylinder example from before This
-  // creates a polygonal cylinder model with eight circumferential facets (i.e.
-  // in pratice an octagonal prism)
-  vtkNew<vtkCylinderSource> cylinder;
-  cylinder->SetResolution(8);
-
-  // The mapper is responsibile for pushing the geometry into the graphics
-  // library. It may also do color mapping. If scalars or other attributes are
-  // defined.
-  vtkNew<vtkPolyDataMapper> cylinderMapper;
-  cylinderMapper->SetInputConnection(cylinder->GetOutputPort());
-
-  vtkNew<vtkActor> cylinderActor;
-  cylinderActor->SetMapper(cylinderMapper);
-  cylinderActor->GetProperty()->SetInterpolationToPBR();
-  cylinderActor->GetProperty()->SetColor(1., 0., 0.35);
-  cylinderActor->GetProperty()->SetMetallic(0);
-  cylinderActor->GetProperty()->SetRoughness(1);
-  cylinderActor->RotateX(30.0);
-  cylinderActor->RotateY(-45.0);
-
-  renderer->AddActor(cylinderActor);
   vtkNew<vtkFrustumCoverageCuller> culler;
   renderer->AddCuller(culler);
 
@@ -439,4 +416,28 @@ void MainWindow::loadPBR(std::string const &hdr_fileName) {
   renderer->UseSphericalHarmonicsOn();
   renderer->SetEnvironmentTexture(envTexture, false);
   renderer->AddActor(skybox);
+}
+
+void MainWindow::on_XRotSpeed_sliderMoved(int position) {
+  if (renderThread != nullptr) {
+    renderThread->updateSpeedX(position);
+    ui->XRotDisp->display(position);
+  }
+  return;
+}
+
+void MainWindow::on_YRotSpeed_sliderMoved(int position) {
+  if (renderThread != nullptr) {
+    renderThread->updateSpeedY(position);
+    ui->YRotDisp->display(position);
+  }
+  return;
+}
+
+void MainWindow::on_ZRotSpeed_sliderMoved(int position) {
+  if (renderThread != nullptr) {
+    renderThread->updateSpeedZ(position);
+    ui->ZRotDisp->display(position);
+  }
+  return;
 }
