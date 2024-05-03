@@ -134,10 +134,22 @@ private slots:
    */
   void on_actionstopbutton_triggered();
 
+  /**
+   * Slot for handling rotation speed change in X axis
+   * @param position is the new position of the slider
+   */
   void on_XRotSpeed_sliderMoved(int position);
 
+  /**
+   * Slot for handling rotation speed change in Y axis
+   * @param position is the new position of the slider
+   */
   void on_YRotSpeed_sliderMoved(int position);
 
+  /**
+   * Slot for handling rotation speed change in Z axis
+   * @param position is the new position of the slider
+   */
   void on_ZRotSpeed_sliderMoved(int position);
 
 private:
@@ -216,6 +228,9 @@ private:
    */
   RenderThread *renderThread;
 
+  /**
+   * File name of the skybox in HDR format.
+   */
   std::string hdr_fileName;
 };
 

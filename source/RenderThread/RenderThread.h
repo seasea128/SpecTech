@@ -44,7 +44,7 @@ public:
    *  @param window is the render window of this RenderThread.
    *  @param interactor is the render window interactor of this RenderThread.
    *  @param camera is the camera of this RenderThread.
-   *  @param reader is the HDR file reader of this RenderThread.
+   *  @param hdr_fileName is the file name of the skybox being loaded.
    */
   RenderThread(QObject *parent, vtkSmartPointer<vtkRenderer> renderer,
                vtkSmartPointer<vtkRenderWindow> window,
@@ -106,9 +106,23 @@ public:
    */
   void addActor(vtkSmartPointer<vtkActor> actorToAdd);
 
+  /**
+   * Update rotateX variable.
+   * @param XVal is the new rotateX value.
+   */
   void updateSpeedX(unsigned int XVal);
+
+  /**
+   * Update rotateY variable.
+   * @param YVal is the new rotateY value.
+   */
   void updateSpeedY(unsigned int YVal);
-  void updateSpeedZ(unsigned int XVal);
+
+  /**
+   * Update rotateZ variable.
+   * @param ZVal is the new rotateZ value.
+   */
+  void updateSpeedZ(unsigned int ZVal);
 
 protected:
   /**
@@ -164,11 +178,8 @@ protected:
   /** List of actors that will need to be added to the VR scene */
   vtkSmartPointer<vtkActorCollection> actors;
 
-  std::string_view hdr_fileName;
+  std::string_view hdr_fileName; /**< File name of the skybox*/
 
-  /* Some variables to indicate animation actions to apply.
-   *
-   */
   double rotateX; /**< Degrees to rotate around X axis (per time-step) */
   double rotateY; /**< Degrees to rotate around Y axis (per time-step) */
   double rotateZ; /**< Degrees to rotate around Z axis (per time-step) */

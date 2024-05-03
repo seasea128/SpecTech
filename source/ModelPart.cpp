@@ -326,7 +326,7 @@ void ModelPart::setFilterList(
   }
 }
 
-vtkSmartPointer<vtkSTLReader> ModelPart::getFile() const { return file; }
+vtkSmartPointer<vtkSTLReader> ModelPart::getFileReader() const { return file; }
 
 void ModelPart::setVRPolyData(vtkSmartPointer<vtkPolyData> newPolyData) {
   vrPolyData = newPolyData;

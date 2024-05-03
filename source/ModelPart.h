@@ -64,13 +64,7 @@ public:
   /** Return number of children to this item
    * @return number of children
    */
-  int childCount()
-      const; /* Note on the 'const' keyword - it means that this function is
-              * valid for constant instances of this class. If a class is
-              * declared 'const' then it cannot be modifed, this means that
-              * 'set' type functions are usually not valid, but 'get' type
-              * functions are.
-              */
+  int childCount() const;
 
   /** Get number of data items (2 - part name and visibility string) in this
    * case.
@@ -238,28 +232,39 @@ public:
    */
   void setFilterFromList();
 
-  vtkSmartPointer<vtkSTLReader> getFile() const;
+  /**
+   * Get file reader from this part.
+   * @return File reader of this part.
+   */
+  vtkSmartPointer<vtkSTLReader> getFileReader() const;
 
+  /**
+   * Set vrPolyData to the given vtkPolyData.
+   * @param newPolyData is the new polyData that will be set to vrPolyData.
+   */
   void setVRPolyData(vtkSmartPointer<vtkPolyData> newPolyData);
 
+  /**
+   * Get vrMapper of the current part.
+   * @return Smart pointer to vrMapper of current part.
+   */
   vtkSmartPointer<vtkMapper> getVRMapper() const;
 
-  void setVRFilterList(const std::vector<Filter::FilterData> &newfilterList);
+  /**
+   * Set filter list of the VR rendering chain.
+   * @param newFilterList is the new filter list to be used in VR rendering
+   * chain.
+   */
+  void setVRFilterList(const std::vector<Filter::FilterData> &newFilterList);
 
 private:
   QList<ModelPart *> m_childItems; /**< List (array) of child items */
   QList<QVariant> m_itemData;      /**< List (array of column data for item */
   ModelPart *m_parentItem;         /**< Pointer to parent */
 
-  /* These are some typical properties that I think the part will need, you
-   * might want to add you own.
-   */
   bool isVisible; /**< True/false to indicate if should be visible in model
                      rendering */
 
-  /* These are vtk properties that will be used to load/render a model of this
-   * part, commented out for now but will be used later
-   */
   std::string fileName;               /**< File name when loading STL file*/
   vtkSmartPointer<vtkSTLReader> file; /**< Datafile from which part loaded */
   vtkSmartPointer<vtkMapper> mapper;  /**< Mapper for rendering */
@@ -271,14 +276,14 @@ private:
   float anisotropyrotation; /**< Anisotropy rotation property of actor */
 
   std::vector<Filter::FilterData>
-      vrFilterList; /**< List of filter that should be applied to this part*/
+      vrFilterList; /**< List of filter that should be applied to this part */
 
   std::vector<Filter::FilterData>
-      filterList; /**< List of filter that should be applied to this part*/
+      filterList; /**< List of filter that should be applied to this part */
 
-  vtkSmartPointer<vtkPolyData> vrPolyData;
-  vtkSmartPointer<vtkMapper> vrMapper; /**< Mapper for VR renderer*/
-  vtkWeakPointer<vtkActor> vrActor;    /**< Actor for VR renderer*/
+  vtkSmartPointer<vtkPolyData> vrPolyData; /**< Poly data for VR renderer */
+  vtkSmartPointer<vtkMapper> vrMapper;     /**< Mapper for VR renderer */
+  vtkWeakPointer<vtkActor> vrActor;        /**< Actor for VR renderer */
 };
 
 #endif
