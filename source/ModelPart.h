@@ -10,6 +10,8 @@
 #ifndef VIEWER_MODELPART_H
 #define VIEWER_MODELPART_H
 
+#include "Filters/FilterData.h"
+#include "Filters/FilterType.h"
 #include <QList>
 #include <QString>
 #include <QVariant>
@@ -23,6 +25,7 @@
  */
 #include <vtkActor.h>
 #include <vtkColor.h>
+#include <vtkDataSetMapper.h>
 #include <vtkMapper.h>
 #include <vtkSTLReader.h>
 #include <vtkSmartPointer.h>
@@ -218,6 +221,31 @@ public:
    */
   vtkWeakPointer<vtkActor> getVRActor() const;
 
+  /**
+   * Returns a copy of filter list.
+   * @return Copy of filter list.
+   */
+  std::vector<Filter::FilterData> getFilterList() const;
+
+  /**
+   * Set filterList in this part to modified version.
+   * @param _filterList is the modified filter list.
+   */
+  void setFilterList(const std::vector<Filter::FilterData> &_filterList);
+
+  /**
+   * Set filter chain in this part.
+   */
+  void setFilterFromList();
+
+  vtkSmartPointer<vtkSTLReader> getFile() const;
+
+  void setVRPolyData(vtkSmartPointer<vtkPolyData> newPolyData);
+
+  vtkSmartPointer<vtkMapper> getVRMapper() const;
+
+  void setVRFilterList(const std::vector<Filter::FilterData> &newfilterList);
+
 private:
   QList<ModelPart *> m_childItems; /**< List (array) of child items */
   QList<QVariant> m_itemData;      /**< List (array of column data for item */
@@ -232,6 +260,7 @@ private:
   /* These are vtk properties that will be used to load/render a model of this
    * part, commented out for now but will be used later
    */
+  std::string fileName;               /**< File name when loading STL file*/
   vtkSmartPointer<vtkSTLReader> file; /**< Datafile from which part loaded */
   vtkSmartPointer<vtkMapper> mapper;  /**< Mapper for rendering */
   vtkSmartPointer<vtkActor> actor;    /**< Actor for rendering */
@@ -241,6 +270,13 @@ private:
   float anisotropy;                   /**< Anisotropy property of actor */
   float anisotropyrotation; /**< Anisotropy rotation property of actor */
 
+  std::vector<Filter::FilterData>
+      vrFilterList; /**< List of filter that should be applied to this part*/
+
+  std::vector<Filter::FilterData>
+      filterList; /**< List of filter that should be applied to this part*/
+
+  vtkSmartPointer<vtkPolyData> vrPolyData;
   vtkSmartPointer<vtkMapper> vrMapper; /**< Mapper for VR renderer*/
   vtkWeakPointer<vtkActor> vrActor;    /**< Actor for VR renderer*/
 };

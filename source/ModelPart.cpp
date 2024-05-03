@@ -13,13 +13,19 @@
  * installed the VTK library
  */
 #include <vtkActor.h>
+#include <vtkClipDataSet.h>
 #include <vtkDataSetMapper.h>
+#include <vtkPlane.h>
 #include <vtkProperty.h>
+#include <vtkShrinkFilter.h>
 #include <vtkSmartPointer.h>
 #include <vtkWeakPointerBase.h>
 
+#include "Utils.h"
+
 ModelPart::ModelPart(const QList<QVariant> &data, ModelPart *parent)
-    : m_itemData(data), m_parentItem(parent), file(nullptr) {
+    : m_itemData(data), m_parentItem(parent), file(nullptr), fileName(""),
+      filterList({}), vrFilterList({}) {
   /* You probably want to give the item a default colour */
   isVisible = true;
   setColour(255, 255, 255);
@@ -109,41 +115,36 @@ void ModelPart::removeChild(ModelPart *child) {
 }
 
 unsigned char ModelPart::getColourR() {
-  /* This is a placeholder function that will be used in the next worksheet */
+  /* This is a placeholder function that will be used in the next worksheet
+   */
 
   /* As the name suggests ... */
   return colour.GetRed(); // needs updating
 }
 
 unsigned char ModelPart::getColourG() {
-  /* This is a placeholder function that will be used in the next worksheet */
+  /* This is a placeholder function that will be used in the next worksheet
+   */
 
   /* As the name suggests ... */
   return colour.GetGreen(); // needs updating
 }
 
 unsigned char ModelPart::getColourB() {
-  /* This is a placeholder function that will be used in the next worksheet */
+  /* This is a placeholder function that will be used in the next worksheet
+   */
 
   /* As the name suggests ... */
   return colour.GetBlue(); // needs updating
 }
 
-float ModelPart::getMetallic() {
-  return metallic;
-}
+float ModelPart::getMetallic() { return metallic; }
 
-float ModelPart::getRoughness() {
-  return roughness;
-}
+float ModelPart::getRoughness() { return roughness; }
 
-float ModelPart::getAnisotropy() {
-  return anisotropy;
-}
+float ModelPart::getAnisotropy() { return anisotropy; }
 
-float ModelPart::getAnisotropyRotation() {
-  return anisotropyrotation;
-}
+float ModelPart::getAnisotropyRotation() { return anisotropyrotation; }
 
 void ModelPart::setMetallic(const float M) {
   metallic = M;
@@ -202,28 +203,32 @@ void ModelPart::setVisible(bool isVisible) {
 }
 
 bool ModelPart::visible() const {
-  /* This is a placeholder function that will be used in the next worksheet */
+  /* This is a placeholder function that will be used in the next worksheet
+   */
 
   /* As the name suggests ... */
   return isVisible;
 }
 
 void ModelPart::loadSTL(QString fileName) {
-  /* This is a placeholder function that will be used in the next worksheet */
+  /* This is a placeholder function that will be used in the next worksheet
+   */
 
   /* 1. Use the vtkSTLReader class to load the STL file
    *     https://vtk.org/doc/nightly/html/classvtkSTLReader.html
    */
   file = vtkSmartPointer<vtkSTLReader>::New(); /**< Datafile from which part
                                                   loaded */
+
+  this->fileName = fileName.toStdString();
   qDebug() << "File pointer: " << file;
-  file->SetFileName(fileName.toLocal8Bit().data());
+  qDebug() << "File name: " << this->fileName.c_str();
+  file->SetFileName(this->fileName.c_str());
   file->Update();
 
   /* 2. Initialise the part's vtkMapper */
   mapper =
       vtkSmartPointer<vtkDataSetMapper>::New(); /**< Mapper for rendering */
-  mapper->SetInputConnection(file->GetOutputPort());
 
   /* 3. Initialise the part's vtkActor and link to the mapper */
   actor = vtkSmartPointer<vtkActor>::New();
@@ -233,6 +238,20 @@ void ModelPart::loadSTL(QString fileName) {
   actor->GetProperty()->SetRoughness(0.5);
   actor->GetProperty()->SetMetallic(0.5);
 
+  auto planeLeft = vtkSmartPointer<vtkPlane>::New();
+  planeLeft->SetOrigin(0., 0., 0.);
+  planeLeft->SetNormal(-1., 0., 0.);
+
+  auto clipFilter = vtkSmartPointer<vtkClipDataSet>::New();
+  clipFilter->SetClipFunction(planeLeft);
+  filterList.push_back({Filter::FilterType::ClipFilter, clipFilter});
+
+  auto shrinkFilter = vtkSmartPointer<vtkShrinkFilter>::New();
+  shrinkFilter->SetShrinkFactor(0.4);
+  filterList.push_back({Filter::FilterType::ShrinkFilter, shrinkFilter});
+
+  Utils::setFilterFromListWithFile(filterList, file, mapper);
+
   double *ac = actor->GetOrigin();
 
   actor->RotateX(-90);
@@ -240,7 +259,8 @@ void ModelPart::loadSTL(QString fileName) {
 }
 
 vtkSmartPointer<vtkActor> ModelPart::getActor() {
-  /* This is a placeholder function that will be used in the next worksheet */
+  /* This is a placeholder function that will be used in the next worksheet
+   */
 
   /* Needs to return a smart pointer to the vtkActor to allow
    * part to be rendered.
@@ -253,21 +273,29 @@ vtkColor3<unsigned char> ModelPart::getColour() const { return colour; }
 vtkSmartPointer<vtkActor> ModelPart::getNewActor() {
   /* This is a placeholder function that will be used in the next worksheet.
    *
-   * The default mapper/actor combination can only be used to render the part in
-   * the GUI, it CANNOT also be used to render the part in VR. This means you
-   * need to create a second mapper/actor combination for use in VR - that is
-   * the role of this function. */
+   * The default mapper/actor combination can only be used to render the
+   * part in the GUI, it CANNOT also be used to render the part in VR. This
+   * means you need to create a second mapper/actor combination for use in
+   * VR - that is the role of this function. */
 
   /* 1. Create new mapper */
   qDebug() << "Creating new mapper";
   vrMapper = vtkSmartPointer<vtkDataSetMapper>::New();
   qDebug() << "Setting connection";
-  qDebug() << "File pointer: " << file;
-  if (file == nullptr) {
-    qDebug() << "File is null pointer, stopping";
+  qDebug() << "GUI mapper pointer: " << mapper;
+  if (mapper == nullptr) {
+    qDebug() << "Mapper is null pointer, stopping";
     return nullptr;
   }
-  vrMapper->SetInputConnection(file->GetOutputPort());
+
+  vtkSmartPointer<vtkPolyData> vrPolyData = vtkSmartPointer<vtkPolyData>::New();
+
+  vrPolyData->DeepCopy(file->GetOutputDataObject(0));
+
+  vrFilterList = Utils::copyFilterList(filterList);
+
+  Utils::setFilterFromListWithPolyData(vrFilterList, vrPolyData, vrMapper);
+
   qDebug() << "Created new mapper";
 
   /* 2. Create new actor and link to mapper */
@@ -289,4 +317,30 @@ vtkSmartPointer<vtkActor> ModelPart::getNewActor() {
   vrActor = localVRActor;
 
   return localVRActor;
+}
+
+std::vector<Filter::FilterData> ModelPart::getFilterList() const {
+  return filterList;
+}
+
+void ModelPart::setFilterFromList() {
+  Utils::setFilterFromListWithFile(filterList, file, mapper);
+}
+
+void ModelPart::setFilterList(
+    const std::vector<Filter::FilterData> &_filterList) {
+  filterList = _filterList;
+}
+
+vtkSmartPointer<vtkSTLReader> ModelPart::getFile() const { return file; }
+
+void ModelPart::setVRPolyData(vtkSmartPointer<vtkPolyData> newPolyData) {
+  vrPolyData = newPolyData;
+}
+
+vtkSmartPointer<vtkMapper> ModelPart::getVRMapper() const { return vrMapper; }
+
+void ModelPart::setVRFilterList(
+    const std::vector<Filter::FilterData> &newfilterList) {
+  vrFilterList = newfilterList;
 }
