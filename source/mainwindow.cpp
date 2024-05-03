@@ -327,6 +327,11 @@ void MainWindow::recursiveDirSearch(QFileInfoList dir, ModelPart *root) {
       recursiveDirSearch(recurseDir.entryInfoList(), part);
     } else if (file.completeSuffix() == "stl") {
       part->loadSTL(absFilePath);
+
+      if (renderThread != nullptr) {
+        auto command = std::make_shared<AddActorCommand>(part->getNewActor());
+        renderThread->addCommand(command);
+      }
     } else {
       qDebug() << "File type is not stl";
     }
