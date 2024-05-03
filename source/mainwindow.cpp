@@ -23,6 +23,7 @@
 // Commands and Utils includes
 #include "RenderThread/Commands/AddActorCommand.h"
 #include "RenderThread/Commands/EndRenderCommand.h"
+#include "RenderThread/Commands/RefreshRenderCommand.h"
 #include "RenderThread/Commands/RemoveActorCommand.h"
 #include "RenderThread/Commands/UpdateColourCommand.h"
 #include "RenderThread/Commands/UpdateFilterListCommand.h"
@@ -377,6 +378,8 @@ void MainWindow::on_actiondelete_triggered() {
   if (renderThread != nullptr) {
     Utils::recursiveAddCommand<RemoveActorCommand>(
         renderThread, static_cast<ModelPart *>(ind.internalPointer()));
+    auto command = std::make_shared<RefreshRenderCommand>();
+    renderThread->addCommand(command);
   }
   this->partList->removeItem(ind);
   updateRender();
