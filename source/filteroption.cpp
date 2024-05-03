@@ -78,12 +78,19 @@ void FilterOption::handleRemoveButton() {
     qDebug() << "Current row less than zero, not removing any data";
     return;
   }
-  auto item = ui->listWidget->takeItem(ui->listWidget->currentRow());
+  int currentRow = ui->listWidget->currentRow();
+  auto item = ui->listWidget->takeItem(currentRow);
   QList<QVariant> list =
       qvariant_cast<QList<QVariant>>(item->data(Qt::UserRole));
   QWidget *widget = qvariant_cast<QWidget *>(list[1]);
   delete widget;
 
+  for (int i = currentRow; i < ui->listWidget->count(); i++) {
+    qDebug() << "Updated index: " << i;
+    auto list = qvariant_cast<QList<QVariant>>(item->data(Qt::UserRole));
+    list[0] = i - 1;
+    item->setData(Qt::UserRole, list);
+  }
   int index = qvariant_cast<int>(list[0]);
   filterList.erase(filterList.begin() + index);
   delete item;
