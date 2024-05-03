@@ -209,6 +209,8 @@ private:
    * Pointer to renderThread for VR.
    */
   RenderThread *renderThread;
+
+  std::string hdr_fileName;
 };
 
 #endif // MAINWINDOW_H

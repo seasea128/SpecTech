@@ -279,7 +279,7 @@ QTabWidget::pane
 {
 	background-color: red;
 	border: 1px solid #666;
-	top: 1px;
+	top: -1px;
 
 }
 
@@ -310,7 +310,8 @@ QTabBar::tab:!selected
 
 QTabBar::tab:selected
 {
-	margin-bottom: 0px;
+	margin-bottom: -1px;
+	background-color: #3a3a3a;
 
 }
 
