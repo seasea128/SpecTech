@@ -27,7 +27,7 @@ The following requirements only apply if compiling from source.
 * Qt: 6.6.1
 * VTK: 9.3.0
 
->[Installers](Install) are available.
+>[Installers](#Install) are available.
 
 
 ## Install
