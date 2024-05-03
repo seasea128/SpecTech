@@ -17,10 +17,6 @@ FilterOption::FilterOption(QWidget *parent, ModelPart *part)
 
   // Retrive a copy of filterList.
   filterList = part->getFilterList();
-  for (const auto &filter : filterList) {
-    qDebug() << filter.filterType;
-  }
-
   // Create list from filterList.
   for (int i = 0; i < filterList.size(); i++) {
     QString filterName = "";
