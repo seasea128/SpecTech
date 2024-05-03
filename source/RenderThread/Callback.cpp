@@ -11,7 +11,7 @@ void RenderThreadCallback::Execute(vtkObject *caller, unsigned long eventId,
       auto currentTime = std::chrono::system_clock::now();
       // Execute as much command as the CPU can until 15ms passed (Should be
       // lower than this)
-      if (currentTime - lastExecuted > std::chrono::milliseconds(15)) {
+      if (currentTime - lastExecuted > std::chrono::milliseconds(2)) {
         break;
       }
       std::shared_ptr<Commands::BaseCommand> command =
