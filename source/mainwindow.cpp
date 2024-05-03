@@ -1,4 +1,4 @@
-#include <type_traits>
+// VTK includes
 #include <vtkCamera.h>
 #include <vtkCylinderSource.h>
 #include <vtkFrustumCoverageCuller.h>
@@ -17,36 +17,27 @@
 #include <vtkSphereSource.h>
 #include <vtkTexture.h>
 
+// OpenVR includes
 #include <openvr.h>
 
-#include "./ui_mainwindow.h"
+// Commands and Utils includes
 #include "RenderThread/Commands/AddActorCommand.h"
 #include "RenderThread/Commands/EndRenderCommand.h"
 #include "RenderThread/Commands/RemoveActorCommand.h"
 #include "RenderThread/Commands/UpdateColourCommand.h"
+#include "RenderThread/Commands/UpdateFilterListCommand.h"
+#include "RenderThread/Commands/UpdatePropertyCommand.h"
 #include "RenderThread/Commands/UpdateVisibilityCommand.h"
+#include "Utils.h"
+
+#include "./ui_mainwindow.h"
 #include "mainwindow.h"
 #include "optiondialog.h"
-
+#include "optiondialogwithlist.h"
 #include <QFile>
 #include <QMessageBox>
 
 using namespace Commands;
-
-template <typename T>
-void recursiveAddCommand(RenderThread *renderThread, ModelPart *currentPart) {
-  static_assert(std::is_base_of<BaseCommand, T>::value,
-                "Given T is not derived from BaseCommand");
-  if (currentPart->getVRActor() != nullptr) {
-    auto command = std::make_shared<T>(currentPart);
-    renderThread->addCommand(command);
-  }
-  if (currentPart->childCount() > 0) {
-    for (int i = 0; i < currentPart->childCount(); i++) {
-      recursiveAddCommand<T>(renderThread, currentPart->child(i));
-    }
-  }
-}
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow), renderThread(nullptr) {
@@ -76,31 +67,10 @@ MainWindow::MainWindow(QWidget *parent)
   renderer = vtkSmartPointer<vtkOpenGLRenderer>::New();
   renderWindow->AddRenderer(renderer);
 
-  loadPBR("./skybox/rural_asphalt_road_4k.hdr");
+  hdr_fileName = std::filesystem::current_path().string() +
+                 "/skybox/rural_asphalt_road_4k.hdr";
+  loadPBR(hdr_fileName);
 
-  // Create an object and add to renderer (this will change later to display a
-  // CAD model) Will just copy and paste  cylinder example from before This
-  // creates a polygonal cylinder model with eight circumferential facets (i.e.
-  // in pratice an octagonal prism)
-  vtkNew<vtkCylinderSource> cylinder;
-  cylinder->SetResolution(8);
-
-  // The mapper is responsibile for pushing the geometry into the graphics
-  // library. It may also do color mapping. If scalars or other attributes are
-  // defined.
-  vtkNew<vtkPolyDataMapper> cylinderMapper;
-  cylinderMapper->SetInputConnection(cylinder->GetOutputPort());
-
-  vtkNew<vtkActor> cylinderActor;
-  cylinderActor->SetMapper(cylinderMapper);
-  cylinderActor->GetProperty()->SetInterpolationToPBR();
-  cylinderActor->GetProperty()->SetColor(1., 0., 0.35);
-  cylinderActor->GetProperty()->SetMetallic(0);
-  cylinderActor->GetProperty()->SetRoughness(1);
-  cylinderActor->RotateX(30.0);
-  cylinderActor->RotateY(-45.0);
-
-  renderer->AddActor(cylinderActor);
   vtkNew<vtkFrustumCoverageCuller> culler;
   renderer->AddCuller(culler);
 
@@ -128,9 +98,19 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::handleButton() {
-  QMessageBox msgBox;
-  msgBox.setText("Add button was clicked");
-  msgBox.exec();
+  auto part = GetSelectedPart();
+  if (part == nullptr) {
+    emit statusUpdateMessage(QString("Part hasn't been selected yet"), 0);
+    return;
+  }
+  OptionDialogWithList dialog(this, part);
+  dialog.exec();
+  if (renderThread != nullptr) {
+    // TODO: Update property
+    Utils::recursiveAddCommand<UpdatePropertyCommand>(renderThread, part);
+    Utils::recursiveAddCommand<UpdateFilterListCommand>(renderThread, part);
+  }
+  ReRender();
   emit statusUpdateMessage(QString("Add button was clicked"), 0);
 }
 
@@ -147,9 +127,10 @@ void MainWindow::handleModifyPartButton() {
         QString("Dialog accepted ") + GetSelectedPart()->data(0).toString(), 0);
     ReRender();
     if (renderThread != nullptr) {
-      recursiveAddCommand<UpdateColourCommand>(renderThread, GetSelectedPart());
-      recursiveAddCommand<UpdateVisibilityCommand>(renderThread,
-                                                   GetSelectedPart());
+      Utils::recursiveAddCommand<UpdateColourCommand>(renderThread,
+                                                      GetSelectedPart());
+      Utils::recursiveAddCommand<UpdateVisibilityCommand>(renderThread,
+                                                          GetSelectedPart());
     }
     ui->Slider_R->setValue(GetSelectedPart()->getColourR());
     ui->Slider_G->setValue(GetSelectedPart()->getColourG());
@@ -277,8 +258,8 @@ void MainWindow::on_actionOpen_VR_triggered() {
     window = vtkRenderWindow::New();
     interactor = vtkRenderWindowInteractor::New();
   }
-  renderThread =
-      new RenderThread(this, renderer, window, interactor, camera, reader);
+  renderThread = new RenderThread(this, renderer, window, interactor, camera,
+                                  hdr_fileName);
   ModelPart *root = this->partList->getRootItem();
   loadToRenderThread(root);
   renderThread->start();
@@ -374,7 +355,7 @@ void MainWindow::updateColour() {
 
   // Send command to renderThread
   if (renderThread != nullptr) {
-    recursiveAddCommand<UpdateColourCommand>(renderThread, currentPart);
+    Utils::recursiveAddCommand<UpdateColourCommand>(renderThread, currentPart);
     // auto refresh = std::make_shared<RefreshRenderCommand>();
     // renderThread->addCommand(refresh);
   }
@@ -389,7 +370,7 @@ void MainWindow::on_Slider_B_sliderMoved(int position) { updateColour(); }
 void MainWindow::on_actiondelete_triggered() {
   QModelIndex ind = ui->treeView->currentIndex();
   if (renderThread != nullptr) {
-    recursiveAddCommand<RemoveActorCommand>(
+    Utils::recursiveAddCommand<RemoveActorCommand>(
         renderThread, static_cast<ModelPart *>(ind.internalPointer()));
   }
   this->partList->removeItem(ind);
@@ -408,6 +389,7 @@ void MainWindow::on_actionstopbutton_triggered() {
       renderThread->terminate();
       renderThread->wait();
     }
+    delete renderThread;
     renderThread = nullptr;
   }
 }
@@ -439,4 +421,28 @@ void MainWindow::loadPBR(std::string const &hdr_fileName) {
   renderer->UseSphericalHarmonicsOn();
   renderer->SetEnvironmentTexture(envTexture, false);
   renderer->AddActor(skybox);
+}
+
+void MainWindow::on_XRotSpeed_sliderMoved(int position) {
+  if (renderThread != nullptr) {
+    renderThread->updateSpeedX(position);
+    ui->XRotDisp->display(position);
+  }
+  return;
+}
+
+void MainWindow::on_YRotSpeed_sliderMoved(int position) {
+  if (renderThread != nullptr) {
+    renderThread->updateSpeedY(position);
+    ui->YRotDisp->display(position);
+  }
+  return;
+}
+
+void MainWindow::on_ZRotSpeed_sliderMoved(int position) {
+  if (renderThread != nullptr) {
+    renderThread->updateSpeedZ(position);
+    ui->ZRotDisp->display(position);
+  }
+  return;
 }

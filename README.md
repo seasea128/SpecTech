@@ -1,7 +1,7 @@
 
 # SpecTech
 
-SpecTec is a visualisation application that utilises Virtual Reality for observing and interacting with three-dimentional models.
+SpecTech is a visualisation application that utilises Virtual Reality for observing and interacting with three-dimentional models.
 
 
 ## Features

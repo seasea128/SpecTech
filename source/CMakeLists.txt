@@ -13,18 +13,14 @@ else()
   set(CPACK_GENERATOR "ZIP")
 endif()
 
-set (CPACK_NSIS_MUI_ICON
-     "${CMAKE_SOURCE_DIR}/VR.ico")
-set (CPACK_NSIS_MUI_UNIICON
-     "${CMAKE_SOURCE_DIR}/VR.ico")
-set (CPACK_RESOURCE_FILE_LICENSE
-     "${CMAKE_CURRENT_SOURCE_DIR}/Copyright.txt")
+set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/VR.ico")
+set(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}/VR.ico")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/Copyright.txt")
 set(CPACK_NSIS_MODIFY_PATH on)
 
-set (CPACK_CREATE_DESKTOP_LINKS SpecTech)
+set(CPACK_CREATE_DESKTOP_LINKS SpecTech)
 
-
-set (CPACK_PACKAGE_EXECUTABLES SpecTech;SpecTech)
+set(CPACK_PACKAGE_EXECUTABLES SpecTech;SpecTech)
 
 set(CPACK_PACKAGE_EXECUTABLES SpecTech;SpecTech)
 
@@ -73,7 +69,11 @@ set(PROJECT_SOURCES
     ModelPart.h
     ModelPartList.cpp
     ModelPartList.h
+    Utils.h
+    Utils.cpp
     Icons.qrc
+    Filters/FilterType.h
+    Filters/FilterData.h
     RenderThread/RenderThread.cpp
     RenderThread/RenderThread.h
     RenderThread/Callback.cpp
@@ -91,7 +91,13 @@ set(PROJECT_SOURCES
     RenderThread/Commands/RemoveActorCommand.cpp
     RenderThread/Commands/RemoveActorCommand.h
     RenderThread/Commands/AddActorCommand.cpp
-    RenderThread/Commands/AddActorCommand.h)
+    RenderThread/Commands/AddActorCommand.h
+    RenderThread/Commands/UpdateFilterListCommand.cpp
+    RenderThread/Commands/UpdateFilterListCommand.h
+    RenderThread/Commands/UpdatePropertyCommand.cpp
+    RenderThread/Commands/UpdatePropertyCommand.h
+    RenderThread/Commands/UpdateRotationSpeedCommand.h
+    RenderThread/Commands/UpdateRotationSpeedCommand.cpp)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(SpecTech
@@ -100,6 +106,18 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         Icons.qrc
         optiondialog.h optiondialog.cpp optiondialog.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/VRICON.rc
+        optiondialogwithlist.h
+    optiondialogwithlist.cpp
+    optiondialogwithlist.ui
+    filteroption.h
+    filteroption.cpp
+    filteroption.ui
+    Filters/shrinkfilteroption.h
+    Filters/shrinkfilteroption.cpp
+    Filters/shrinkfilteroption.ui
+    Filters/clipfilteroption.h
+    Filters/clipfilteroption.cpp
+    Filters/clipfilteroption.ui)
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET SpecTech APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

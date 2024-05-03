@@ -25,7 +25,7 @@ RenderThread::RenderThread(
     QObject *parent, vtkSmartPointer<vtkRenderer> renderer,
     vtkSmartPointer<vtkRenderWindow> window,
     vtkSmartPointer<vtkRenderWindowInteractor> interactor,
-    vtkSmartPointer<vtkCamera> camera, vtkSmartPointer<vtkHDRReader> reader)
+    vtkSmartPointer<vtkCamera> camera, std::string_view hdr_fileName)
     : rotateX(0.), rotateY(0.), rotateZ(0.) {
   /* Initialise actor list */
   actors = vtkActorCollection::New();
@@ -36,17 +36,12 @@ RenderThread::RenderThread(
   this->window = window;
   this->interactor = interactor;
   this->camera = camera;
-  this->reader = reader;
+  this->hdr_fileName = hdr_fileName;
 }
 
 RenderThread::~RenderThread() {
   callback->Delete();
   actors->InitTraversal();
-  vtkActor *a;
-  while ((a = (vtkActor *)actors->GetNextActor())) {
-    a->Delete();
-  }
-  actors->Delete();
 }
 
 void RenderThread::run() {
@@ -58,6 +53,10 @@ void RenderThread::run() {
    * so there needs to be a mechanism to pass data from the GUI thread to the VR
    * thread.
    */
+
+  vtkNew<vtkHDRReader> reader;
+  reader->SetFileName(std::string(hdr_fileName).c_str());
+  reader->Update();
 
   vtkNew<vtkTexture> envTexture;
 
@@ -188,3 +187,7 @@ void RenderThread::addActor(vtkSmartPointer<vtkActor> actorToAdd) {
     renderer->AddActor(actorToAdd);
   }
 }
+
+void RenderThread::updateSpeedX(unsigned int Xval) { rotateX = Xval; }
+void RenderThread::updateSpeedY(unsigned int Yval) { rotateY = Yval; }
+void RenderThread::updateSpeedZ(unsigned int Zval) { rotateZ = Zval; }

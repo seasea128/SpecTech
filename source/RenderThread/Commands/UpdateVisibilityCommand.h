@@ -1,7 +1,7 @@
 #ifndef UPDATEOPACITYCOMMAND_H_
 #define UPDATEOPACITYCOMMAND_H_
 
-#include "../../../ModelPart.h"
+#include "../../ModelPart.h"
 #include "BaseCommand.h"
 #include <vtkActor.h>
 

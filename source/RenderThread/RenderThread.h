@@ -50,7 +50,7 @@ public:
                vtkSmartPointer<vtkRenderWindow> window,
                vtkSmartPointer<vtkRenderWindowInteractor> interactor,
                vtkSmartPointer<vtkCamera> camera,
-               vtkSmartPointer<vtkHDRReader> reader);
+               std::string_view hdr_fileName);
 
   /**  Destructor
    */
@@ -106,6 +106,10 @@ public:
    */
   void addActor(vtkSmartPointer<vtkActor> actorToAdd);
 
+  void updateSpeedX(unsigned int XVal);
+  void updateSpeedY(unsigned int YVal);
+  void updateSpeedZ(unsigned int XVal);
+
 protected:
   /**
    * Function that will start the RenderThread.
@@ -159,6 +163,8 @@ protected:
 
   /** List of actors that will need to be added to the VR scene */
   vtkSmartPointer<vtkActorCollection> actors;
+
+  std::string_view hdr_fileName;
 
   /* Some variables to indicate animation actions to apply.
    *
