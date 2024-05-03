@@ -30,12 +30,14 @@ The following requirements only apply if compiling from source.
 * VTK: 9.3.0
 
 >[Installers](Install) are available.
+
 &nbsp;
 ---
 
 ## Install
 
 An `exe` installer is available for Windows.
+
 &nbsp;
 ---
 
@@ -45,6 +47,7 @@ An `exe` installer is available for Windows.
 ``` bash
 Temp
 ```
+
 &nbsp;
 ---
 
