@@ -106,6 +106,10 @@ public:
    */
   void addActor(vtkSmartPointer<vtkActor> actorToAdd);
 
+  void updateSpeedX(unsigned int XVal);
+  void updateSpeedY(unsigned int YVal);
+  void updateSpeedZ(unsigned int XVal);
+
 protected:
   /**
    * Function that will start the RenderThread.

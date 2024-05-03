@@ -95,19 +95,18 @@ set(PROJECT_SOURCES
     RenderThread/Commands/UpdateFilterListCommand.cpp
     RenderThread/Commands/UpdateFilterListCommand.h
     RenderThread/Commands/UpdatePropertyCommand.cpp
-    RenderThread/Commands/UpdatePropertyCommand.h)
+    RenderThread/Commands/UpdatePropertyCommand.h
+    RenderThread/Commands/UpdateRotationSpeedCommand.h
+    RenderThread/Commands/UpdateRotationSpeedCommand.cpp)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-  qt_add_executable(
-    SpecTech
-    MANUAL_FINALIZATION
-    ${PROJECT_SOURCES}
-    Icons.qrc
-    optiondialog.h
-    optiondialog.cpp
-    optiondialog.ui
-    ${CMAKE_CURRENT_SOURCE_DIR}/VRICON.rc
-    optiondialogwithlist.h
+    qt_add_executable(SpecTech
+        MANUAL_FINALIZATION
+        ${PROJECT_SOURCES}
+        Icons.qrc
+        optiondialog.h optiondialog.cpp optiondialog.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/VRICON.rc
+        optiondialogwithlist.h
     optiondialogwithlist.cpp
     optiondialogwithlist.ui
     filteroption.h
@@ -119,11 +118,11 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     Filters/clipfilteroption.h
     Filters/clipfilteroption.cpp
     Filters/clipfilteroption.ui)
-
-  # Define target properties for Android with Qt 6 as: set_property(TARGET
-  # SpecTech APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-  # ${CMAKE_CURRENT_SOURCE_DIR}/android) For more information, see
-  # https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
+    )
+# Define target properties for Android with Qt 6 as:
+#    set_property(TARGET SpecTech APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
+#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
+# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 else()
   if(ANDROID)
     add_library(SpecTech SHARED ${PROJECT_SOURCES})

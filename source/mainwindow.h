@@ -134,6 +134,12 @@ private slots:
    */
   void on_actionstopbutton_triggered();
 
+  void on_XRotSpeed_sliderMoved(int position);
+
+  void on_YRotSpeed_sliderMoved(int position);
+
+  void on_ZRotSpeed_sliderMoved(int position);
+
 private:
   /**
    * Function for recursively scan and load actor to RenderThread from TreeView.
