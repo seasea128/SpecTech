@@ -17,8 +17,6 @@ SpecTec is a visualisation application that utilises Virtual Reality for observi
 * Move models freely about xyz axes.
 * Observe models in Virtual Reality - OpenVR.
 * **Light** and **dark** modes are available upon button click.
-&nbsp;
----
 
 
 ## Requirements
@@ -31,30 +29,22 @@ The following requirements only apply if compiling from source.
 
 >[Installers](Install) are available.
 
-&nbsp;
----
 
 ## Install
 
 An `exe` installer is available for Windows.
 
-&nbsp;
----
 
 ## Compile from source
-
 
 ``` bash
 Temp
 ```
 
-&nbsp;
----
-
 ## Repo tree
 
-&nbsp;
----
+Temp
+
 
 ## Documentation
 The Doxygen theme is available [here](https://jothepro.github.io/doxygen-awesome-css/index.html).  by [zadewg](https://github.com/zadewg).
