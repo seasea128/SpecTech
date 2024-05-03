@@ -2,8 +2,7 @@
 #define OPTIONDIALOG_H
 
 #include "ModelPart.h"
-
-#include <QDialog>
+#include <qwidget.h>
 
 namespace Ui {
 class OptionDialog;
@@ -12,7 +11,7 @@ class OptionDialog;
 /**
  * Dialog for changing options of ModelPart.
  */
-class OptionDialog : public QDialog {
+class OptionDialog : public QWidget {
   Q_OBJECT
 
 public slots:
@@ -89,12 +88,15 @@ private:
   float metallicValue;
 
   /**
-   * The strength of the anisotropy is stored. It is a value between 0 (isotropic) and 1 (anisotropic).
+   * The strength of the anisotropy is stored. It is a value between 0
+   * (isotropic) and 1 (anisotropic).
    */
   float anisotropyValue;
 
   /**
-   * The rotated direction of the anisotropy is stored around the normal counter-clockwise. It is a value between 0 and 1, where 1 is a rotation of 2*PI.
+   * The rotated direction of the anisotropy is stored around the normal
+   * counter-clockwise. It is a value between 0 and 1, where 1 is a rotation of
+   * 2*PI.
    */
   float anisotropyRotationValue;
 };

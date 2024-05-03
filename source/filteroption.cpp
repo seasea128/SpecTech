@@ -53,12 +53,14 @@ FilterOption::FilterOption(QWidget *parent, ModelPart *part)
     ui->listWidget->addItem(item);
   }
 
-  ui->listWidget->setCurrentRow(0);
-  auto firstItem = ui->listWidget->currentItem();
-  QList<QVariant> firstItemList =
-      qvariant_cast<QList<QVariant>>(firstItem->data(Qt::UserRole));
-  QWidget *firstWidget = qvariant_cast<QWidget *>(firstItemList[1]);
-  ui->tabWidget->addTab(firstWidget, firstItem->text());
+  if (ui->listWidget->count() > 0) {
+    ui->listWidget->setCurrentRow(0);
+    auto firstItem = ui->listWidget->currentItem();
+    QList<QVariant> firstItemList =
+        qvariant_cast<QList<QVariant>>(firstItem->data(Qt::UserRole));
+    QWidget *firstWidget = qvariant_cast<QWidget *>(firstItemList[1]);
+    ui->tabWidget->addTab(firstWidget, firstItem->text());
+  }
   adjustSize();
   resize(sizeHint());
 

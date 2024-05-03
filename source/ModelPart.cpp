@@ -238,18 +238,6 @@ void ModelPart::loadSTL(QString fileName) {
   actor->GetProperty()->SetRoughness(0.5);
   actor->GetProperty()->SetMetallic(0.5);
 
-  auto planeLeft = vtkSmartPointer<vtkPlane>::New();
-  planeLeft->SetOrigin(0., 0., 0.);
-  planeLeft->SetNormal(-1., 0., 0.);
-
-  auto clipFilter = vtkSmartPointer<vtkClipDataSet>::New();
-  clipFilter->SetClipFunction(planeLeft);
-  filterList.push_back({Filter::FilterType::ClipFilter, clipFilter});
-
-  auto shrinkFilter = vtkSmartPointer<vtkShrinkFilter>::New();
-  shrinkFilter->SetShrinkFactor(0.4);
-  filterList.push_back({Filter::FilterType::ShrinkFilter, shrinkFilter});
-
   Utils::setFilterFromListWithFile(filterList, file, mapper);
 
   double *ac = actor->GetOrigin();
@@ -325,11 +313,17 @@ std::vector<Filter::FilterData> ModelPart::getFilterList() const {
 
 void ModelPart::setFilterFromList() {
   Utils::setFilterFromListWithFile(filterList, file, mapper);
+  for (auto &child : m_childItems) {
+    child->setFilterFromList();
+  }
 }
 
 void ModelPart::setFilterList(
     const std::vector<Filter::FilterData> &_filterList) {
   filterList = _filterList;
+  for (auto &child : m_childItems) {
+    child->setFilterList(_filterList);
+  }
 }
 
 vtkSmartPointer<vtkSTLReader> ModelPart::getFile() const { return file; }

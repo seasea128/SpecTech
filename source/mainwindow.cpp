@@ -67,8 +67,9 @@ MainWindow::MainWindow(QWidget *parent)
   renderer = vtkSmartPointer<vtkOpenGLRenderer>::New();
   renderWindow->AddRenderer(renderer);
 
-  hdr_fileName = std::filesystem::current_path().string() +
-                 "/skybox/rural_asphalt_road_4k.hdr";
+  hdr_fileName =
+      (std::filesystem::current_path() / "skybox" / "rural_asphalt_road_4k.hdr")
+          .string();
   loadPBR(hdr_fileName);
 
   vtkNew<vtkFrustumCoverageCuller> culler;
@@ -119,17 +120,16 @@ void MainWindow::handleModifyPartButton() {
     emit statusUpdateMessage(QString("Part hasn't been selected yet"), 0);
     return;
   }
-  OptionDialog dialog(this, GetSelectedPart());
+  OptionDialogWithList dialog(this, GetSelectedPart());
 
   if (dialog.exec() == QDialog::Accepted) {
-    dialog.SetValue();
     emit statusUpdateMessage(
         QString("Dialog accepted ") + GetSelectedPart()->data(0).toString(), 0);
     ReRender();
     if (renderThread != nullptr) {
-      Utils::recursiveAddCommand<UpdateColourCommand>(renderThread,
-                                                      GetSelectedPart());
-      Utils::recursiveAddCommand<UpdateVisibilityCommand>(renderThread,
+      Utils::recursiveAddCommand<UpdatePropertyCommand>(renderThread,
+                                                        GetSelectedPart());
+      Utils::recursiveAddCommand<UpdateFilterListCommand>(renderThread,
                                                           GetSelectedPart());
     }
     ui->Slider_R->setValue(GetSelectedPart()->getColourR());

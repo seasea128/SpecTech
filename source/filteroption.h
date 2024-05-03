@@ -9,6 +9,10 @@ namespace Ui {
 class FilterOption;
 }
 
+/**
+ * Widget for holding all filter related widgets
+ * This is the main part that has the list.
+ */
 class FilterOption : public QWidget {
   Q_OBJECT
 

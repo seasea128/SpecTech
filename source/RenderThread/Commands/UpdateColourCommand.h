@@ -31,7 +31,9 @@ public:
    * @return assigned UpdateColourCommand.
    */
   UpdateColourCommand &operator=(const UpdateColourCommand &command);
+
   virtual ~UpdateColourCommand();
+
   virtual void Execute(RenderThread &renderThread) override;
 
 private:

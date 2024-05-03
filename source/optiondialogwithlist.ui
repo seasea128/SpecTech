@@ -56,8 +56,8 @@
          </property>
          <property name="minimumSize">
           <size>
-           <width>300</width>
-           <height>0</height>
+           <width>450</width>
+           <height>350</height>
           </size>
          </property>
         </widget>
@@ -70,7 +70,7 @@
         <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <property name="standardButtons">
-        <set>QDialogButtonBox::StandardButton::Apply|QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok</set>
+        <set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok</set>
        </property>
       </widget>
      </item>

@@ -84,8 +84,8 @@
     <widget class="QTabWidget" name="tabWidget">
      <property name="minimumSize">
       <size>
-       <width>250</width>
-       <height>0</height>
+       <width>600</width>
+       <height>400</height>
       </size>
      </property>
     </widget>
