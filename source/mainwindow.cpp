@@ -119,17 +119,16 @@ void MainWindow::handleModifyPartButton() {
     emit statusUpdateMessage(QString("Part hasn't been selected yet"), 0);
     return;
   }
-  OptionDialog dialog(this, GetSelectedPart());
+  OptionDialogWithList dialog(this, GetSelectedPart());
 
   if (dialog.exec() == QDialog::Accepted) {
-    dialog.SetValue();
     emit statusUpdateMessage(
         QString("Dialog accepted ") + GetSelectedPart()->data(0).toString(), 0);
     ReRender();
     if (renderThread != nullptr) {
-      Utils::recursiveAddCommand<UpdateColourCommand>(renderThread,
-                                                      GetSelectedPart());
-      Utils::recursiveAddCommand<UpdateVisibilityCommand>(renderThread,
+      Utils::recursiveAddCommand<UpdatePropertyCommand>(renderThread,
+                                                        GetSelectedPart());
+      Utils::recursiveAddCommand<UpdateFilterListCommand>(renderThread,
                                                           GetSelectedPart());
     }
     ui->Slider_R->setValue(GetSelectedPart()->getColourR());
