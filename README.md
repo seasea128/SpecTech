@@ -60,6 +60,6 @@ An `exe` installer is available for Windows.
 ```
 
 ## Documentation
-The Doxygen formatted comments are hosted [here] (https://seasea128.github.io/2023_GROUP_1/)
+The Doxygen formatted comments are hosted [here](https://seasea128.github.io/2023_GROUP_1/)
 
 The Doxygen theme is available [here](https://jothepro.github.io/doxygen-awesome-css/index.html).  by [jothepro](https://github.com/jothepro).
