@@ -77,7 +77,8 @@ MainWindow::MainWindow(QWidget *parent)
   renderer = vtkSmartPointer<vtkOpenGLRenderer>::New();
   renderWindow->AddRenderer(renderer);
 
-  hdr_fileName = "./skybox/rural_asphalt_road_4k.hdr";
+  hdr_fileName = std::filesystem::current_path().string() +
+                 "/skybox/rural_asphalt_road_4k.hdr";
   loadPBR(hdr_fileName);
 
   // Create an object and add to renderer (this will change later to display a
