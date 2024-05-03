@@ -10,6 +10,8 @@
 #ifndef VIEWER_MODELPART_H
 #define VIEWER_MODELPART_H
 
+#include "Filters/FilterData.h"
+#include "Filters/FilterType.h"
 #include <QList>
 #include <QString>
 #include <QVariant>
@@ -221,9 +223,11 @@ public:
   /**
    * Function that set the connections of filter inside the list;
    */
-  void setFilterFromList(
-      const std::vector<vtkSmartPointer<vtkAlgorithm>> &filterList,
-      vtkSmartPointer<vtkSTLReader> file, vtkSmartPointer<vtkMapper> mapper);
+  void setFilterFromList(const std::vector<Filter::FilterData> &filterList,
+                         vtkSmartPointer<vtkSTLReader> file,
+                         vtkSmartPointer<vtkMapper> mapper);
+
+  std::vector<Filter::FilterData> getFilterListCopy();
 
 private:
   QList<ModelPart *> m_childItems; /**< List (array) of child items */
@@ -249,7 +253,7 @@ private:
   float anisotropy;                   /**< Anisotropy property of actor */
   float anisotropyrotation; /**< Anisotropy rotation property of actor */
 
-  std::vector<vtkSmartPointer<vtkAlgorithm>>
+  std::vector<Filter::FilterData>
       filterList; /**< List of filter that should be applied to this part*/
 
   vtkSmartPointer<vtkMapper> vrMapper; /**< Mapper for VR renderer*/

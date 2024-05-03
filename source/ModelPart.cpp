@@ -242,11 +242,11 @@ void ModelPart::loadSTL(QString fileName) {
 
   auto clipFilter = vtkSmartPointer<vtkClipDataSet>::New();
   clipFilter->SetClipFunction(planeLeft);
-  filterList.push_back(clipFilter);
+  filterList.push_back({Filter::FilterType::ClipFilter, clipFilter});
 
   auto shrinkFilter = vtkSmartPointer<vtkShrinkFilter>::New();
   shrinkFilter->SetShrinkFactor(0.4);
-  filterList.push_back(shrinkFilter);
+  filterList.push_back({Filter::FilterType::ShrinkFilter, shrinkFilter});
 
   setFilterFromList(filterList, file, mapper);
 
@@ -317,7 +317,7 @@ vtkSmartPointer<vtkActor> ModelPart::getNewActor() {
 }
 
 void ModelPart::setFilterFromList(
-    const std::vector<vtkSmartPointer<vtkAlgorithm>> &filterList,
+    const std::vector<Filter::FilterData> &filterList,
     vtkSmartPointer<vtkSTLReader> file, vtkSmartPointer<vtkMapper> mapper) {
   if (filterList.size() == 0) {
     mapper->SetInputConnection(file->GetOutputPort());
@@ -325,12 +325,12 @@ void ModelPart::setFilterFromList(
   }
 
   // Set file to the filter
-  filterList[0]->SetInputConnection(file->GetOutputPort());
-  filterList[0]->Update();
+  filterList[0].filterPointer->SetInputConnection(file->GetOutputPort());
+  filterList[0].filterPointer->Update();
 
   // Set mapper to the last filter in the list
   mapper->SetInputConnection(
-      filterList[filterList.size() - 1]->GetOutputPort());
+      filterList[filterList.size() - 1].filterPointer->GetOutputPort());
 
   // Don't need to do the loop if there's only 1 filter.
   if (filterList.size() == 1) {
@@ -339,7 +339,12 @@ void ModelPart::setFilterFromList(
 
   // Set the filter chain to each other
   for (int i = 0; i < filterList.size() - 1; i++) {
-    filterList[i + 1]->SetInputConnection(filterList[i]->GetOutputPort());
-    filterList[i + 1]->Update();
+    filterList[i + 1].filterPointer->SetInputConnection(
+        filterList[i].filterPointer->GetOutputPort());
+    filterList[i + 1].filterPointer->Update();
   }
+}
+
+std::vector<Filter::FilterData> ModelPart::getFilterListCopy() {
+  return filterList;
 }
