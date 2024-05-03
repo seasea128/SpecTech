@@ -9,6 +9,7 @@ OptionDialogWithList::OptionDialogWithList(QWidget *parent, ModelPart *part)
       filterOption(std::make_unique<FilterOption>(this)) {
 
   ui->setupUi(this);
+  filterOption->hide();
   ui->listWidget->setViewMode(QListWidget::ListMode);
   const std::array<std::pair<QString, QWidget *>, 2> optionList = {
       {{"General", optionDialog.get()}, {"Filters", filterOption.get()}}};
@@ -23,6 +24,7 @@ OptionDialogWithList::OptionDialogWithList(QWidget *parent, ModelPart *part)
   ui->listWidget->setCurrentRow(0);
   ui->tabWidget->addTab(optionList[0].second, optionList[0].first);
   adjustSize();
+  resize(sizeHint());
 }
 
 void OptionDialogWithList::handleListClick() {
@@ -36,6 +38,7 @@ void OptionDialogWithList::handleListClick() {
   ui->tabWidget->clear();
   ui->tabWidget->addTab(widget, item[0]->text());
   adjustSize();
+  resize(sizeHint());
 }
 
 OptionDialogWithList::~OptionDialogWithList() { delete ui; }
