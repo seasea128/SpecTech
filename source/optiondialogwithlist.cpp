@@ -1,12 +1,15 @@
 #include "optiondialogwithlist.h"
 #include "mainwindow.h"
 #include "ui_optiondialogwithlist.h"
+#include <QPushButton>
 #include <memory>
+#include <qabstractbutton.h>
+#include <qdialogbuttonbox.h>
 
 OptionDialogWithList::OptionDialogWithList(QWidget *parent, ModelPart *part)
     : QDialog(parent), ui(new Ui::OptionDialogWithList),
       optionDialog(std::make_unique<OptionDialog>(this, part)),
-      filterOption(std::make_unique<FilterOption>(this)) {
+      filterOption(std::make_unique<FilterOption>(this, part)) {
 
   ui->setupUi(this);
   filterOption->hide();
@@ -25,6 +28,18 @@ OptionDialogWithList::OptionDialogWithList(QWidget *parent, ModelPart *part)
   ui->tabWidget->addTab(optionList[0].second, optionList[0].first);
   adjustSize();
   resize(sizeHint());
+
+  connect(ui->buttonBox, &QDialogButtonBox::clicked, this,
+          &OptionDialogWithList::SetValue);
+}
+
+void OptionDialogWithList::SetValue(QAbstractButton *button) {
+  QDialogButtonBox::ButtonRole role = ui->buttonBox->buttonRole(button);
+  if (role == QDialogButtonBox::AcceptRole ||
+      role == QDialogButtonBox::ApplyRole) {
+    optionDialog->SetValue();
+    filterOption->SetValue();
+  }
 }
 
 void OptionDialogWithList::handleListClick() {

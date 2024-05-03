@@ -65,6 +65,8 @@ set(PROJECT_SOURCES
     ModelPart.h
     ModelPartList.cpp
     ModelPartList.h
+    Utils.h
+    Utils.cpp
     Icons.qrc
     Filters/FilterType.h
     Filters/FilterData.h
@@ -85,7 +87,11 @@ set(PROJECT_SOURCES
     RenderThread/Commands/RemoveActorCommand.cpp
     RenderThread/Commands/RemoveActorCommand.h
     RenderThread/Commands/AddActorCommand.cpp
-    RenderThread/Commands/AddActorCommand.h)
+    RenderThread/Commands/AddActorCommand.h
+    RenderThread/Commands/UpdateFilterListCommand.cpp
+    RenderThread/Commands/UpdateFilterListCommand.h
+    RenderThread/Commands/UpdatePropertyCommand.cpp
+    RenderThread/Commands/UpdatePropertyCommand.h)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
   qt_add_executable(
@@ -102,7 +108,13 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     optiondialogwithlist.ui
     filteroption.h
     filteroption.cpp
-    filteroption.ui)
+    filteroption.ui
+    Filters/shrinkfilteroption.h
+    Filters/shrinkfilteroption.cpp
+    Filters/shrinkfilteroption.ui
+    Filters/clipfilteroption.h
+    Filters/clipfilteroption.cpp
+    Filters/clipfilteroption.ui)
 
   # Define target properties for Android with Qt 6 as: set_property(TARGET
   # SpecTech APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
