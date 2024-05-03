@@ -42,15 +42,15 @@ An `exe` installer is available for Windows.
 
 ```
 ├── .github/workflows/                
-|   └── doxygen-deploy.yml 		 # Passes the sources and generates documentation
+|   └── doxygen-deploy.yml       # Passes the sources and generates documentation
 |             
 ├── doxygen-awesome-css/         # Git Submodule: Doxygen Awesome (by jothepro)
 |  
 └── source/       
-    ├── RenderThread/			 # Handles VR content
- 	├── icons/					 # Stores icons
- 	├── skybox/					 # Displaying the environment
- 	├── vrbindings/              # Allows the VR controllers to interact with objects
+    ├── RenderThread/            # Handles VR content
+    ├── icons/                   # Stores icons
+    ├── skybox/                  # Displaying the environment
+    ├── vrbindings/              # Allows the VR controllers to interact with objects
     └── CMakeLists.txt           # Main CMakeLists
 ```
 
