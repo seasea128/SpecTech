@@ -182,7 +182,7 @@ install(
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(DIRECTORY vrbindings DESTINATION bin)
 install(FILES Combinear.qss DESTINATION bin)
-install(DIRECTORY skybox DESTINATION bin)
+install(DIRECTORY skybox DESTINATION /)
 if(WIN32)
   install(FILES ${OpenVR_INCLUDE_DIR}/../bin/win64/openvr_api.dll
           DESTINATION bin)

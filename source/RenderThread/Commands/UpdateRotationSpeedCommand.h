@@ -25,7 +25,9 @@ public:
   virtual void Execute(RenderThread &renderThread) override;
 
 private:
-  float x, y, z;
+  float x; /**< New value of x */
+  float y; /**< New value of y */
+  float z; /**< New value of z */
 };
 } // namespace Commands
 #endif // UPDATEROTATIONSPEEDCOMMAND_H
