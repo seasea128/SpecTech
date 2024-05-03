@@ -18,31 +18,28 @@ FilterOption::FilterOption(QWidget *parent, ModelPart *part)
   // Retrive a copy of filterList.
   filterList = part->getFilterList();
   // Create list from filterList.
-  for (int i = 0; i < filterList.size(); i++) {
+  for (auto &filter : filterList) {
     QString filterName = "";
     auto item = new QListWidgetItem();
-    switch (filterList[i].filterType) {
+    switch (filter.filterType) {
     case FilterType::ClipFilter: {
 
       filterName = "Clip Filter";
       item->setText(filterName);
       // Need to use raw pointer here because tabWidget can't use std::memory
       // and QSharedPointer.
-      QWidget *clipWidget =
-          new ClipFilterOption(this, filterList[i].filterPointer);
+      QWidget *clipWidget = new ClipFilterOption(this, filter.filterPointer);
       clipWidget->hide();
-      item->setData(Qt::UserRole,
-                    QList<QVariant>({i, QVariant::fromValue(clipWidget)}));
+      item->setData(Qt::UserRole, QVariant::fromValue(clipWidget));
       break;
     }
     case FilterType::ShrinkFilter: {
       filterName = "Shrink Filter";
       item->setText(filterName);
       QWidget *shrinkWidget =
-          new ShrinkFilterOption(this, filterList[i].filterPointer);
+          new ShrinkFilterOption(this, filter.filterPointer);
       shrinkWidget->hide();
-      item->setData(Qt::UserRole,
-                    QList<QVariant>({i, QVariant::fromValue(shrinkWidget)}));
+      item->setData(Qt::UserRole, QVariant::fromValue(shrinkWidget));
       break;
     }
     }
@@ -52,11 +49,11 @@ FilterOption::FilterOption(QWidget *parent, ModelPart *part)
   if (ui->listWidget->count() > 0) {
     ui->listWidget->setCurrentRow(0);
     auto firstItem = ui->listWidget->currentItem();
-    QList<QVariant> firstItemList =
-        qvariant_cast<QList<QVariant>>(firstItem->data(Qt::UserRole));
-    QWidget *firstWidget = qvariant_cast<QWidget *>(firstItemList[1]);
+    QWidget *firstWidget =
+        qvariant_cast<QWidget *>(firstItem->data(Qt::UserRole));
     ui->tabWidget->addTab(firstWidget, firstItem->text());
   }
+
   adjustSize();
   resize(sizeHint());
 
@@ -80,29 +77,18 @@ void FilterOption::handleRemoveButton() {
   }
   int currentRow = ui->listWidget->currentRow();
   auto item = ui->listWidget->takeItem(currentRow);
-  QList<QVariant> list =
-      qvariant_cast<QList<QVariant>>(item->data(Qt::UserRole));
-  QWidget *widget = qvariant_cast<QWidget *>(list[1]);
+  QWidget *widget = qvariant_cast<QWidget *>(item->data(Qt::UserRole));
   delete widget;
 
-  for (int i = currentRow; i < ui->listWidget->count(); i++) {
-    qDebug() << "Updated index: " << i;
-    auto list = qvariant_cast<QList<QVariant>>(item->data(Qt::UserRole));
-    list[0] = i - 1;
-    item->setData(Qt::UserRole, list);
-  }
-  int index = qvariant_cast<int>(list[0]);
-  filterList.erase(filterList.begin() + index);
+  filterList.erase(filterList.begin() + currentRow);
   delete item;
 }
 
 void FilterOption::SetValue() {
-  // TODO: Loop through every widget in list and call SetValue();
+  // Loop through every widget in list and call SetValue();
   for (int i = 0; i < ui->listWidget->count(); i++) {
     auto item = ui->listWidget->item(i);
-    QList<QVariant> list =
-        qvariant_cast<QList<QVariant>>(item->data(Qt::UserRole));
-    QWidget *widget = qvariant_cast<QWidget *>(list[1]);
+    QWidget *widget = qvariant_cast<QWidget *>(item->data(Qt::UserRole));
 
     FilterOptionInterface *filterOption =
         dynamic_cast<FilterOptionInterface *>(widget);
@@ -120,9 +106,7 @@ void FilterOption::handleListClick() {
   if (item.isEmpty())
     return;
 
-  QList<QVariant> list =
-      qvariant_cast<QList<QVariant>>(item[0]->data(Qt::UserRole));
-  QWidget *widget = qvariant_cast<QWidget *>(list[1]);
+  QWidget *widget = qvariant_cast<QWidget *>(item[0]->data(Qt::UserRole));
 
   ui->tabWidget->clear();
   ui->tabWidget->addTab(widget, item[0]->text());
@@ -133,9 +117,7 @@ void FilterOption::handleListClick() {
 FilterOption::~FilterOption() {
   for (int i = 0; i < ui->listWidget->count(); i++) {
     auto item = ui->listWidget->item(i);
-    QList<QVariant> list =
-        qvariant_cast<QList<QVariant>>(item->data(Qt::UserRole));
-    QWidget *widget = qvariant_cast<QWidget *>(list[1]);
+    QWidget *widget = qvariant_cast<QWidget *>(item->data(Qt::UserRole));
     delete widget;
   }
   delete menu;
@@ -161,10 +143,8 @@ void FilterOption::on_actionAdd_clip_filter_triggered() {
   // Need to use raw pointer here because tabWidget can't use std::memory
   // and QSharedPointer.
   QWidget *clipWidget = new ClipFilterOption(this, clipFilter);
-  int index = filterList.size() - 1;
   clipWidget->hide();
-  item->setData(Qt::UserRole,
-                QList<QVariant>({index, QVariant::fromValue(clipWidget)}));
+  item->setData(Qt::UserRole, QVariant::fromValue(clipWidget));
   ui->listWidget->addItem(item);
 }
 
@@ -183,9 +163,7 @@ void FilterOption::on_actionAdd_shrink_filter_triggered() {
   // Need to use raw pointer here because tabWidget can't use std::memory
   // and QSharedPointer.
   QWidget *clipWidget = new ShrinkFilterOption(this, shrinkFilter);
-  int index = filterList.size() - 1;
   clipWidget->hide();
-  item->setData(Qt::UserRole,
-                QList<QVariant>({index, QVariant::fromValue(clipWidget)}));
+  item->setData(Qt::UserRole, QVariant::fromValue(clipWidget));
   ui->listWidget->addItem(item);
 }
