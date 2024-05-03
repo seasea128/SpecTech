@@ -18,9 +18,14 @@ SpecTech is a visualisation application that utilises Virtual Reality for observ
 * Edit or delete individual model components.
 * Open models individually or as a collective.
 * Open multiple models at once.
-* Move models freely about xyz axes.
+* Manually rotate models freely about xyz axes.
+* Includes filters:
+	- Shrink filter: shrinks each triangle inside the model.
+	- Clip filter: cuts off model from a specfied point and direction.
+	- Filters can be removed.
 * Observe models in Virtual Reality - OpenVR.
-* **Light** and **dark** modes are available upon button click.
+* Edit the rotational speed of the model in VR.
+* **Light** and **dark** modes are available upon button click for Doxygen.
 
 
 ## Requirements
@@ -55,4 +60,6 @@ An `exe` installer is available for Windows.
 ```
 
 ## Documentation
+The Doxygen formatted comments are hosted [here] (https://seasea128.github.io/2023_GROUP_1/)
+
 The Doxygen theme is available [here](https://jothepro.github.io/doxygen-awesome-css/index.html).  by [jothepro](https://github.com/jothepro).
