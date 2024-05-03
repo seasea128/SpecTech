@@ -328,7 +328,7 @@ void ModelPart::setFilterList(
     const std::vector<Filter::FilterData> &_filterList) {
   filterList = _filterList;
   for (auto &child : m_childItems) {
-    child->setFilterList(_filterList);
+    child->setFilterList(Utils::copyFilterList(_filterList));
   }
 }
 
