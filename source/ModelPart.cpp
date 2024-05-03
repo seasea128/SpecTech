@@ -29,6 +29,10 @@ ModelPart::ModelPart(const QList<QVariant> &data, ModelPart *parent)
   /* You probably want to give the item a default colour */
   isVisible = true;
   setColour(255, 255, 255);
+  metallic = 0.5;
+  anisotropy = 0.5;
+  anisotropyrotation = 0.5;
+  roughness = 0.5;
 }
 
 ModelPart::~ModelPart() { qDeleteAll(m_childItems); }
@@ -312,7 +316,9 @@ std::vector<Filter::FilterData> ModelPart::getFilterList() const {
 }
 
 void ModelPart::setFilterFromList() {
-  Utils::setFilterFromListWithFile(filterList, file, mapper);
+  if (file != nullptr && mapper != nullptr) {
+    Utils::setFilterFromListWithFile(filterList, file, mapper);
+  }
   for (auto &child : m_childItems) {
     child->setFilterFromList();
   }
