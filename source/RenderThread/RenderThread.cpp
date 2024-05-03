@@ -188,3 +188,7 @@ void RenderThread::addActor(vtkSmartPointer<vtkActor> actorToAdd) {
     renderer->AddActor(actorToAdd);
   }
 }
+
+void RenderThread::updateSpeedX(unsigned int Xval) { rotateX = Xval; }
+void RenderThread::updateSpeedY(unsigned int Yval) { rotateY = Yval; }
+void RenderThread::updateSpeedZ(unsigned int Zval) { rotateZ = Zval; }
