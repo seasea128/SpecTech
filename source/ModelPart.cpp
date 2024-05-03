@@ -21,9 +21,11 @@
 #include <vtkSmartPointer.h>
 #include <vtkWeakPointerBase.h>
 
+#include "Utils.h"
+
 ModelPart::ModelPart(const QList<QVariant> &data, ModelPart *parent)
     : m_itemData(data), m_parentItem(parent), file(nullptr), fileName(""),
-      filterList({}) {
+      filterList({}), vrFilterList({}) {
   /* You probably want to give the item a default colour */
   isVisible = true;
   setColour(255, 255, 255);
@@ -248,7 +250,7 @@ void ModelPart::loadSTL(QString fileName) {
   shrinkFilter->SetShrinkFactor(0.4);
   filterList.push_back({Filter::FilterType::ShrinkFilter, shrinkFilter});
 
-  setFilterFromList(filterList, file, mapper);
+  Utils::setFilterFromListWithFile(filterList, file, mapper);
 
   double *ac = actor->GetOrigin();
 
@@ -286,12 +288,13 @@ vtkSmartPointer<vtkActor> ModelPart::getNewActor() {
     return nullptr;
   }
 
-  vtkSmartPointer<vtkPolyData> newPolyData =
-      vtkSmartPointer<vtkPolyData>::New();
+  vtkSmartPointer<vtkPolyData> vrPolyData = vtkSmartPointer<vtkPolyData>::New();
 
-  newPolyData->DeepCopy(file->GetInputDataObject(0, 0));
+  vrPolyData->DeepCopy(file->GetOutputDataObject(0));
 
-  vrMapper->SetInputDataObject(newPolyData);
+  vrFilterList = Utils::copyFilterList(filterList);
+
+  Utils::setFilterFromListWithPolyData(vrFilterList, vrPolyData, vrMapper);
 
   qDebug() << "Created new mapper";
 
@@ -316,35 +319,28 @@ vtkSmartPointer<vtkActor> ModelPart::getNewActor() {
   return localVRActor;
 }
 
-void ModelPart::setFilterFromList(
-    const std::vector<Filter::FilterData> &filterList,
-    vtkSmartPointer<vtkSTLReader> file, vtkSmartPointer<vtkMapper> mapper) {
-  if (filterList.size() == 0) {
-    mapper->SetInputConnection(file->GetOutputPort());
-    return;
-  }
-
-  // Set file to the filter
-  filterList[0].filterPointer->SetInputConnection(file->GetOutputPort());
-  filterList[0].filterPointer->Update();
-
-  // Set mapper to the last filter in the list
-  mapper->SetInputConnection(
-      filterList[filterList.size() - 1].filterPointer->GetOutputPort());
-
-  // Don't need to do the loop if there's only 1 filter.
-  if (filterList.size() == 1) {
-    return;
-  }
-
-  // Set the filter chain to each other
-  for (int i = 0; i < filterList.size() - 1; i++) {
-    filterList[i + 1].filterPointer->SetInputConnection(
-        filterList[i].filterPointer->GetOutputPort());
-    filterList[i + 1].filterPointer->Update();
-  }
+std::vector<Filter::FilterData> ModelPart::getFilterList() const {
+  return filterList;
 }
 
-std::vector<Filter::FilterData> ModelPart::getFilterListCopy() {
-  return filterList;
+void ModelPart::setFilterFromList() {
+  Utils::setFilterFromListWithFile(filterList, file, mapper);
+}
+
+void ModelPart::setFilterList(
+    const std::vector<Filter::FilterData> &_filterList) {
+  filterList = _filterList;
+}
+
+vtkSmartPointer<vtkSTLReader> ModelPart::getFile() const { return file; }
+
+void ModelPart::setVRPolyData(vtkSmartPointer<vtkPolyData> newPolyData) {
+  vrPolyData = newPolyData;
+}
+
+vtkSmartPointer<vtkMapper> ModelPart::getVRMapper() const { return vrMapper; }
+
+void ModelPart::setVRFilterList(
+    const std::vector<Filter::FilterData> &newfilterList) {
+  vrFilterList = newfilterList;
 }

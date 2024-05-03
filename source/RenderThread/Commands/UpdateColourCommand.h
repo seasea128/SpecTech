@@ -1,6 +1,6 @@
 #ifndef UPDATECOLOURCOMMAND_H_
 #define UPDATECOLOURCOMMAND_H_
-#include "../../../ModelPart.h"
+#include "../../ModelPart.h"
 #include "BaseCommand.h"
 #include <vtkActor.h>
 #include <vtkColor.h>

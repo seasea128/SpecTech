@@ -4,6 +4,7 @@
 #include "filteroption.h"
 #include "optiondialog.h"
 #include <QDialog>
+#include <qabstractbutton.h>
 
 namespace Ui {
 class OptionDialogWithList;
@@ -19,6 +20,7 @@ public:
 
 private slots:
   void handleListClick();
+  void SetValue(QAbstractButton *button);
 
 private:
   enum ListItem { General, Filters };

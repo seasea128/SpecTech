@@ -1,6 +1,7 @@
 #ifndef FILTEROPTION_H
 #define FILTEROPTION_H
 
+#include "Filters/shrinkfilteroption.h"
 #include "ModelPart.h"
 #include <QWidget>
 
@@ -16,9 +17,21 @@ public:
   ~FilterOption();
   void SetValue();
 
+private slots:
+  void handleListClick();
+
+  void on_actionAdd_clip_filter_triggered();
+
+  void on_actionAdd_shrink_filter_triggered();
+
 private:
+  void handleRemoveButton();
+
   Ui::FilterOption *ui;
   ModelPart *part;
+  QMenu *menu;
+
+  std::vector<Filter::FilterData> filterList;
 };
 
 #endif // FILTEROPTION_H

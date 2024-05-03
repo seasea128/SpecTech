@@ -25,6 +25,7 @@
  */
 #include <vtkActor.h>
 #include <vtkColor.h>
+#include <vtkDataSetMapper.h>
 #include <vtkMapper.h>
 #include <vtkSTLReader.h>
 #include <vtkSmartPointer.h>
@@ -221,13 +222,29 @@ public:
   vtkWeakPointer<vtkActor> getVRActor() const;
 
   /**
-   * Function that set the connections of filter inside the list;
+   * Returns a copy of filter list.
+   * @return Copy of filter list.
    */
-  void setFilterFromList(const std::vector<Filter::FilterData> &filterList,
-                         vtkSmartPointer<vtkSTLReader> file,
-                         vtkSmartPointer<vtkMapper> mapper);
+  std::vector<Filter::FilterData> getFilterList() const;
 
-  std::vector<Filter::FilterData> getFilterListCopy();
+  /**
+   * Set filterList in this part to modified version.
+   * @param _filterList is the modified filter list.
+   */
+  void setFilterList(const std::vector<Filter::FilterData> &_filterList);
+
+  /**
+   * Set filter chain in this part.
+   */
+  void setFilterFromList();
+
+  vtkSmartPointer<vtkSTLReader> getFile() const;
+
+  void setVRPolyData(vtkSmartPointer<vtkPolyData> newPolyData);
+
+  vtkSmartPointer<vtkMapper> getVRMapper() const;
+
+  void setVRFilterList(const std::vector<Filter::FilterData> &newfilterList);
 
 private:
   QList<ModelPart *> m_childItems; /**< List (array) of child items */
@@ -254,8 +271,12 @@ private:
   float anisotropyrotation; /**< Anisotropy rotation property of actor */
 
   std::vector<Filter::FilterData>
+      vrFilterList; /**< List of filter that should be applied to this part*/
+
+  std::vector<Filter::FilterData>
       filterList; /**< List of filter that should be applied to this part*/
 
+  vtkSmartPointer<vtkPolyData> vrPolyData;
   vtkSmartPointer<vtkMapper> vrMapper; /**< Mapper for VR renderer*/
   vtkWeakPointer<vtkActor> vrActor;    /**< Actor for VR renderer*/
 };
