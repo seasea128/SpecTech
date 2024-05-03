@@ -162,21 +162,21 @@ add_custom_command(
   TARGET VRBindings
   POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy_directory
-          ${CMAKE_CURRENT_SOURCE_DIR}/vrbindings $<TARGET_FILE_DIR:SpecTech>)
+          ${CMAKE_CURRENT_SOURCE_DIR}/vrbindings ${CMAKE_BINARY_DIR})
 
 add_custom_target(Theme ALL)
 add_custom_command(
   TARGET Theme
   POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/Combinear.qss
-          $<TARGET_FILE_DIR:SpecTech>)
+          ${CMAKE_BINARY_DIR})
 
 add_custom_target(Skybox ALL)
 add_custom_command(
   TARGET Skybox
   POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/skybox
-          $<TARGET_FILE_DIR:SpecTech>/skybox)
+          ${CMAKE_BINARY_DIR}/skybox)
 
 install(
   TARGETS SpecTech
@@ -185,7 +185,6 @@ install(
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(DIRECTORY vrbindings DESTINATION bin)
 install(FILES Combinear.qss DESTINATION bin)
-
 install(DIRECTORY skybox DESTINATION /)
 if(WIN32)
   install(FILES ${OpenVR_INCLUDE_DIR}/../bin/win64/openvr_api.dll
