@@ -239,6 +239,7 @@ private:
   /* These are vtk properties that will be used to load/render a model of this
    * part, commented out for now but will be used later
    */
+  std::string fileName;               /**< File name when loading STL file*/
   vtkSmartPointer<vtkSTLReader> file; /**< Datafile from which part loaded */
   vtkSmartPointer<vtkMapper> mapper;  /**< Mapper for rendering */
   vtkSmartPointer<vtkActor> actor;    /**< Actor for rendering */
