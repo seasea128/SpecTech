@@ -67,8 +67,9 @@ MainWindow::MainWindow(QWidget *parent)
   renderer = vtkSmartPointer<vtkOpenGLRenderer>::New();
   renderWindow->AddRenderer(renderer);
 
-  hdr_fileName = std::filesystem::current_path().string() +
-                 "/skybox/rural_asphalt_road_4k.hdr";
+  hdr_fileName =
+      (std::filesystem::current_path() / "skybox" / "rural_asphalt_road_4k.hdr")
+          .string();
   loadPBR(hdr_fileName);
 
   vtkNew<vtkFrustumCoverageCuller> culler;
