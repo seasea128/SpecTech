@@ -183,8 +183,6 @@ void MainWindow::updateRender() {
     updateRenderFromTree(partList->index(i, 0, QModelIndex()));
   }
   ReRender();
-  ui->treeView->expandAll();
-  ui->treeView->update();
 }
 
 void MainWindow::on_actionOpen_File_triggered() {
@@ -212,6 +210,8 @@ void MainWindow::on_actionOpen_File_triggered() {
   }
 
   updateRender();
+  ui->treeView->expandAll();
+  ui->treeView->update();
 }
 
 void MainWindow::updateRenderFromTree(const QModelIndex &index) {
@@ -309,6 +309,8 @@ void MainWindow::on_actionOpenDir_triggered() {
 
   recursiveDirSearch(selectedDir, root);
   updateRender();
+  ui->treeView->expandAll();
+  ui->treeView->update();
 }
 
 void MainWindow::recursiveDirSearch(QFileInfoList dir, ModelPart *root) {
