@@ -15,7 +15,7 @@ class UpdateFilterListCommand : public BaseCommand {
 public:
   /**
    * Constructor for creating UpdateFilterListCommand with ModelPart.
-   * @param part is the part needed to add to RenderThread.
+   * @param _part is the part needed to add to RenderThread.
    */
   UpdateFilterListCommand(ModelPart *_part);
 
@@ -47,10 +47,11 @@ public:
   virtual void Execute(RenderThread &renderThread) override;
 
 private:
-  ModelPart *part;
-  vtkSmartPointer<vtkSTLReader> file;
-  vtkSmartPointer<vtkMapper> mapper;
-  std::vector<Filter::FilterData> newFilterList;
+  ModelPart *part; /**< ModelPart that this command is being applied to */
+  vtkSmartPointer<vtkSTLReader> file; /**< File reader of part given */
+  vtkSmartPointer<vtkMapper> mapper;  /**< Mapper of part given */
+  std::vector<Filter::FilterData>
+      newFilterList; /**< New filter that need to be updated on RenderThread */
 };
 } // namespace Commands
 #endif // UPDATEFILTERLISTCOMMAND_H_

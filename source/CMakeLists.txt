@@ -17,11 +17,8 @@ set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/VR.ico")
 set(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}/VR.ico")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/Copyright.txt")
 set(CPACK_NSIS_MODIFY_PATH on)
-
 set(CPACK_CREATE_DESKTOP_LINKS SpecTech)
-
-set(CPACK_PACKAGE_EXECUTABLES SpecTech;SpecTech)
-
+set(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\SpecTech.exe")
 set(CPACK_PACKAGE_EXECUTABLES SpecTech;SpecTech)
 
 include(CPack)
@@ -162,21 +159,21 @@ add_custom_command(
   TARGET VRBindings
   POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy_directory
-          ${CMAKE_CURRENT_SOURCE_DIR}/vrbindings $<TARGET_FILE_DIR:SpecTech>)
+          ${CMAKE_CURRENT_SOURCE_DIR}/vrbindings ${CMAKE_BINARY_DIR})
 
 add_custom_target(Theme ALL)
 add_custom_command(
   TARGET Theme
   POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/Combinear.qss
-          $<TARGET_FILE_DIR:SpecTech>)
+          ${CMAKE_BINARY_DIR})
 
 add_custom_target(Skybox ALL)
 add_custom_command(
   TARGET Skybox
   POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/skybox
-          $<TARGET_FILE_DIR:SpecTech>/skybox)
+          ${CMAKE_BINARY_DIR}/skybox)
 
 install(
   TARGETS SpecTech
@@ -185,7 +182,6 @@ install(
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(DIRECTORY vrbindings DESTINATION bin)
 install(FILES Combinear.qss DESTINATION bin)
-
 install(DIRECTORY skybox DESTINATION /)
 if(WIN32)
   install(FILES ${OpenVR_INCLUDE_DIR}/../bin/win64/openvr_api.dll

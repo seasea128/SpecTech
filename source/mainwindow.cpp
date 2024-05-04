@@ -23,6 +23,7 @@
 // Commands and Utils includes
 #include "RenderThread/Commands/AddActorCommand.h"
 #include "RenderThread/Commands/EndRenderCommand.h"
+#include "RenderThread/Commands/RefreshRenderCommand.h"
 #include "RenderThread/Commands/RemoveActorCommand.h"
 #include "RenderThread/Commands/UpdateColourCommand.h"
 #include "RenderThread/Commands/UpdateFilterListCommand.h"
@@ -182,8 +183,6 @@ void MainWindow::updateRender() {
     updateRenderFromTree(partList->index(i, 0, QModelIndex()));
   }
   ReRender();
-  ui->treeView->expandAll();
-  ui->treeView->update();
 }
 
 void MainWindow::on_actionOpen_File_triggered() {
@@ -211,6 +210,8 @@ void MainWindow::on_actionOpen_File_triggered() {
   }
 
   updateRender();
+  ui->treeView->expandAll();
+  ui->treeView->update();
 }
 
 void MainWindow::updateRenderFromTree(const QModelIndex &index) {
@@ -308,6 +309,8 @@ void MainWindow::on_actionOpenDir_triggered() {
 
   recursiveDirSearch(selectedDir, root);
   updateRender();
+  ui->treeView->expandAll();
+  ui->treeView->update();
 }
 
 void MainWindow::recursiveDirSearch(QFileInfoList dir, ModelPart *root) {
@@ -327,6 +330,11 @@ void MainWindow::recursiveDirSearch(QFileInfoList dir, ModelPart *root) {
       recursiveDirSearch(recurseDir.entryInfoList(), part);
     } else if (file.completeSuffix() == "stl") {
       part->loadSTL(absFilePath);
+
+      if (renderThread != nullptr) {
+        auto command = std::make_shared<AddActorCommand>(part->getNewActor());
+        renderThread->addCommand(command);
+      }
     } else {
       qDebug() << "File type is not stl";
     }
@@ -372,6 +380,8 @@ void MainWindow::on_actiondelete_triggered() {
   if (renderThread != nullptr) {
     Utils::recursiveAddCommand<RemoveActorCommand>(
         renderThread, static_cast<ModelPart *>(ind.internalPointer()));
+    auto command = std::make_shared<RefreshRenderCommand>();
+    renderThread->addCommand(command);
   }
   this->partList->removeItem(ind);
   updateRender();

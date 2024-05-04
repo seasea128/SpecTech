@@ -141,7 +141,15 @@ void RenderThread::stopRender() const {
   interactor->TerminateApp();
 }
 
-void RenderThread::refreshRender() const { this->window->Render(); }
+void RenderThread::refreshRender() const {
+  renderer->RemoveAllViewProps();
+  vtkActor *a;
+  actors->InitTraversal();
+  while ((a = (vtkActor *)actors->GetNextActor())) {
+    renderer->AddActor(a);
+  }
+  renderer->AddActor(skybox);
+}
 
 void RenderThread::updateColour(vtkWeakPointer<vtkActor> actorToUpdate,
                                 vtkColor3<unsigned char> &updateColour) {
@@ -163,14 +171,6 @@ void RenderThread::updateVisibility(vtkWeakPointer<vtkActor> actorToUpdate,
 void RenderThread::removeActor(vtkWeakPointer<vtkActor> actorToRemove) {
   if (actorToRemove) {
     actors->RemoveItem(actorToRemove);
-
-    renderer->RemoveAllViewProps();
-    vtkActor *a;
-    actors->InitTraversal();
-    while ((a = (vtkActor *)actors->GetNextActor())) {
-      renderer->AddActor(a);
-    }
-    renderer->AddActor(skybox);
   }
 }
 

@@ -29,6 +29,10 @@ ModelPart::ModelPart(const QList<QVariant> &data, ModelPart *parent)
   /* You probably want to give the item a default colour */
   isVisible = true;
   setColour(255, 255, 255);
+  metallic = 0.5;
+  anisotropy = 0.5;
+  anisotropyrotation = 0.5;
+  roughness = 0.5;
 }
 
 ModelPart::~ModelPart() { qDeleteAll(m_childItems); }
@@ -312,7 +316,9 @@ std::vector<Filter::FilterData> ModelPart::getFilterList() const {
 }
 
 void ModelPart::setFilterFromList() {
-  Utils::setFilterFromListWithFile(filterList, file, mapper);
+  if (file != nullptr && mapper != nullptr) {
+    Utils::setFilterFromListWithFile(filterList, file, mapper);
+  }
   for (auto &child : m_childItems) {
     child->setFilterFromList();
   }
@@ -322,11 +328,11 @@ void ModelPart::setFilterList(
     const std::vector<Filter::FilterData> &_filterList) {
   filterList = _filterList;
   for (auto &child : m_childItems) {
-    child->setFilterList(_filterList);
+    child->setFilterList(Utils::copyFilterList(_filterList));
   }
 }
 
-vtkSmartPointer<vtkSTLReader> ModelPart::getFile() const { return file; }
+vtkSmartPointer<vtkSTLReader> ModelPart::getFileReader() const { return file; }
 
 void ModelPart::setVRPolyData(vtkSmartPointer<vtkPolyData> newPolyData) {
   vrPolyData = newPolyData;

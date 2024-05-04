@@ -4,6 +4,9 @@
 #include "ModelPart.h"
 #include "RenderThread/RenderThread.h"
 
+/**
+ * Static class that contains utility functions.
+ */
 class Utils {
 public:
   /**
@@ -28,7 +31,7 @@ public:
   }
 
   /**
-   * Function that set the connections of filter inside the list;
+   * Function that set the connections of filter inside the list.
    * @param filterList is the list to apply.
    * @param file is the file reader.
    * @param mapper is the mapper that is connected to the file.
@@ -39,9 +42,9 @@ public:
                             vtkSmartPointer<vtkMapper> mapper);
 
   /**
-   * Function that set the connections of filter inside the list;
+   * Function that set the connections of filter inside the list.
    * @param filterList is the list to apply.
-   * @param file is the file reader.
+   * @param polyData is the input vtkPolyData.
    * @param mapper is the mapper that is connected to the file.
    */
   static void setFilterFromListWithPolyData(
@@ -49,10 +52,12 @@ public:
       vtkSmartPointer<vtkPolyData> polyData, vtkSmartPointer<vtkMapper> mapper);
 
   /**
-   * Function that set the connections of filter inside the list;
-   * @param filterList is the list to apply.
-   * @param file is the file reader.
-   * @param mapper is the mapper that is connected to the file.
+   * Function that copy the filter list given.
+   *
+   * This also create new copy of actual vtkAlgorithm inside Filter::FilterData.
+   *
+   * @param originalFilterList is the vector to copy.
+   * @return New copy of originalFilterList.
    */
   static std::vector<Filter::FilterData>
   copyFilterList(const std::vector<Filter::FilterData> &originalFilterList);

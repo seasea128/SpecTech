@@ -7,7 +7,7 @@ using namespace Commands;
 
 UpdateFilterListCommand::UpdateFilterListCommand(ModelPart *_part)
     : part(_part), newFilterList(Utils::copyFilterList(_part->getFilterList())),
-      file(_part->getFile()), mapper(_part->getVRMapper()) {}
+      file(_part->getFileReader()), mapper(_part->getVRMapper()) {}
 
 UpdateFilterListCommand::~UpdateFilterListCommand() {}
 
