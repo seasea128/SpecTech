@@ -6,6 +6,9 @@ var hierarchy =
       [ "Commands::RefreshRenderCommand", "classCommands_1_1RefreshRenderCommand.html", null ],
       [ "Commands::RemoveActorCommand", "classCommands_1_1RemoveActorCommand.html", null ],
       [ "Commands::UpdateColourCommand", "classCommands_1_1UpdateColourCommand.html", null ],
+      [ "Commands::UpdateFilterListCommand", "classCommands_1_1UpdateFilterListCommand.html", null ],
+      [ "Commands::UpdatePropertyCommand", "classCommands_1_1UpdatePropertyCommand.html", null ],
+      [ "Commands::UpdateRotationSpeedCommand", "classCommands_1_1UpdateRotationSpeedCommand.html", null ],
       [ "Commands::UpdateVisibilityCommand", "classCommands_1_1UpdateVisibilityCommand.html", null ]
     ] ],
     [ "ModelPart", "classModelPart.html", null ],
@@ -13,7 +16,7 @@ var hierarchy =
       [ "ModelPartList", "classModelPartList.html", null ]
     ] ],
     [ "QDialog", null, [
-      [ "OptionDialog", "classOptionDialog.html", null ]
+      [ "OptionDialogWithList", "classOptionDialogWithList.html", null ]
     ] ],
     [ "QMainWindow", null, [
       [ "MainWindow", "classMainWindow.html", null ]
@@ -21,6 +24,11 @@ var hierarchy =
     [ "QThread", null, [
       [ "RenderThread", "classRenderThread.html", null ]
     ] ],
+    [ "QWidget", null, [
+      [ "FilterOption", "classFilterOption.html", null ],
+      [ "OptionDialog", "classOptionDialog.html", null ]
+    ] ],
+    [ "Utils", "classUtils.html", null ],
     [ "vtkCallbackCommand", null, [
       [ "RenderThreadCallback", "classRenderThreadCallback.html", null ]
     ] ]

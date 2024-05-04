@@ -27,22 +27,20 @@ var NAVTREE =
   [ "Group 1", "index.html", [
     [ "SpecTech", "index.html", [
       [ "Features", "index.html#autotoc_md1", null ],
-      [ " ", "index.html#autotoc_md2", null ],
-      [ "Requirements", "index.html#autotoc_md3", null ],
-      [ "Install", "index.html#autotoc_md4", null ],
-      [ "Compile from source **CHANGE", "index.html#autotoc_md5", null ],
-      [ "Repo tree **CHANGE", "index.html#autotoc_md6", null ],
-      [ "Documentation", "index.html#autotoc_md7", null ],
-      [ "Testing and Continuous Integration **CHANGE", "index.html#autotoc_md8", null ]
+      [ "Requirements", "index.html#autotoc_md2", null ],
+      [ "Install", "index.html#autotoc_md3", null ],
+      [ "Repo tree", "index.html#autotoc_md4", null ],
+      [ "Documentation", "index.html#autotoc_md5", null ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
+        [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ]
+        [ "Variables", "functions_vars.html", null ],
+        [ "Enumerations", "functions_enum.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -53,7 +51,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"AddActorCommand_8h_source.html"
+"AddActorCommand_8h_source.html",
+"classRenderThread.html#a59d0623b123e8e77bc68f454176487ae"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

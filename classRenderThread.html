@@ -131,8 +131,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1763b5e349ce38e4a7ef3c3ee6f54bec"><td class="memItemLeft" align="right" valign="top"><a id="a1763b5e349ce38e4a7ef3c3ee6f54bec"></a>
 <a class="el" href="classRenderThread.html">RenderThread</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classRenderThread.html">RenderThread</a> &amp;&amp;)=delete</td></tr>
 <tr class="separator:a1763b5e349ce38e4a7ef3c3ee6f54bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6d0d2a0985e4b047b85fa751c72a1d9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderThread.html#af6d0d2a0985e4b047b85fa751c72a1d9">RenderThread</a> (QObject *parent, vtkSmartPointer&lt; vtkRenderer &gt; <a class="el" href="classRenderThread.html#a37509fbc13dd50b8d58c9ea3ba1c1367">renderer</a>, vtkSmartPointer&lt; vtkRenderWindow &gt; <a class="el" href="classRenderThread.html#a143f35b696450aef619be0ab4d2aeb15">window</a>, vtkSmartPointer&lt; vtkRenderWindowInteractor &gt; <a class="el" href="classRenderThread.html#afe6389a7f30d2fea08102c54d0e6cbbc">interactor</a>, vtkSmartPointer&lt; vtkCamera &gt; <a class="el" href="classRenderThread.html#a9f216f02ecc138f3c867cdff94c52df9">camera</a>, vtkSmartPointer&lt; vtkHDRReader &gt; <a class="el" href="classRenderThread.html#aab64315c2591888cd666f1175e5789b5">reader</a>)</td></tr>
-<tr class="separator:af6d0d2a0985e4b047b85fa751c72a1d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a170305e0d154b0a48316289856a37560"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderThread.html#a170305e0d154b0a48316289856a37560">RenderThread</a> (QObject *parent, vtkSmartPointer&lt; vtkRenderer &gt; <a class="el" href="classRenderThread.html#a37509fbc13dd50b8d58c9ea3ba1c1367">renderer</a>, vtkSmartPointer&lt; vtkRenderWindow &gt; <a class="el" href="classRenderThread.html#a143f35b696450aef619be0ab4d2aeb15">window</a>, vtkSmartPointer&lt; vtkRenderWindowInteractor &gt; <a class="el" href="classRenderThread.html#afe6389a7f30d2fea08102c54d0e6cbbc">interactor</a>, vtkSmartPointer&lt; vtkCamera &gt; <a class="el" href="classRenderThread.html#a9f216f02ecc138f3c867cdff94c52df9">camera</a>, std::string_view <a class="el" href="classRenderThread.html#ad647ddeb20af61fa09df1aecbbabf2b0">hdr_fileName</a>)</td></tr>
+<tr class="separator:a170305e0d154b0a48316289856a37560"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9a968ad63349a9eb1109d615406afd4"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderThread.html#ac9a968ad63349a9eb1109d615406afd4">~RenderThread</a> ()</td></tr>
 <tr class="separator:ac9a968ad63349a9eb1109d615406afd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a415cb0219c96182c56787a9c7040aca5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderThread.html#a415cb0219c96182c56787a9c7040aca5">addActorOffline</a> (vtkSmartPointer&lt; vtkActor &gt; actor)</td></tr>
@@ -151,6 +151,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a33bdf31c0e2390957d47f3562ecb7cb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4568df20c1aa28741017783c21f1295"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderThread.html#af4568df20c1aa28741017783c21f1295">addActor</a> (vtkSmartPointer&lt; vtkActor &gt; actorToAdd)</td></tr>
 <tr class="separator:af4568df20c1aa28741017783c21f1295"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adce04ae1c67228caf7a404db704d0cf9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderThread.html#adce04ae1c67228caf7a404db704d0cf9">updateSpeedX</a> (unsigned int XVal)</td></tr>
+<tr class="separator:adce04ae1c67228caf7a404db704d0cf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93649dc939766eb821c61c0e20a17ecb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderThread.html#a93649dc939766eb821c61c0e20a17ecb">updateSpeedY</a> (unsigned int YVal)</td></tr>
+<tr class="separator:a93649dc939766eb821c61c0e20a17ecb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07b53a0eaa6d121a6b9f226adaa5da8a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderThread.html#a07b53a0eaa6d121a6b9f226adaa5da8a">updateSpeedZ</a> (unsigned int ZVal)</td></tr>
+<tr class="separator:a07b53a0eaa6d121a6b9f226adaa5da8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -179,6 +185,8 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:ae34e25f39565c44ea6491dfa6467e3af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8fc167b6e2674a31d1cc1c21db270f1"><td class="memItemLeft" align="right" valign="top">vtkSmartPointer&lt; vtkActorCollection &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderThread.html#aa8fc167b6e2674a31d1cc1c21db270f1">actors</a></td></tr>
 <tr class="separator:aa8fc167b6e2674a31d1cc1c21db270f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad647ddeb20af61fa09df1aecbbabf2b0"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderThread.html#ad647ddeb20af61fa09df1aecbbabf2b0">hdr_fileName</a></td></tr>
+<tr class="separator:ad647ddeb20af61fa09df1aecbbabf2b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ba459786c362b58356dd49a7d525b3e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderThread.html#a9ba459786c362b58356dd49a7d525b3e">rotateX</a></td></tr>
 <tr class="separator:a9ba459786c362b58356dd49a7d525b3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a485b88ad50bc21baeb3f72d7cd844254"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderThread.html#a485b88ad50bc21baeb3f72d7cd844254">rotateY</a></td></tr>
@@ -195,8 +203,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RenderThreadCallback
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implementation of renderer agnostic thread where both normal rendering component or OpenVR rendering component can be used. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af6d0d2a0985e4b047b85fa751c72a1d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6d0d2a0985e4b047b85fa751c72a1d9">&#9670;&nbsp;</a></span>RenderThread()</h2>
+<a id="a170305e0d154b0a48316289856a37560"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a170305e0d154b0a48316289856a37560">&#9670;&nbsp;</a></span>RenderThread()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -234,8 +242,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RenderThreadCallback
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">vtkSmartPointer&lt; vtkHDRReader &gt;&#160;</td>
-          <td class="paramname"><em>reader</em>&#160;</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>hdr_fileName</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -251,7 +259,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RenderThreadCallback
     <tr><td class="paramname">window</td><td>is the render window of this <a class="el" href="classRenderThread.html">RenderThread</a>. </td></tr>
     <tr><td class="paramname">interactor</td><td>is the render window interactor of this <a class="el" href="classRenderThread.html">RenderThread</a>. </td></tr>
     <tr><td class="paramname">camera</td><td>is the camera of this <a class="el" href="classRenderThread.html">RenderThread</a>. </td></tr>
-    <tr><td class="paramname">reader</td><td>is the HDR file reader of this <a class="el" href="classRenderThread.html">RenderThread</a>. </td></tr>
+    <tr><td class="paramname">hdr_fileName</td><td>is the file name of the skybox being loaded. </td></tr>
   </table>
   </dd>
 </dl>
@@ -486,6 +494,78 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RenderThreadCallback
 
 </div>
 </div>
+<a id="adce04ae1c67228caf7a404db704d0cf9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adce04ae1c67228caf7a404db704d0cf9">&#9670;&nbsp;</a></span>updateSpeedX()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RenderThread::updateSpeedX </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>XVal</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Update rotateX variable. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">XVal</td><td>is the new rotateX value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a93649dc939766eb821c61c0e20a17ecb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93649dc939766eb821c61c0e20a17ecb">&#9670;&nbsp;</a></span>updateSpeedY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RenderThread::updateSpeedY </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>YVal</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Update rotateY variable. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">YVal</td><td>is the new rotateY value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a07b53a0eaa6d121a6b9f226adaa5da8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07b53a0eaa6d121a6b9f226adaa5da8a">&#9670;&nbsp;</a></span>updateSpeedZ()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RenderThread::updateSpeedZ </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>ZVal</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Update rotateZ variable. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ZVal</td><td>is the new rotateZ value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a586ab61f44dae1b6dbc98bd6471d159d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a586ab61f44dae1b6dbc98bd6471d159d">&#9670;&nbsp;</a></span>updateVisibility()</h2>
 
@@ -588,6 +668,29 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RenderThreadCallback
 </table>
 </div><div class="memdoc">
 <p>Camera of <a class="el" href="classRenderThread.html">RenderThread</a>. </p>
+
+</div>
+</div>
+<a id="ad647ddeb20af61fa09df1aecbbabf2b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad647ddeb20af61fa09df1aecbbabf2b0">&#9670;&nbsp;</a></span>hdr_fileName</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view RenderThread::hdr_fileName</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>File name of the skybox </p>
 
 </div>
 </div>

@@ -168,6 +168,12 @@ Private Slots</h2></td></tr>
 <tr class="separator:a11c76fc6eda8389489ba3f2019cd34c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc27b207fff4838f7e83c8fadb17b089"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#acc27b207fff4838f7e83c8fadb17b089">on_actionstopbutton_triggered</a> ()</td></tr>
 <tr class="separator:acc27b207fff4838f7e83c8fadb17b089"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acca7d06aa0f9912c00dba90bf0f732ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#acca7d06aa0f9912c00dba90bf0f732ba">on_XRotSpeed_sliderMoved</a> (int position)</td></tr>
+<tr class="separator:acca7d06aa0f9912c00dba90bf0f732ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16ac5ebf726c79e7fd3afc4c1c2f3349"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#a16ac5ebf726c79e7fd3afc4c1c2f3349">on_YRotSpeed_sliderMoved</a> (int position)</td></tr>
+<tr class="separator:a16ac5ebf726c79e7fd3afc4c1c2f3349"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b0d4e4e7975f3bb6543830ed646bf94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#a9b0d4e4e7975f3bb6543830ed646bf94">on_ZRotSpeed_sliderMoved</a> (int position)</td></tr>
+<tr class="separator:a9b0d4e4e7975f3bb6543830ed646bf94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -181,7 +187,7 @@ Private Member Functions</h2></td></tr>
 <tr class="separator:ab564f9e99c31f92f4a1e7bf22421a53c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6e42637027287da8e4028bd5522253a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#ac6e42637027287da8e4028bd5522253a">ReRender</a> ()</td></tr>
 <tr class="separator:ac6e42637027287da8e4028bd5522253a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61e57b66009c50425784f653eef1150d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#a61e57b66009c50425784f653eef1150d">loadPBR</a> (std::string const &amp;hdr_fileName)</td></tr>
+<tr class="memitem:a61e57b66009c50425784f653eef1150d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#a61e57b66009c50425784f653eef1150d">loadPBR</a> (std::string const &amp;<a class="el" href="classMainWindow.html#abc54b6344b79e19c803e03a8bd84637e">hdr_fileName</a>)</td></tr>
 <tr class="separator:a61e57b66009c50425784f653eef1150d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
@@ -200,6 +206,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a74028a929c64ac0436e962017971dee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad661c1a39aaf32ee4f5b5470e2fa0963"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRenderThread.html">RenderThread</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#ad661c1a39aaf32ee4f5b5470e2fa0963">renderThread</a></td></tr>
 <tr class="separator:ad661c1a39aaf32ee4f5b5470e2fa0963"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc54b6344b79e19c803e03a8bd84637e"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMainWindow.html#abc54b6344b79e19c803e03a8bd84637e">hdr_fileName</a></td></tr>
+<tr class="separator:abc54b6344b79e19c803e03a8bd84637e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Main window of the program </p>
@@ -645,6 +653,102 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="acca7d06aa0f9912c00dba90bf0f732ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acca7d06aa0f9912c00dba90bf0f732ba">&#9670;&nbsp;</a></span>on_XRotSpeed_sliderMoved</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MainWindow::on_XRotSpeed_sliderMoved </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>position</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Slot for handling rotation speed change in X axis </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">position</td><td>is the new position of the slider </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a16ac5ebf726c79e7fd3afc4c1c2f3349"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16ac5ebf726c79e7fd3afc4c1c2f3349">&#9670;&nbsp;</a></span>on_YRotSpeed_sliderMoved</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MainWindow::on_YRotSpeed_sliderMoved </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>position</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Slot for handling rotation speed change in Y axis </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">position</td><td>is the new position of the slider </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9b0d4e4e7975f3bb6543830ed646bf94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b0d4e4e7975f3bb6543830ed646bf94">&#9670;&nbsp;</a></span>on_ZRotSpeed_sliderMoved</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MainWindow::on_ZRotSpeed_sliderMoved </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>position</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Slot for handling rotation speed change in Z axis </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">position</td><td>is the new position of the slider </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="aa4acb91f2018aed17bba4fb986536280"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa4acb91f2018aed17bba4fb986536280">&#9670;&nbsp;</a></span>recursiveDirSearch()</h2>
 
@@ -883,6 +987,29 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="abc54b6344b79e19c803e03a8bd84637e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc54b6344b79e19c803e03a8bd84637e">&#9670;&nbsp;</a></span>hdr_fileName</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string MainWindow::hdr_fileName</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>File name of the skybox in HDR format. </p>
+
+</div>
+</div>
 <a id="a3fddd2c840f105b232035192fadaeee8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3fddd2c840f105b232035192fadaeee8">&#9670;&nbsp;</a></span>partList</h2>
 

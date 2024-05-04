@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['ui_290',['ui',['../classMainWindow.html#a35466a70ed47252a0191168126a352a5',1,'MainWindow::ui()'],['../classOptionDialog.html#a6933e851c61c5257ff195f177006ce4b',1,'OptionDialog::ui()']]],
-  ['updatecolour_291',['updateColour',['../classCommands_1_1UpdateColourCommand.html#a1ef354b5c1619991f48f139b5e08f543',1,'Commands::UpdateColourCommand']]]
+  ['queue_364',['queue',['../classRenderThread.html#ae34e25f39565c44ea6491dfa6467e3af',1,'RenderThread']]]
 ];

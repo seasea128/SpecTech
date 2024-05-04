@@ -102,7 +102,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="title">SpecTech </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_README"></a> SpecTec is a visualisation application that utilises Virtual Reality for observing and interacting with three-dimentional models.</p>
+<div class="textblock"><p><a class="anchor" id="md_README"></a> SpecTech is a visualisation application that utilises Virtual Reality for observing and interacting with three-dimentional models.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
 Features</h1>
 <ul>
@@ -110,19 +110,28 @@ Features</h1>
 <li>Colour (<span style="color:red">R</span><span style="color:green">G</span><span style="color:blue">B</span>)</li>
 <li>Name</li>
 <li>Visibility</li>
+<li>Metallic</li>
+<li>Roughness</li>
+<li>Anisotropy</li>
+<li>Anisotropy Rotation</li>
 </ul>
 </li>
 <li>Colour can be altered using sliders or a colour picker.</li>
 <li>Edit or delete individual model components.</li>
 <li>Open models individually or as a collective.</li>
 <li>Open multiple models at once.</li>
-<li>Move models freely about xyz axes.</li>
+<li>Manually rotate models freely about xyz axes.</li>
+<li>Includes filters:<ul>
+<li>Shrink filter: shrinks each triangle inside the model.</li>
+<li>Clip filter: cuts off model from a specfied point and direction.</li>
+<li>Filters can be removed.</li>
+</ul>
+</li>
 <li>Observe models in Virtual Reality - OpenVR.</li>
-<li><b>Light</b> and <b>dark</b> modes are available upon button click. </li>
+<li>Edit the rotational speed of the model in VR.</li>
+<li><b>Light</b> and <b>dark</b> modes are available upon button click for Doxygen.</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md2"></a>
- </h1>
-<h1><a class="anchor" id="autotoc_md3"></a>
 Requirements</h1>
 <p>The following requirements only apply if compiling from source.</p>
 <ul>
@@ -130,22 +139,27 @@ Requirements</h1>
 <li>Qt: 6.6.1</li>
 <li>VTK: 9.3.0</li>
 </ul>
-<p>&gt;[Installers](Install) are available.</p>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<p>&gt;<a href="#Install">Installers</a> are available.</p>
+<h1><a class="anchor" id="autotoc_md3"></a>
 Install</h1>
 <p>An <code>exe</code> installer is available for Windows.</p>
-<h1><a class="anchor" id="autotoc_md5"></a>
-Compile from source **CHANGE</h1>
-<p>...</p>
-<h1><a class="anchor" id="autotoc_md6"></a>
-Repo tree **CHANGE</h1>
-<p>...</p>
-<h1><a class="anchor" id="autotoc_md7"></a>
+<h1><a class="anchor" id="autotoc_md4"></a>
+Repo tree</h1>
+<div class="fragment"><div class="line">├── .github/workflows/                </div>
+<div class="line">|   └── doxygen-deploy.yml       # Passes the sources and generates documentation</div>
+<div class="line">|             </div>
+<div class="line">├── doxygen-awesome-css/         # Git Submodule: Doxygen Awesome (by jothepro)</div>
+<div class="line">|  </div>
+<div class="line">└── source/       </div>
+<div class="line">    ├── RenderThread/            # Handles VR content</div>
+<div class="line">    ├── icons/                   # Stores icons</div>
+<div class="line">    ├── skybox/                  # Displaying the environment</div>
+<div class="line">    ├── vrbindings/              # Allows the VR controllers to interact with objects</div>
+<div class="line">    └── CMakeLists.txt           # Main CMakeLists</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md5"></a>
 Documentation</h1>
-<p>The Doxygen theme is available <a href="https://jothepro.github.io/doxygen-awesome-css/index.html">here</a>. by <a href="https://github.com/zadewg">zadewg</a>.</p>
-<h1><a class="anchor" id="autotoc_md8"></a>
-Testing and Continuous Integration **CHANGE</h1>
-<p>... </p>
+<p>The Doxygen formatted comments are hosted <a href="https://seasea128.github.io/2023_GROUP_1/">here</a></p>
+<p>The Doxygen theme is available <a href="https://jothepro.github.io/doxygen-awesome-css/index.html">here</a>. by <a href="https://github.com/jothepro">jothepro</a>. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->

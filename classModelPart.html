@@ -161,7 +161,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a96c8cca32bd530bf28c6ab6a1ccc2353"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa37200ef9b7eed6b970fef1b08234f3a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModelPart.html#aa37200ef9b7eed6b970fef1b08234f3a">visible</a> () const</td></tr>
 <tr class="separator:aa37200ef9b7eed6b970fef1b08234f3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d004c61b9f9cb0da895956a4c22b97b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModelPart.html#a8d004c61b9f9cb0da895956a4c22b97b">loadSTL</a> (QString fileName)</td></tr>
+<tr class="memitem:a8d004c61b9f9cb0da895956a4c22b97b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModelPart.html#a8d004c61b9f9cb0da895956a4c22b97b">loadSTL</a> (QString <a class="el" href="classModelPart.html#a2d73d251df5620f572ac396fcf2d2531">fileName</a>)</td></tr>
 <tr class="separator:a8d004c61b9f9cb0da895956a4c22b97b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d845a3cb1d357a0c2f4ffb131e73116"><td class="memItemLeft" align="right" valign="top">vtkSmartPointer&lt; vtkActor &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModelPart.html#a3d845a3cb1d357a0c2f4ffb131e73116">getActor</a> ()</td></tr>
 <tr class="separator:a3d845a3cb1d357a0c2f4ffb131e73116"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -171,6 +171,20 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a2870455340dab3522d3e76f34b32badd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29d03a65ea03b15b44a809f2ddd45a33"><td class="memItemLeft" align="right" valign="top">vtkWeakPointer&lt; vtkActor &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModelPart.html#a29d03a65ea03b15b44a809f2ddd45a33">getVRActor</a> () const</td></tr>
 <tr class="separator:a29d03a65ea03b15b44a809f2ddd45a33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e24d1c1e7c3085ab84691e2b11455ad"><td class="memItemLeft" align="right" valign="top">std::vector&lt; Filter::FilterData &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModelPart.html#a2e24d1c1e7c3085ab84691e2b11455ad">getFilterList</a> () const</td></tr>
+<tr class="separator:a2e24d1c1e7c3085ab84691e2b11455ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6769310a4ec547caa17e282653bddb00"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModelPart.html#a6769310a4ec547caa17e282653bddb00">setFilterList</a> (const std::vector&lt; Filter::FilterData &gt; &amp;_filterList)</td></tr>
+<tr class="separator:a6769310a4ec547caa17e282653bddb00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc3deef7b1aabe963d0f9f9f1a0211b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModelPart.html#adc3deef7b1aabe963d0f9f9f1a0211b6">setFilterFromList</a> ()</td></tr>
+<tr class="separator:adc3deef7b1aabe963d0f9f9f1a0211b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adaabca5a286c6587325cae846b6870c7"><td class="memItemLeft" align="right" valign="top">vtkSmartPointer&lt; vtkSTLReader &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModelPart.html#adaabca5a286c6587325cae846b6870c7">getFileReader</a> () const</td></tr>
+<tr class="separator:adaabca5a286c6587325cae846b6870c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a444016c43610f7fc04b34ca444f8b9f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModelPart.html#a444016c43610f7fc04b34ca444f8b9f5">setVRPolyData</a> (vtkSmartPointer&lt; vtkPolyData &gt; newPolyData)</td></tr>
+<tr class="separator:a444016c43610f7fc04b34ca444f8b9f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed65b49f0fad63146c60d2245f260924"><td class="memItemLeft" align="right" valign="top">vtkSmartPointer&lt; vtkMapper &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModelPart.html#aed65b49f0fad63146c60d2245f260924">getVRMapper</a> () const</td></tr>
+<tr class="separator:aed65b49f0fad63146c60d2245f260924"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef4818b64dec306dcf9a3c74c5a14c97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModelPart.html#aef4818b64dec306dcf9a3c74c5a14c97">setVRFilterList</a> (const std::vector&lt; Filter::FilterData &gt; &amp;newFilterList)</td></tr>
+<tr class="separator:aef4818b64dec306dcf9a3c74c5a14c97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -182,6 +196,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a4292a669f50f89ab70c51189ddad86ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb6c0b2de4c0c4578d6a30ade18bada1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModelPart.html#afb6c0b2de4c0c4578d6a30ade18bada1">isVisible</a></td></tr>
 <tr class="separator:afb6c0b2de4c0c4578d6a30ade18bada1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d73d251df5620f572ac396fcf2d2531"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModelPart.html#a2d73d251df5620f572ac396fcf2d2531">fileName</a></td></tr>
+<tr class="separator:a2d73d251df5620f572ac396fcf2d2531"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a852283506443761fb7b7f96588878e45"><td class="memItemLeft" align="right" valign="top">vtkSmartPointer&lt; vtkSTLReader &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModelPart.html#a852283506443761fb7b7f96588878e45">file</a></td></tr>
 <tr class="separator:a852283506443761fb7b7f96588878e45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23fdcbf8e3ab39c09c3159d2d4665684"><td class="memItemLeft" align="right" valign="top">vtkSmartPointer&lt; vtkMapper &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModelPart.html#a23fdcbf8e3ab39c09c3159d2d4665684">mapper</a></td></tr>
@@ -198,6 +214,12 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a8f407ae625a5680c9f77cd529c8e73f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e704de4771a5fc46e96369f2674e361"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModelPart.html#a3e704de4771a5fc46e96369f2674e361">anisotropyrotation</a></td></tr>
 <tr class="separator:a3e704de4771a5fc46e96369f2674e361"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38c6c7e96e139999a519e5cbcbf719c6"><td class="memItemLeft" align="right" valign="top">std::vector&lt; Filter::FilterData &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModelPart.html#a38c6c7e96e139999a519e5cbcbf719c6">vrFilterList</a></td></tr>
+<tr class="separator:a38c6c7e96e139999a519e5cbcbf719c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae10214cd9f45741ec58ace856c5b4df"><td class="memItemLeft" align="right" valign="top">std::vector&lt; Filter::FilterData &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModelPart.html#aae10214cd9f45741ec58ace856c5b4df">filterList</a></td></tr>
+<tr class="separator:aae10214cd9f45741ec58ace856c5b4df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a277d2835cac7024a1ded2565ea20ca9f"><td class="memItemLeft" align="right" valign="top">vtkSmartPointer&lt; vtkPolyData &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModelPart.html#a277d2835cac7024a1ded2565ea20ca9f">vrPolyData</a></td></tr>
+<tr class="separator:a277d2835cac7024a1ded2565ea20ca9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4c8b4a5b5346faca75fbd54a9238296"><td class="memItemLeft" align="right" valign="top">vtkSmartPointer&lt; vtkMapper &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModelPart.html#af4c8b4a5b5346faca75fbd54a9238296">vrMapper</a></td></tr>
 <tr class="separator:af4c8b4a5b5346faca75fbd54a9238296"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6f202c070ead34a2d50bebb1cf94478"><td class="memItemLeft" align="right" valign="top">vtkWeakPointer&lt; vtkActor &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModelPart.html#ab6f202c070ead34a2d50bebb1cf94478">vrActor</a></td></tr>
@@ -497,6 +519,42 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="adaabca5a286c6587325cae846b6870c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adaabca5a286c6587325cae846b6870c7">&#9670;&nbsp;</a></span>getFileReader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vtkSmartPointer&lt; vtkSTLReader &gt; ModelPart::getFileReader </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get file reader from this part. </p><dl class="section return"><dt>Returns</dt><dd>File reader of this part. </dd></dl>
+
+</div>
+</div>
+<a id="a2e24d1c1e7c3085ab84691e2b11455ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e24d1c1e7c3085ab84691e2b11455ad">&#9670;&nbsp;</a></span>getFilterList()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; Filter::FilterData &gt; ModelPart::getFilterList </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns a copy of filter list. </p><dl class="section return"><dt>Returns</dt><dd>Copy of filter list. </dd></dl>
+
+</div>
+</div>
 <a id="a182ae29c4bf1683b19e0bf7817cd35ef"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a182ae29c4bf1683b19e0bf7817cd35ef">&#9670;&nbsp;</a></span>getMetallic()</h2>
 
@@ -566,6 +624,24 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Function that returns weak pointer to VR actor. </p><dl class="section return"><dt>Returns</dt><dd>Weak pointer to VR actor. </dd></dl>
+
+</div>
+</div>
+<a id="aed65b49f0fad63146c60d2245f260924"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed65b49f0fad63146c60d2245f260924">&#9670;&nbsp;</a></span>getVRMapper()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vtkSmartPointer&lt; vtkMapper &gt; ModelPart::getVRMapper </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get vrMapper of the current part. </p><dl class="section return"><dt>Returns</dt><dd>Smart pointer to vrMapper of current part. </dd></dl>
 
 </div>
 </div>
@@ -780,6 +856,48 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="adc3deef7b1aabe963d0f9f9f1a0211b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc3deef7b1aabe963d0f9f9f1a0211b6">&#9670;&nbsp;</a></span>setFilterFromList()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ModelPart::setFilterFromList </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set filter chain in this part. </p>
+
+</div>
+</div>
+<a id="a6769310a4ec547caa17e282653bddb00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6769310a4ec547caa17e282653bddb00">&#9670;&nbsp;</a></span>setFilterList()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ModelPart::setFilterList </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; Filter::FilterData &gt; &amp;&#160;</td>
+          <td class="paramname"><em>_filterList</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set filterList in this part to modified version. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_filterList</td><td>is the modified filter list. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ae3837c4875fdb7f72e89c4f00cbb4c56"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae3837c4875fdb7f72e89c4f00cbb4c56">&#9670;&nbsp;</a></span>setMetallic()</h2>
 
@@ -846,6 +964,54 @@ Private Attributes</h2></td></tr>
 <p>Set visible flag </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">isVisible</td><td>sets visible/non-visible </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aef4818b64dec306dcf9a3c74c5a14c97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef4818b64dec306dcf9a3c74c5a14c97">&#9670;&nbsp;</a></span>setVRFilterList()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ModelPart::setVRFilterList </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; Filter::FilterData &gt; &amp;&#160;</td>
+          <td class="paramname"><em>newFilterList</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set filter list of the VR rendering chain. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newFilterList</td><td>is the new filter list to be used in VR rendering chain. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a444016c43610f7fc04b34ca444f8b9f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a444016c43610f7fc04b34ca444f8b9f5">&#9670;&nbsp;</a></span>setVRPolyData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ModelPart::setVRPolyData </td>
+          <td>(</td>
+          <td class="paramtype">vtkSmartPointer&lt; vtkPolyData &gt;&#160;</td>
+          <td class="paramname"><em>newPolyData</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set vrPolyData to the given vtkPolyData. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newPolyData</td><td>is the new polyData that will be set to vrPolyData. </td></tr>
   </table>
   </dd>
 </dl>
@@ -983,6 +1149,52 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Datafile from which part loaded </p>
+
+</div>
+</div>
+<a id="a2d73d251df5620f572ac396fcf2d2531"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d73d251df5620f572ac396fcf2d2531">&#9670;&nbsp;</a></span>fileName</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string ModelPart::fileName</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>File name when loading STL file </p>
+
+</div>
+</div>
+<a id="aae10214cd9f45741ec58ace856c5b4df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae10214cd9f45741ec58ace856c5b4df">&#9670;&nbsp;</a></span>filterList</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;Filter::FilterData&gt; ModelPart::filterList</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>List of filter that should be applied to this part </p>
 
 </div>
 </div>
@@ -1170,6 +1382,29 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a38c6c7e96e139999a519e5cbcbf719c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38c6c7e96e139999a519e5cbcbf719c6">&#9670;&nbsp;</a></span>vrFilterList</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;Filter::FilterData&gt; ModelPart::vrFilterList</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>List of filter that should be applied to this part </p>
+
+</div>
+</div>
 <a id="af4c8b4a5b5346faca75fbd54a9238296"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af4c8b4a5b5346faca75fbd54a9238296">&#9670;&nbsp;</a></span>vrMapper</h2>
 
@@ -1190,6 +1425,29 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Mapper for VR renderer </p>
+
+</div>
+</div>
+<a id="a277d2835cac7024a1ded2565ea20ca9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a277d2835cac7024a1ded2565ea20ca9f">&#9670;&nbsp;</a></span>vrPolyData</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vtkSmartPointer&lt;vtkPolyData&gt; ModelPart::vrPolyData</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Poly data for VR renderer </p>
 
 </div>
 </div>
