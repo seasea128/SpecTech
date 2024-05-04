@@ -17,16 +17,19 @@ public:
   template <typename T>
   static void recursiveAddCommand(RenderThread *renderThread,
                                   ModelPart *currentPart) {
+    // Checks if T is a derived class of BaseCommand.
     static_assert(std::is_base_of<Commands::BaseCommand, T>::value,
                   "Given T is not derived from BaseCommand");
+
+    // Add command of type T if current part has VR actor created.
     if (currentPart->getVRActor() != nullptr) {
       auto command = std::make_shared<T>(currentPart);
       renderThread->addCommand(command);
     }
-    if (currentPart->childCount() > 0) {
-      for (int i = 0; i < currentPart->childCount(); i++) {
-        recursiveAddCommand<T>(renderThread, currentPart->child(i));
-      }
+
+    // Loop through the child of current part and call the command again.
+    for (int i = 0; i < currentPart->childCount(); i++) {
+      recursiveAddCommand<T>(renderThread, currentPart->child(i));
     }
   }
 
