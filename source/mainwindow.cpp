@@ -31,16 +31,17 @@
 #include "Utils.h"
 
 #include "./ui_mainwindow.h"
+#include "RenderThread/Commands/UpdateRotationSpeedCommand.h"
 #include "mainwindow.h"
 #include "optiondialogwithlist.h"
 #include <QFile>
 #include <QMessageBox>
-#include "RenderThread/Commands/UpdateRotationSpeedCommand.h"
 
 using namespace Commands;
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow), renderThread(nullptr), XSpeed(0.), YSpeed(0.), ZSpeed(0.) {
+    : QMainWindow(parent), ui(new Ui::MainWindow), renderThread(nullptr),
+      XSpeed(0.), YSpeed(0.), ZSpeed(0.) {
 
   ui->setupUi(this);
 
@@ -498,7 +499,8 @@ void MainWindow::on_XRotSpeed_sliderMoved(int position) {
   // Update RenderThread with new speed
   XSpeed = position;
   if (renderThread != nullptr) {
-    auto command = std::make_shared<UpdateRotationSpeedCommand>(XSpeed,YSpeed,ZSpeed);
+    auto command =
+        std::make_shared<UpdateRotationSpeedCommand>(XSpeed, YSpeed, ZSpeed);
     renderThread->addCommand(command);
     ui->XRotDisp->display(position);
   }
@@ -509,7 +511,8 @@ void MainWindow::on_YRotSpeed_sliderMoved(int position) {
   // Update RenderThread with new speed
   YSpeed = position;
   if (renderThread != nullptr) {
-    auto command = std::make_shared<UpdateRotationSpeedCommand>(XSpeed,YSpeed,ZSpeed);
+    auto command =
+        std::make_shared<UpdateRotationSpeedCommand>(XSpeed, YSpeed, ZSpeed);
     renderThread->addCommand(command);
     ui->YRotDisp->display(position);
   }
@@ -519,7 +522,8 @@ void MainWindow::on_YRotSpeed_sliderMoved(int position) {
 void MainWindow::on_ZRotSpeed_sliderMoved(int position) {
   ZSpeed = position;
   if (renderThread != nullptr) {
-    auto command = std::make_shared<UpdateRotationSpeedCommand>(XSpeed,YSpeed,ZSpeed);
+    auto command =
+        std::make_shared<UpdateRotationSpeedCommand>(XSpeed, YSpeed, ZSpeed);
     renderThread->addCommand(command);
     ui->ZRotDisp->display(position);
   }
