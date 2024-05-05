@@ -40,12 +40,10 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
-    OpenVR
-    REQUIRED_VARS OpenVR_LIBRARY OpenVR_INCLUDE_DIR
-    VERSION_VAR OpenVR_VERSION
-    HANDLE_VERSION_RANGE
-    HANDLE_COMPONENTS
-)
+  OpenVR
+  REQUIRED_VARS OpenVR_LIBRARY OpenVR_INCLUDE_DIR
+  VERSION_VAR OpenVR_VERSION HANDLE_VERSION_RANGE
+  HANDLE_COMPONENTS)
 
 find_package(
   VTK REQUIRED
@@ -154,7 +152,7 @@ set_target_properties(
              ${PROJECT_VERSION} MACOSX_BUNDLE_SHORT_VERSION_STRING
              ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR} MACOSX_BUNDLE
              TRUE WIN32_EXECUTABLE
-	     TRUE)
+             TRUE)
 
 include(GNUInstallDirs)
 
