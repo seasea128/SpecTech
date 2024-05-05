@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.15)
 
 project(
   SpecTech
-  VERSION 0.1
+  VERSION 1.0
   LANGUAGES CXX)
 
 if(WIN32)
@@ -17,8 +17,10 @@ set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/VR.ico")
 set(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}/VR.ico")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/Copyright.txt")
 set(CPACK_NSIS_MODIFY_PATH on)
+set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALLATION on)
 set(CPACK_CREATE_DESKTOP_LINKS SpecTech)
-set(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\SpecTech.exe")
+set(CPACK_PACKAGE_VENDOR "Group 1")
+set(CPACK_NSIS_INSTALLED_ICON_NAME "bin/SpecTech.exe")
 set(CPACK_PACKAGE_EXECUTABLES SpecTech;SpecTech)
 
 include(CPack)
@@ -36,8 +38,6 @@ set(APP_ICON_RESOURCE_WINDOWS Icons/VRICON.rc)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
-# Include all of VTK - previous example specified individual components but this
-# is just likely to cause problems
 find_package(
   VTK REQUIRED
   COMPONENTS CommonCore
@@ -149,7 +149,7 @@ set_target_properties(
              ${PROJECT_VERSION} MACOSX_BUNDLE_SHORT_VERSION_STRING
              ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR} MACOSX_BUNDLE
              TRUE WIN32_EXECUTABLE
-             TRUE)
+             FALSE)
 
 include(GNUInstallDirs)
 
@@ -181,13 +181,16 @@ install(
   BUNDLE DESTINATION .
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
-install(DIRECTORY vrbindings DESTINATION bin)
-install(FILES Combinear.qss DESTINATION bin)
+
+install(DIRECTORY vrbindings DESTINATION /)
+install(FILES Combinear.qss DESTINATION /)
 install(DIRECTORY skybox DESTINATION /)
+
 if(WIN32)
   install(FILES ${OpenVR_INCLUDE_DIR}/../bin/win64/openvr_api.dll
           DESTINATION bin)
 endif()
+
 qt_generate_deploy_app_script(TARGET SpecTech OUTPUT_SCRIPT deploy_script)
 install(SCRIPT ${deploy_script})
 install(FILES $<TARGET_RUNTIME_DLLS:SpecTech> TYPE BIN)
