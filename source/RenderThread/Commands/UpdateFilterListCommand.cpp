@@ -12,10 +12,13 @@ UpdateFilterListCommand::UpdateFilterListCommand(ModelPart *_part)
 UpdateFilterListCommand::~UpdateFilterListCommand() {}
 
 void UpdateFilterListCommand::Execute(RenderThread &renderThread) {
+  // Create new polyData since it seems like when using the original polyData,
+  // it somehow got destructed already after loading the polyData.
   vtkSmartPointer<vtkPolyData> polyData = vtkSmartPointer<vtkPolyData>::New();
-
   polyData->DeepCopy(file->GetOutputDataObject(0));
-  Utils::setFilterFromListWithPolyData(newFilterList, polyData, mapper);
+
+  // Update the filter chain
+  Utils::setFilterChainFromListWithPolyData(newFilterList, polyData, mapper);
   part->setVRFilterList(newFilterList);
   part->setVRPolyData(polyData);
 }

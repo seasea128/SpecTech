@@ -21,7 +21,6 @@ AddActorCommand &AddActorCommand::operator=(const AddActorCommand &command) {
 }
 
 void AddActorCommand::Execute(RenderThread &renderThread) {
-  qDebug() << "inside addactorcommand addactor";
   renderThread.addActor(actorToAdd);
 }
 

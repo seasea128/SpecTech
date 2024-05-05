@@ -39,10 +39,9 @@ public:
    * @param file is the file reader.
    * @param mapper is the mapper that is connected to the file.
    */
-  static void
-  setFilterFromListWithFile(const std::vector<Filter::FilterData> &filterList,
-                            vtkSmartPointer<vtkSTLReader> file,
-                            vtkSmartPointer<vtkMapper> mapper);
+  static void setFilterChainFromListWithFile(
+      const std::vector<Filter::FilterData> &filterList,
+      vtkSmartPointer<vtkSTLReader> file, vtkSmartPointer<vtkMapper> mapper);
 
   /**
    * Function that set the connections of filter inside the list.
@@ -50,7 +49,7 @@ public:
    * @param polyData is the input vtkPolyData.
    * @param mapper is the mapper that is connected to the file.
    */
-  static void setFilterFromListWithPolyData(
+  static void setFilterChainFromListWithPolyData(
       const std::vector<Filter::FilterData> &filterList,
       vtkSmartPointer<vtkPolyData> polyData, vtkSmartPointer<vtkMapper> mapper);
 

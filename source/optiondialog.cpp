@@ -8,6 +8,8 @@ OptionDialog::OptionDialog(QWidget *parent, ModelPart *part)
     : QWidget(parent), ui(new Ui::OptionDialog) {
   ui->setupUi(this);
   this->part = part;
+
+  // Set the correct state from part
   ui->lineEdit->setText(part->data(0).toString());
   ui->comboBox->setCurrentIndex(part->visible() ? 0 : 1);
   color = QColor(part->getColourR(), part->getColourG(), part->getColourB());
@@ -22,15 +24,13 @@ OptionDialog::OptionDialog(QWidget *parent, ModelPart *part)
 
   float max = 100.;
 
-  qDebug() << roughnessValue;
-  qDebug() << static_cast<int>(part->getRoughness() * max);
-
   ui->MetallicSlider->setValue(static_cast<int>(part->getMetallic() * max));
   ui->RoughnessSlider->setValue(static_cast<int>(part->getRoughness() * max));
   ui->AnisotropySlider->setValue(static_cast<int>(part->getAnisotropy() * max));
   ui->AnisotropyRotation->setValue(
       static_cast<int>(part->getAnisotropyRotation() * max));
 
+  // Connect the sliders to the slot
   connect(ui->RoughnessSlider, &QSlider::sliderMoved, this,
           &OptionDialog::on_RoughnessSlider_sliderMoved);
   connect(ui->MetallicSlider, &QSlider::sliderMoved, this,
@@ -44,6 +44,7 @@ OptionDialog::OptionDialog(QWidget *parent, ModelPart *part)
 OptionDialog::~OptionDialog() { delete ui; }
 
 void OptionDialog::SetValue() {
+  // Set the property of the part to the new value
   int R = color.red();
   int G = color.green();
   int B = color.blue();
@@ -55,18 +56,15 @@ void OptionDialog::SetValue() {
 
   part->set(0, ui->lineEdit->text());
 
-  qDebug() << roughnessValue;
-
   part->setRoughness(roughnessValue);
-
-  qDebug() << part->getRoughness();
   part->setMetallic(metallicValue);
   part->setAnisotropy(anisotropyValue);
   part->setAnisotropyRotation(anisotropyRotationValue);
 }
 
 void OptionDialog::on_ColourDialog_clicked() {
-  QColor Dialogcolor = QColorDialog::getColor(Qt::white, this, "Choose Color");
+  // Get the color that the user wants and change it in UI only
+  QColor Dialogcolor = QColorDialog::getColor(color, this, "Choose Color");
   if (Dialogcolor.isValid()) {
     color = Dialogcolor;
     ui->DispColour->setStyleSheet("background-color: " + color.name() +
@@ -75,21 +73,25 @@ void OptionDialog::on_ColourDialog_clicked() {
 }
 
 void OptionDialog::on_RoughnessSlider_sliderMoved(int position) {
+  // Set the property inside this class to the changed value of the slider
   roughnessValue = static_cast<float>(position) / 100;
   qDebug() << "This is Roughness: " << roughnessValue;
 }
 
 void OptionDialog::on_MetallicSlider_sliderMoved(int position) {
+  // Set the property inside this class to the changed value of the slider
   metallicValue = static_cast<float>(position) / 100;
   qDebug() << "This is Metallic: " << metallicValue;
 }
 
 void OptionDialog::on_AnisotropySlider_sliderMoved(int position) {
+  // Set the property inside this class to the changed value of the slider
   anisotropyValue = static_cast<float>(position) / 100;
   qDebug() << "This is Anisotrophy: " << anisotropyValue;
 }
 
 void OptionDialog::on_AnisotropyRotation_sliderMoved(int position) {
+  // Set the property inside this class to the changed value of the slider
   anisotropyRotationValue = static_cast<float>(position) / 100;
   qDebug() << "This is AnisotropyRotation: " << anisotropyRotationValue;
 }

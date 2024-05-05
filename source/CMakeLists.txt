@@ -70,6 +70,7 @@ set(PROJECT_SOURCES
     Utils.cpp
     Icons.qrc
     Filters/FilterType.h
+    Filters/FilterOptionInterface.h
     Filters/FilterData.h
     RenderThread/RenderThread.cpp
     RenderThread/RenderThread.h

@@ -3,9 +3,17 @@
 
 namespace Filter {
 
+/**
+ * Interface for all widget that can modify filter option.
+ *
+ * This is done so that all of the widget that can edit filter have a common
+ * class that it can be cast to when setting the value of the filter.
+ */
 class FilterOptionInterface {
 public:
-  virtual ~FilterOptionInterface() {}
+  /**
+   * Function that will set the value of filter.
+   */
   virtual void SetValue() = 0;
 };
 

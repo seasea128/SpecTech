@@ -230,7 +230,7 @@ public:
   /**
    * Set filter chain in this part.
    */
-  void setFilterFromList();
+  void setFilterChainFromList();
 
   /**
    * Get file reader from this part.

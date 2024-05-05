@@ -4,7 +4,7 @@
 #include <vtkPlane.h>
 #include <vtkShrinkFilter.h>
 
-void Utils::setFilterFromListWithFile(
+void Utils::setFilterChainFromListWithFile(
     const std::vector<Filter::FilterData> &filterList,
     vtkSmartPointer<vtkSTLReader> file, vtkSmartPointer<vtkMapper> mapper) {
   if (filterList.size() == 0) {
@@ -33,7 +33,7 @@ void Utils::setFilterFromListWithFile(
   }
 }
 
-void Utils::setFilterFromListWithPolyData(
+void Utils::setFilterChainFromListWithPolyData(
     const std::vector<Filter::FilterData> &filterList,
     vtkSmartPointer<vtkPolyData> polyData, vtkSmartPointer<vtkMapper> mapper) {
   if (filterList.size() == 0) {
