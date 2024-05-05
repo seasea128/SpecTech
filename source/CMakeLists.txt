@@ -18,9 +18,9 @@ set(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}/VR.ico")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/Copyright.txt")
 set(CPACK_NSIS_MODIFY_PATH on)
 set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALLATION on)
-set(CPACK_CREATE_DESKTOP_LINKS SpecTech)
 set(CPACK_PACKAGE_VENDOR "Group 1")
 set(CPACK_NSIS_INSTALLED_ICON_NAME "bin/SpecTech.exe")
+set(CPACK_CREATE_DESKTOP_LINKS SpecTech)
 set(CPACK_PACKAGE_EXECUTABLES SpecTech;SpecTech)
 
 include(CPack)
@@ -38,6 +38,15 @@ set(APP_ICON_RESOURCE_WINDOWS Icons/VRICON.rc)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(
+    OpenVR
+    REQUIRED_VARS OpenVR_LIBRARY OpenVR_INCLUDE_DIR
+    VERSION_VAR OpenVR_VERSION
+    HANDLE_VERSION_RANGE
+    HANDLE_COMPONENTS
+)
+
 find_package(
   VTK REQUIRED
   COMPONENTS CommonCore
@@ -45,14 +54,10 @@ find_package(
              CommonColor
              IOGeometry
              FiltersSources
-             GUISupportQt
              InteractionStyle
-             RenderingContextOpenGL2
              RenderingOpenVR
              RenderingCore
              RenderingLOD
-             RenderingFreeType
-             RenderingGL2PSOpenGL2
              RenderingOpenGL2
              GUISupportQt
              RenderingQt)
@@ -182,9 +187,9 @@ install(
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
-install(DIRECTORY vrbindings DESTINATION /)
-install(FILES Combinear.qss DESTINATION /)
-install(DIRECTORY skybox DESTINATION /)
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/vrbindings/ DESTINATION .)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/Combinear.qss DESTINATION .)
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/skybox DESTINATION .)
 
 if(WIN32)
   install(FILES ${OpenVR_INCLUDE_DIR}/../bin/win64/openvr_api.dll
@@ -194,11 +199,6 @@ endif()
 qt_generate_deploy_app_script(TARGET SpecTech OUTPUT_SCRIPT deploy_script)
 install(SCRIPT ${deploy_script})
 install(FILES $<TARGET_RUNTIME_DLLS:SpecTech> TYPE BIN)
-
-# install(TARGETS SpecTech RUNTIME ARCHIVE LIBRARY RUNTIME FRAMEWORK BUNDLE
-# PUBLIC_HEADER RESOURCE) install(TARGETS SpecTech COMPONENT SpecTech
-# RUNTIME_DEPENDENCIES PRE_EXCLUDE_REGEXES "api-ms-" "ext-ms-"
-# POST_EXCLUDE_REGEXES ".*system32/.*\\.dll" DIRECTORIES ${VTK_DIR}/bin)
 
 if(QT_VERSION_MAJOR EQUAL 6)
   qt_finalize_executable(SpecTech)
