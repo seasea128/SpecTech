@@ -232,6 +232,10 @@ private:
    * File name of the skybox in HDR format.
    */
   std::string hdr_fileName;
+
+  float XSpeed;
+  float YSpeed;
+  float ZSpeed;
 };
 
 #endif // MAINWINDOW_H
