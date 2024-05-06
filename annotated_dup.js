@@ -12,6 +12,11 @@ var annotated_dup =
       [ "UpdateRotationSpeedCommand", "classCommands_1_1UpdateRotationSpeedCommand.html", "classCommands_1_1UpdateRotationSpeedCommand" ],
       [ "UpdateVisibilityCommand", "classCommands_1_1UpdateVisibilityCommand.html", "classCommands_1_1UpdateVisibilityCommand" ]
     ] ],
+    [ "Filter", null, [
+      [ "FilterData", "structFilter_1_1FilterData.html", "structFilter_1_1FilterData" ],
+      [ "FilterOptionInterface", "classFilter_1_1FilterOptionInterface.html", "classFilter_1_1FilterOptionInterface" ]
+    ] ],
+    [ "ClipFilterOption", "classClipFilterOption.html", "classClipFilterOption" ],
     [ "FilterOption", "classFilterOption.html", "classFilterOption" ],
     [ "MainWindow", "classMainWindow.html", "classMainWindow" ],
     [ "ModelPart", "classModelPart.html", "classModelPart" ],
@@ -20,5 +25,6 @@ var annotated_dup =
     [ "OptionDialogWithList", "classOptionDialogWithList.html", "classOptionDialogWithList" ],
     [ "RenderThread", "classRenderThread.html", "classRenderThread" ],
     [ "RenderThreadCallback", "classRenderThreadCallback.html", "classRenderThreadCallback" ],
+    [ "ShrinkFilterOption", "classShrinkFilterOption.html", "classShrinkFilterOption" ],
     [ "Utils", "classUtils.html", "classUtils" ]
 ];

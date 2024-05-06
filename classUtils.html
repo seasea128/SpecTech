@@ -113,11 +113,11 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a5e3a6ef19d63f528bf99f443a8fc33fa"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a5e3a6ef19d63f528bf99f443a8fc33fa"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classUtils.html#a5e3a6ef19d63f528bf99f443a8fc33fa">recursiveAddCommand</a> (<a class="el" href="classRenderThread.html">RenderThread</a> *renderThread, <a class="el" href="classModelPart.html">ModelPart</a> *currentPart)</td></tr>
 <tr class="separator:a5e3a6ef19d63f528bf99f443a8fc33fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a290e846faa54ec28bd18551f52175fe9"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUtils.html#a290e846faa54ec28bd18551f52175fe9">setFilterFromListWithFile</a> (const std::vector&lt; Filter::FilterData &gt; &amp;filterList, vtkSmartPointer&lt; vtkSTLReader &gt; file, vtkSmartPointer&lt; vtkMapper &gt; mapper)</td></tr>
-<tr class="separator:a290e846faa54ec28bd18551f52175fe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41f49392392ca028163f086350638ada"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUtils.html#a41f49392392ca028163f086350638ada">setFilterFromListWithPolyData</a> (const std::vector&lt; Filter::FilterData &gt; &amp;filterList, vtkSmartPointer&lt; vtkPolyData &gt; polyData, vtkSmartPointer&lt; vtkMapper &gt; mapper)</td></tr>
-<tr class="separator:a41f49392392ca028163f086350638ada"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4cf71ce7ce4dde9f21959df113aa4a9"><td class="memItemLeft" align="right" valign="top">static std::vector&lt; Filter::FilterData &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUtils.html#ad4cf71ce7ce4dde9f21959df113aa4a9">copyFilterList</a> (const std::vector&lt; Filter::FilterData &gt; &amp;originalFilterList)</td></tr>
+<tr class="memitem:ac805d172e7174e3e238ad73d6e14ebc1"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUtils.html#ac805d172e7174e3e238ad73d6e14ebc1">setFilterChainFromListWithFile</a> (const std::vector&lt; <a class="el" href="structFilter_1_1FilterData.html">Filter::FilterData</a> &gt; &amp;filterList, vtkSmartPointer&lt; vtkSTLReader &gt; file, vtkSmartPointer&lt; vtkMapper &gt; mapper)</td></tr>
+<tr class="separator:ac805d172e7174e3e238ad73d6e14ebc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a053bb0c2565eaded0e656741c45bf1e9"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUtils.html#a053bb0c2565eaded0e656741c45bf1e9">setFilterChainFromListWithPolyData</a> (const std::vector&lt; <a class="el" href="structFilter_1_1FilterData.html">Filter::FilterData</a> &gt; &amp;filterList, vtkSmartPointer&lt; vtkPolyData &gt; polyData, vtkSmartPointer&lt; vtkMapper &gt; mapper)</td></tr>
+<tr class="separator:a053bb0c2565eaded0e656741c45bf1e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4cf71ce7ce4dde9f21959df113aa4a9"><td class="memItemLeft" align="right" valign="top">static std::vector&lt; <a class="el" href="structFilter_1_1FilterData.html">Filter::FilterData</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUtils.html#ad4cf71ce7ce4dde9f21959df113aa4a9">copyFilterList</a> (const std::vector&lt; <a class="el" href="structFilter_1_1FilterData.html">Filter::FilterData</a> &gt; &amp;originalFilterList)</td></tr>
 <tr class="separator:ad4cf71ce7ce4dde9f21959df113aa4a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -133,9 +133,9 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; Filter::FilterData &gt; Utils::copyFilterList </td>
+          <td class="memname">std::vector&lt; <a class="el" href="structFilter_1_1FilterData.html">Filter::FilterData</a> &gt; Utils::copyFilterList </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; Filter::FilterData &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structFilter_1_1FilterData.html">Filter::FilterData</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>originalFilterList</em></td><td>)</td>
           <td></td>
         </tr>
@@ -147,7 +147,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Function that copy the filter list given.</p>
-<p>This also create new copy of actual vtkAlgorithm inside Filter::FilterData.</p>
+<p>This also create new copy of actual vtkAlgorithm inside <a class="el" href="structFilter_1_1FilterData.html">Filter::FilterData</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">originalFilterList</td><td>is the vector to copy. </td></tr>
@@ -203,8 +203,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a290e846faa54ec28bd18551f52175fe9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a290e846faa54ec28bd18551f52175fe9">&#9670;&nbsp;</a></span>setFilterFromListWithFile()</h2>
+<a id="ac805d172e7174e3e238ad73d6e14ebc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac805d172e7174e3e238ad73d6e14ebc1">&#9670;&nbsp;</a></span>setFilterChainFromListWithFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -213,9 +213,9 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void Utils::setFilterFromListWithFile </td>
+          <td class="memname">void Utils::setFilterChainFromListWithFile </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; Filter::FilterData &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structFilter_1_1FilterData.html">Filter::FilterData</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>filterList</em>, </td>
         </tr>
         <tr>
@@ -253,8 +253,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a41f49392392ca028163f086350638ada"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41f49392392ca028163f086350638ada">&#9670;&nbsp;</a></span>setFilterFromListWithPolyData()</h2>
+<a id="a053bb0c2565eaded0e656741c45bf1e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a053bb0c2565eaded0e656741c45bf1e9">&#9670;&nbsp;</a></span>setFilterChainFromListWithPolyData()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -263,9 +263,9 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void Utils::setFilterFromListWithPolyData </td>
+          <td class="memname">void Utils::setFilterChainFromListWithPolyData </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; Filter::FilterData &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structFilter_1_1FilterData.html">Filter::FilterData</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>filterList</em>, </td>
         </tr>
         <tr>

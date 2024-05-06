@@ -11,6 +11,11 @@ var hierarchy =
       [ "Commands::UpdateRotationSpeedCommand", "classCommands_1_1UpdateRotationSpeedCommand.html", null ],
       [ "Commands::UpdateVisibilityCommand", "classCommands_1_1UpdateVisibilityCommand.html", null ]
     ] ],
+    [ "Filter::FilterData", "structFilter_1_1FilterData.html", null ],
+    [ "Filter::FilterOptionInterface", "classFilter_1_1FilterOptionInterface.html", [
+      [ "ClipFilterOption", "classClipFilterOption.html", null ],
+      [ "ShrinkFilterOption", "classShrinkFilterOption.html", null ]
+    ] ],
     [ "ModelPart", "classModelPart.html", null ],
     [ "QAbstractItemModel", null, [
       [ "ModelPartList", "classModelPartList.html", null ]
@@ -25,8 +30,10 @@ var hierarchy =
       [ "RenderThread", "classRenderThread.html", null ]
     ] ],
     [ "QWidget", null, [
+      [ "ClipFilterOption", "classClipFilterOption.html", null ],
       [ "FilterOption", "classFilterOption.html", null ],
-      [ "OptionDialog", "classOptionDialog.html", null ]
+      [ "OptionDialog", "classOptionDialog.html", null ],
+      [ "ShrinkFilterOption", "classShrinkFilterOption.html", null ]
     ] ],
     [ "Utils", "classUtils.html", null ],
     [ "vtkCallbackCommand", null, [

@@ -29,7 +29,7 @@ var classModelPart =
     [ "setAnisotropy", "classModelPart.html#a68f93a991c55eb8d95fd8a3cdba8a810", null ],
     [ "setAnisotropyRotation", "classModelPart.html#a92056f85b5d9a73447afca64b2c9fb32", null ],
     [ "setColour", "classModelPart.html#abbaaa19d7d24b9f1138072d594bd838c", null ],
-    [ "setFilterFromList", "classModelPart.html#adc3deef7b1aabe963d0f9f9f1a0211b6", null ],
+    [ "setFilterChainFromList", "classModelPart.html#a2b377fcb997f7b47fd7902d923470606", null ],
     [ "setFilterList", "classModelPart.html#a6769310a4ec547caa17e282653bddb00", null ],
     [ "setMetallic", "classModelPart.html#ae3837c4875fdb7f72e89c4f00cbb4c56", null ],
     [ "setRoughness", "classModelPart.html#aeaa3b65c0d838475a4a58e124d068c0d", null ],

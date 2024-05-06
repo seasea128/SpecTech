@@ -35,5 +35,8 @@ var classMainWindow =
     [ "renderThread", "classMainWindow.html#ad661c1a39aaf32ee4f5b5470e2fa0963", null ],
     [ "renderWindow", "classMainWindow.html#a74028a929c64ac0436e962017971dee6", null ],
     [ "skybox", "classMainWindow.html#a2f3ed013f3d44266791dc43f4b9c74b1", null ],
-    [ "ui", "classMainWindow.html#a35466a70ed47252a0191168126a352a5", null ]
+    [ "ui", "classMainWindow.html#a35466a70ed47252a0191168126a352a5", null ],
+    [ "XSpeed", "classMainWindow.html#ac5657b9dab602d6f1074b49a0fe00fc0", null ],
+    [ "YSpeed", "classMainWindow.html#a2711074be563519f9bd3c6fe25286dfb", null ],
+    [ "ZSpeed", "classMainWindow.html#a306c8b43bdf53d173dceb20b0a582e79", null ]
 ];

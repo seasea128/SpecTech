@@ -52,7 +52,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AddActorCommand_8h_source.html",
-"classRenderThread.html#a59d0623b123e8e77bc68f454176487ae"
+"classOptionDialog.html#aedcf4bb248c62de0312eae3d3abce217"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
