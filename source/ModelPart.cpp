@@ -97,6 +97,7 @@ int ModelPart::row() const {
 
 void ModelPart::setColour(const unsigned char R, const unsigned char G,
                           const unsigned char B) {
+  // Set colour recursively, also set it to property inside actor
   colour.Set(R, G, B);
 
   for (const auto &child : m_childItems) {
@@ -113,6 +114,7 @@ void ModelPart::setColour(const unsigned char R, const unsigned char G,
 vtkWeakPointer<vtkActor> ModelPart::getVRActor() const { return vrActor; }
 
 void ModelPart::removeChild(ModelPart *child) {
+  // Delete given child in the list of child
   auto index = m_childItems.indexOf(child);
   m_childItems.removeAt(index);
   delete child;
@@ -151,6 +153,7 @@ float ModelPart::getAnisotropy() { return anisotropy; }
 float ModelPart::getAnisotropyRotation() { return anisotropyrotation; }
 
 void ModelPart::setMetallic(const float M) {
+  // Set metallic recursively
   metallic = M;
   for (const auto &child : m_childItems) {
     child->setMetallic(M);
@@ -161,6 +164,7 @@ void ModelPart::setMetallic(const float M) {
   }
 }
 void ModelPart::setRoughness(const float R) {
+  // Set roughness recursively
   roughness = R;
   for (const auto &child : m_childItems) {
     child->setRoughness(R);
@@ -171,6 +175,7 @@ void ModelPart::setRoughness(const float R) {
   }
 }
 void ModelPart::setAnisotropy(const float A) {
+  // Set anisotropy recursively
   anisotropy = A;
   for (const auto &child : m_childItems) {
     child->setAnisotropy(A);
@@ -181,6 +186,7 @@ void ModelPart::setAnisotropy(const float A) {
   }
 }
 void ModelPart::setAnisotropyRotation(const float AR) {
+  // Set anisotropy rotation recursively
   anisotropyrotation = AR;
   for (const auto &child : m_childItems) {
     child->setAnisotropyRotation(AR);
@@ -192,6 +198,7 @@ void ModelPart::setAnisotropyRotation(const float AR) {
 }
 
 void ModelPart::setVisible(bool isVisible) {
+  // Set visibility recursively
   this->isVisible = isVisible;
   for (const auto &child : m_childItems) {
     child->setVisible(isVisible);
@@ -238,12 +245,17 @@ void ModelPart::loadSTL(QString fileName) {
   actor = vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
   setColour(colour.GetRed(), colour.GetGreen(), colour.GetBlue());
+
+  // PBR related settings
   actor->GetProperty()->SetInterpolationToPBR();
-  actor->GetProperty()->SetRoughness(0.5);
-  actor->GetProperty()->SetMetallic(0.5);
+  actor->GetProperty()->SetRoughness(roughness);
+  actor->GetProperty()->SetMetallic(metallic);
+  actor->GetProperty()->SetAnisotropy(anisotropy);
+  actor->GetProperty()->SetAnisotropyRotation(anisotropyrotation);
 
-  Utils::setFilterFromListWithFile(filterList, file, mapper);
+  Utils::setFilterChainFromListWithFile(filterList, file, mapper);
 
+  // Rotate the actor so that it matches up with the ground
   double *ac = actor->GetOrigin();
 
   actor->RotateX(-90);
@@ -251,9 +263,6 @@ void ModelPart::loadSTL(QString fileName) {
 }
 
 vtkSmartPointer<vtkActor> ModelPart::getActor() {
-  /* This is a placeholder function that will be used in the next worksheet
-   */
-
   /* Needs to return a smart pointer to the vtkActor to allow
    * part to be rendered.
    */
@@ -263,30 +272,25 @@ vtkSmartPointer<vtkActor> ModelPart::getActor() {
 vtkColor3<unsigned char> ModelPart::getColour() const { return colour; }
 
 vtkSmartPointer<vtkActor> ModelPart::getNewActor() {
-  /* This is a placeholder function that will be used in the next worksheet.
-   *
-   * The default mapper/actor combination can only be used to render the
-   * part in the GUI, it CANNOT also be used to render the part in VR. This
-   * means you need to create a second mapper/actor combination for use in
-   * VR - that is the role of this function. */
-
   /* 1. Create new mapper */
   qDebug() << "Creating new mapper";
   vrMapper = vtkSmartPointer<vtkDataSetMapper>::New();
   qDebug() << "Setting connection";
-  qDebug() << "GUI mapper pointer: " << mapper;
-  if (mapper == nullptr) {
-    qDebug() << "Mapper is null pointer, stopping";
+  qDebug() << "File pointer: " << file;
+  if (file == nullptr) {
+    qDebug() << "File is null pointer, stopping";
     return nullptr;
   }
 
+  // Create new polyData and copy the data from file reader so that another
+  // filter chain can be applied to the VR actor.
   vtkSmartPointer<vtkPolyData> vrPolyData = vtkSmartPointer<vtkPolyData>::New();
 
   vrPolyData->DeepCopy(file->GetOutputDataObject(0));
 
   vrFilterList = Utils::copyFilterList(filterList);
 
-  Utils::setFilterFromListWithPolyData(vrFilterList, vrPolyData, vrMapper);
+  Utils::setFilterChainFromListWithPolyData(vrFilterList, vrPolyData, vrMapper);
 
   qDebug() << "Created new mapper";
 
@@ -301,12 +305,12 @@ vtkSmartPointer<vtkActor> ModelPart::getNewActor() {
    * See the vtkActor documentation, particularly the GetProperty() and
    * SetProperty() functions.
    */
-  // newActor->SetProperty(actor->GetProperty());
 
-  // Copy actor's property to newActor
+  // Copy actor's property to newActor, vtkProperty is not 100% threadsafe if it
+  // is being access too often from another thread.
   localVRActor->GetProperty()->DeepCopy(actor->GetProperty());
 
-  vrActor = localVRActor;
+  vrActor = localVRActor; // Assign to a weak pointer stored inside this class
 
   return localVRActor;
 }
@@ -315,17 +319,19 @@ std::vector<Filter::FilterData> ModelPart::getFilterList() const {
   return filterList;
 }
 
-void ModelPart::setFilterFromList() {
+void ModelPart::setFilterChainFromList() {
+  // Set filter chain only if file reader and mapper exist.
   if (file != nullptr && mapper != nullptr) {
-    Utils::setFilterFromListWithFile(filterList, file, mapper);
+    Utils::setFilterChainFromListWithFile(filterList, file, mapper);
   }
   for (auto &child : m_childItems) {
-    child->setFilterFromList();
+    child->setFilterChainFromList();
   }
 }
 
 void ModelPart::setFilterList(
     const std::vector<Filter::FilterData> &_filterList) {
+  // Set filter list recursively.
   filterList = _filterList;
   for (auto &child : m_childItems) {
     child->setFilterList(Utils::copyFilterList(_filterList));

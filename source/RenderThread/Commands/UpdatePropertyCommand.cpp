@@ -15,6 +15,7 @@ UpdatePropertyCommand::UpdatePropertyCommand(
 
 void UpdatePropertyCommand::Execute(RenderThread &renderThread) {
   if (actorToUpdate) {
+    // Copy the property over to the VR actor
     actorToUpdate->GetProperty()->DeepCopy(newProperty);
   }
 }

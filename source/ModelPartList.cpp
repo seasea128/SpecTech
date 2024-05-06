@@ -91,6 +91,7 @@ QModelIndex ModelPartList::parent(const QModelIndex &index) const {
 }
 
 void ModelPartList::removeItem(const QModelIndex &index) {
+  // Remove item from the list
   ModelPart *part = static_cast<ModelPart *>(index.internalPointer());
   auto row = index.row();
   beginRemoveRows(index.parent(), row, row);

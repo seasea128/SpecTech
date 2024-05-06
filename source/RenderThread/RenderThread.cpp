@@ -30,6 +30,7 @@ RenderThread::RenderThread(
   /* Initialise actor list */
   actors = vtkActorCollection::New();
 
+  // Create callback and assign everything to member variable
   callback = RenderThreadCallback::New(this);
 
   this->renderer = renderer;
@@ -40,41 +41,37 @@ RenderThread::RenderThread(
 }
 
 RenderThread::~RenderThread() {
+  // Delete the callback since it's a normal pointer
   callback->Delete();
-  actors->InitTraversal();
 }
 
 void RenderThread::run() {
-  /* You might want to edit the 3D model once VR has started, however VTK is not
-   * "thread safe". This means if you try to edit the VR model from the GUI
-   * thread while the VR thread is running, the program could become corrupted
-   * and crash. The solution is to get the VR thread to edit the model. Any
-   * decision to change the VR model will come fromthe user via the GUI thread,
-   * so there needs to be a mechanism to pass data from the GUI thread to the VR
-   * thread.
-   */
 
+  // Load up another copy of the skybox, can't use same one as UI because it'll
+  // complains with warning
   vtkNew<vtkHDRReader> reader;
   reader->SetFileName(std::string(hdr_fileName).c_str());
   reader->Update();
 
   vtkNew<vtkTexture> envTexture;
-
   envTexture->SetInputConnection(reader->GetOutputPort());
   envTexture->SetColorModeToDirectScalars();
   envTexture->MipmapOn();
   envTexture->InterpolateOn();
+
   skybox = vtkSmartPointer<vtkSkybox>::New();
   skybox->SetFloorRight(0, 0, 1);
   skybox->SetProjection(vtkSkybox::Sphere);
   skybox->SetTexture(envTexture);
   skybox->GammaCorrectOn();
 
-  vtkSmartPointer<vtkOpenGLRenderer> localRenderer =
-      vtkOpenGLRenderer::SafeDownCast(renderer);
-
   // Set skybox and enable PBR and image based lightning
   renderer->UseImageBasedLightingOn();
+
+  // Need to cast it to vtkOpenGLRenderer because UseSphericalHarmonicsOn only
+  // exist on vtkOpenGLRenderer
+  vtkSmartPointer<vtkOpenGLRenderer> localRenderer =
+      vtkOpenGLRenderer::SafeDownCast(renderer);
   localRenderer->UseSphericalHarmonicsOn();
   renderer->SetEnvironmentTexture(skybox->GetTexture(), false);
   renderer->AddActor(skybox);
@@ -86,7 +83,6 @@ void RenderThread::run() {
     renderer->AddActor(a);
   }
 
-  // window->Initialize();
   window->AddRenderer(renderer);
 
   vtkNew<vtkFrustumCoverageCuller> culler;
@@ -95,11 +91,16 @@ void RenderThread::run() {
 
   interactor->SetRenderWindow(window);
   interactor->Initialize();
-  interactor->AddObserver(vtkCommand::RenderEvent, callback);
+  interactor->AddObserver(vtkCommand::RenderEvent,
+                          callback); // The callback will be executed every time
+                                     // renderer renders something.
 
-  interactor->SetDesiredUpdateRate(60);
-  interactor->SetStillUpdateRate(60);
+  // Set the target update rate, should be 90 for 90fps with Vive Pro
+  interactor->SetDesiredUpdateRate(90);
+  interactor->SetStillUpdateRate(90);
 
+  // This check needs to be done to simulate the VR, which would render
+  // continuosly without stopping.
   if (dynamic_cast<vtkOpenVRRenderWindowInteractor *>(
           interactor.GetPointer()) == nullptr) {
     interactor->SetDone(false);
@@ -137,11 +138,13 @@ void RenderThread::addActorOffline(vtkSmartPointer<vtkActor> actor) {
 }
 
 void RenderThread::stopRender() const {
+  // Stopping the RenderThread
   interactor->GetRenderWindow()->Finalize();
   interactor->TerminateApp();
 }
 
 void RenderThread::refreshRender() const {
+  // Remove all actor and readd from list
   renderer->RemoveAllViewProps();
   vtkActor *a;
   actors->InitTraversal();

@@ -17,16 +17,19 @@ public:
   template <typename T>
   static void recursiveAddCommand(RenderThread *renderThread,
                                   ModelPart *currentPart) {
+    // Checks if T is a derived class of BaseCommand.
     static_assert(std::is_base_of<Commands::BaseCommand, T>::value,
                   "Given T is not derived from BaseCommand");
+
+    // Add command of type T if current part has VR actor created.
     if (currentPart->getVRActor() != nullptr) {
       auto command = std::make_shared<T>(currentPart);
       renderThread->addCommand(command);
     }
-    if (currentPart->childCount() > 0) {
-      for (int i = 0; i < currentPart->childCount(); i++) {
-        recursiveAddCommand<T>(renderThread, currentPart->child(i));
-      }
+
+    // Loop through the child of current part and call the command again.
+    for (int i = 0; i < currentPart->childCount(); i++) {
+      recursiveAddCommand<T>(renderThread, currentPart->child(i));
     }
   }
 
@@ -36,10 +39,9 @@ public:
    * @param file is the file reader.
    * @param mapper is the mapper that is connected to the file.
    */
-  static void
-  setFilterFromListWithFile(const std::vector<Filter::FilterData> &filterList,
-                            vtkSmartPointer<vtkSTLReader> file,
-                            vtkSmartPointer<vtkMapper> mapper);
+  static void setFilterChainFromListWithFile(
+      const std::vector<Filter::FilterData> &filterList,
+      vtkSmartPointer<vtkSTLReader> file, vtkSmartPointer<vtkMapper> mapper);
 
   /**
    * Function that set the connections of filter inside the list.
@@ -47,7 +49,7 @@ public:
    * @param polyData is the input vtkPolyData.
    * @param mapper is the mapper that is connected to the file.
    */
-  static void setFilterFromListWithPolyData(
+  static void setFilterChainFromListWithPolyData(
       const std::vector<Filter::FilterData> &filterList,
       vtkSmartPointer<vtkPolyData> polyData, vtkSmartPointer<vtkMapper> mapper);
 

@@ -11,16 +11,16 @@ ClipFilterOption::ClipFilterOption(QWidget *parent,
     : QWidget(parent), ui(new Ui::ClipFilterOption) {
   ui->setupUi(this);
 
+  // Get the filter with it's proper type
   filter = vtkClipDataSet::SafeDownCast(filterPointer);
 
+  // Get all of the variable that can be changed with this widget
   vtkSmartPointer<vtkImplicitFunction> clipFunction = filter->GetClipFunction();
-
   vtkSmartPointer<vtkPlane> plane = vtkPlane::SafeDownCast(clipFunction);
 
   double origin[3] = {0};
   plane->GetOrigin(origin);
 
-  qDebug() << "Origin: " << origin;
   // Assume X is first, Y is second, Z is third
   originX = origin[0];
   originY = origin[1];
@@ -33,6 +33,7 @@ ClipFilterOption::ClipFilterOption(QWidget *parent,
   normalY = normal[1];
   normalZ = normal[2];
 
+  // Set the value
   ui->normalX->setValue(normalX);
   ui->normalY->setValue(normalY);
   ui->normalZ->setValue(normalZ);
@@ -40,6 +41,7 @@ ClipFilterOption::ClipFilterOption(QWidget *parent,
   ui->originY->setValue(originY);
   ui->originZ->setValue(originZ);
 
+  // Connect the spinbox with the slot
   connect(ui->normalX, &QDoubleSpinBox::valueChanged, this,
           &ClipFilterOption::handleNormalX);
   connect(ui->normalY, &QDoubleSpinBox::valueChanged, this,
@@ -54,6 +56,7 @@ ClipFilterOption::ClipFilterOption(QWidget *parent,
           &ClipFilterOption::handleOriginZ);
 }
 
+// These just update the variable
 void ClipFilterOption::handleNormalX(double value) { normalX = value; }
 
 void ClipFilterOption::handleNormalY(double value) { normalY = value; }
@@ -69,6 +72,7 @@ void ClipFilterOption::handleOriginZ(double value) { originZ = value; }
 ClipFilterOption::~ClipFilterOption() { delete ui; }
 
 void ClipFilterOption::SetValue() {
+  // Set the property for clip filter
   vtkSmartPointer<vtkImplicitFunction> clipFunction = filter->GetClipFunction();
 
   vtkSmartPointer<vtkPlane> plane = vtkPlane::SafeDownCast(clipFunction);

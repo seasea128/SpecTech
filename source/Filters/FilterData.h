@@ -6,9 +6,13 @@
 #include <vtkSmartPointer.h>
 
 namespace Filter {
+
+/**
+ * Struct for filter list.
+ */
 typedef struct {
-  FilterType filterType;
-  vtkSmartPointer<vtkAlgorithm> filterPointer;
+  FilterType filterType;                       /**< Type of filter */
+  vtkSmartPointer<vtkAlgorithm> filterPointer; /**< Pointer to the filter */
 } FilterData;
 } // namespace Filter
 
