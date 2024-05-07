@@ -43,13 +43,18 @@ RenderThread::RenderThread(
 RenderThread::~RenderThread() {
   // Delete the callback since it's a normal pointer
   callback->Delete();
+  this->renderer->Delete();
+  this->window->Delete();
+  this->interactor->Delete();
+  this->camera->Delete();
+  this->reader->Delete();
 }
 
 void RenderThread::run() {
 
   // Load up another copy of the skybox, can't use same one as UI because it'll
   // complains with warning
-  vtkNew<vtkHDRReader> reader;
+  reader = vtkHDRReader::New();
   reader->SetFileName(std::string(hdr_fileName).c_str());
   reader->Update();
 
